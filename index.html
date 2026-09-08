@@ -1,0 +1,3251 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dar Al-Asala — Cutting List</title>
+<link rel="manifest" href="manifest.webmanifest">
+<meta name="theme-color" content="#3f6b5e">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="کاتینگ‌لیست">
+<link rel="icon" href="icon-192.png">
+<link rel="apple-touch-icon" href="icon-192.png">
+<style>
+:root{
+--ink:#1a1815;
+--paper:#f6f3ec;
+--line:#d8d0c0;
+--panel:#fffdf8;
+--accent:#3f6b5e;      /* سبز چوب-کاری، نه ترّاکوتا */
+--accent-soft:#e5ede9;
+--saw:#c2703d;         /* رنگ خط اره / برش */
+--muted:#8a8377;
+--shadow:0 1px 0 rgba(0,0,0,.04),0 8px 24px -18px rgba(0,0,0,.3);
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{
+background:var(--paper);
+color:var(--ink);
+font-family:"Vazirmatn","Segoe UI",Tahoma,sans-serif;
+font-size:15px;line-height:1.6;
+-webkit-font-smoothing:antialiased;
+}
+body.ltr{direction:ltr}
+.wrap{max-width:1120px;margin:0 auto;padding:20px 18px 80px}
+/* header */
+header{display:flex;align-items:center;justify-content:space-between;gap:16px;
+padding:18px 0 22px;border-bottom:2px solid var(--ink);margin-bottom:26px;flex-wrap:wrap}
+.brand{display:flex;flex-direction:column;gap:2px}
+.brand b{font-size:20px;letter-spacing:.5px}
+.brand span{font-size:12px;color:var(--muted);letter-spacing:2px;text-transform:uppercase}
+.langs{display:flex;gap:6px}
+.langs button{border:1px solid var(--line);background:var(--panel);color:var(--ink);
+padding:6px 12px;border-radius:999px;cursor:pointer;font-family:inherit;font-size:13px}
+.langs button.on{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+/* layout */
+.grid{display:block;max-width:640px;margin:0 auto}
+.grid>.card{margin-bottom:22px}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:14px;
+padding:18px;box-shadow:var(--shadow)}
+.card h2{margin:0 0 14px;font-size:14px;letter-spacing:1px;text-transform:uppercase;
+color:var(--accent);display:flex;align-items:center;gap:8px}
+.card h2::before{content:"";width:20px;height:2px;background:var(--accent)}
+.field{margin-bottom:13px}
+.field label{display:block;font-size:12.5px;color:var(--muted);margin-bottom:5px}
+.field input,.field select{width:100%;padding:9px 11px;border:1px solid var(--line);
+border-radius:9px;background:var(--paper);color:var(--ink);font-family:inherit;font-size:14px}
+.field input:focus,.field select:focus{outline:2px solid var(--accent-soft);border-color:var(--accent)}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.row2>*{min-width:0}
+/* ردیف بلوک در پروژه‌ی تلویزیون */
+.tvrow{display:grid;grid-template-columns:1.25fr .85fr .6fr 30px;gap:6px;align-items:center;margin-bottom:5px}
+.tvrow>*{min-width:0}
+.tvrow select,.tvrow input{width:100%;min-width:0;padding:8px;border:1px solid var(--line);
+border-radius:8px;background:var(--paper);color:var(--ink);font-family:inherit;font-size:13px}
+.tvchk{display:flex;align-items:center;gap:7px;font-size:12.5px;padding:8px 0}
+.tvsub{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin:-1px 0 9px;padding:0 2px 7px;
+font-size:12px;color:var(--muted);border-bottom:1px dotted var(--line)}
+.tvsub label{display:flex;align-items:center;gap:5px}
+.tvsub input[type=number]{width:56px;padding:5px 6px;border:1px solid var(--line);border-radius:7px;
+background:var(--paper);color:var(--ink);font-family:inherit;font-size:12.5px}
+.tvsub select{padding:5px 6px;border:1px solid var(--line);border-radius:7px;background:var(--paper);
+color:var(--ink);font-family:inherit;font-size:12.5px}
+.tvrow button{border:none;background:#e8ddd3;color:#8a5a3a;border-radius:7px;
+width:30px;height:30px;padding:0;cursor:pointer;font-size:16px;line-height:1}
+/* موبایل */
+@media (max-width:560px){
+.wrap{padding:14px 12px 70px}
+.card{padding:14px;border-radius:12px}
+.row2{grid-template-columns:1fr;gap:0}
+.tvrow{grid-template-columns:1fr 68px 52px 28px;gap:5px}
+.tvrow select,.tvrow input{font-size:12.5px;padding:7px 6px}
+.tvrow button{width:28px;height:28px}
+.field input,.field select{font-size:16px}
+}
+.seg{display:flex;gap:6px;flex-wrap:wrap}
+.seg button{flex:1;min-width:70px;padding:8px 6px;border:1px solid var(--line);background:var(--paper);
+border-radius:9px;cursor:pointer;font-family:inherit;font-size:13px;color:var(--ink)}
+.seg button.on{background:var(--accent);color:#fff;border-color:var(--accent)}
+.hint{font-size:11.5px;color:var(--muted);margin-top:4px}
+.calcBtn{width:100%;margin-top:6px;padding:12px;border:none;border-radius:10px;
+background:var(--ink);color:var(--paper);font-family:inherit;font-size:15px;cursor:pointer;letter-spacing:.5px}
+.calcBtn:hover{background:#000}
+/* summary chips */
+.chips{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:18px}
+.chip{background:var(--accent-soft);border:1px solid #cfe0d9;border-radius:10px;
+padding:9px 13px;min-width:96px}
+.chip .k{font-size:11px;color:var(--accent);letter-spacing:.5px}
+.chip .v{font-size:18px;font-weight:700}
+/* table */
+.tablewrap{overflow-x:auto;border:1px solid var(--line);border-radius:12px;background:var(--panel)}
+table{width:100%;border-collapse:collapse;font-size:13.5px;min-width:560px}
+thead th{background:var(--ink);color:var(--paper);padding:10px 12px;text-align:start;
+font-weight:600;font-size:12px;letter-spacing:.5px;white-space:nowrap}
+tbody td{padding:9px 12px;border-bottom:1px solid var(--line)}
+tbody tr:nth-child(even){background:var(--paper)}
+tbody tr:hover{background:var(--accent-soft)}
+.dim{font-variant-numeric:tabular-nums;font-weight:600}
+.unittag{font-size:11px;color:var(--muted)}
+.grp{background:var(--accent-soft)!important;font-weight:700;color:var(--accent)}
+/* 2D view */
+.view2d{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:16px;margin-bottom:18px}
+.view2d svg{width:100%;max-width:520px;height:auto;display:block;margin:0 auto}
+#viewBox{display:flex;justify-content:center;align-items:center;background:var(--paper);border-radius:8px;padding:16px;min-height:200px}
+.toolbar{display:flex;gap:8px;margin:16px 0;flex-wrap:wrap}
+.toolbar button{border:1px solid var(--line);background:var(--panel);color:var(--ink);
+padding:9px 15px;border-radius:9px;cursor:pointer;font-family:inherit;font-size:13.5px;display:flex;align-items:center;gap:6px}
+.toolbar button:hover{border-color:var(--accent);color:var(--accent)}
+.empty{text-align:center;padding:60px 20px;color:var(--muted)}
+.empty svg{opacity:.3;margin-bottom:12px}
+.footnote{font-size:11.5px;color:var(--muted);margin-top:14px;line-height:1.7}
+.confirmbar{display:flex;flex-direction:column;align-items:center;gap:12px;padding:20px;
+background:var(--accent-soft);border:1px dashed var(--accent);border-radius:12px;margin-top:6px}
+.confirmtext{font-size:14px;color:var(--accent);font-weight:600;text-align:center}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div class="brand">
+      <b id="t-brand">Dar Al-Asala</b>
+      <span id="t-sub">Cutting List Studio</span>
+    </div>
+    <div class="langs">
+      <button data-l="fa" class="on">فارسی</button>
+      <button data-l="ar">العربية</button>
+      <button data-l="en">EN</button>
+    </div>
+  </header>
+
+  <div class="grid">
+    <!-- INPUT -->
+    <div class="card">
+      <h2 id="t-input">ورودی</h2>
+
+      <div class="field">
+        <label id="t-project">نوع پروژه</label>
+        <div class="seg" id="projectSeg">
+          <button data-pj="wardrobe" class="on" id="t-pj-w">کمد</button>
+          <button data-pj="drawer" id="t-pj-d">کشو (مستقل)</button>
+          <button data-pj="tv" id="t-pj-t">تلویزیون</button>
+        </div>
+      </div>
+
+      <!-- بخش دیوار تلویزیون -->
+      <div id="tvBox" style="display:none">
+        <div class="row2">
+          <div class="field"><label id="t-tv-w">عرض دیوار (mm)</label><input type="number" id="tvW" value="4000"></div>
+          <div class="field"><label id="t-tv-h">ارتفاع دیوار (mm)</label><input type="number" id="tvH" value="2700"></div>
+        </div>
+        <div class="row2">
+          <div class="field"><label id="t-tv-n">تعداد قسمت</label><input type="number" id="tvN" value="3" min="1" max="12"></div>
+          <div class="field"><label id="t-tv-skirt">&nbsp;</label><div class="hint" id="t-tv-hint">ارتفاع هر بلوک را داخل قسمت می‌زنی</div></div>
+        </div>
+        <div id="tvSections"></div>
+        <div class="hint" id="tvSum"></div>
+      </div>
+
+      <!-- بخش کشوی مستقل -->
+      <div id="soloBox" style="display:none">
+        <div class="row2">
+          <div class="field">
+            <label id="t-solo-w">عرض (mm)</label>
+            <input type="number" id="soloW" value="800">
+          </div>
+          <div class="field">
+            <label id="t-solo-boxes">تعداد ستون (کنار هم)</label>
+            <input type="number" id="soloBoxes" value="1" min="1" max="6">
+          </div>
+        </div>
+
+        <!-- هر ستون: ارتفاع، تعداد کشو، و ارتفاع تک‌تک کشوها -->
+        <div id="soloDHList" style="margin:2px 0 10px"></div>
+
+        <div class="row2">
+          <div class="field" id="soloHField">
+            <label id="t-solo-h">ارتفاع (mm)</label>
+            <input type="number" id="soloH" value="800">
+          </div>
+          <div class="field">
+            <label id="t-solo-d">عمق (mm)</label>
+            <input type="number" id="soloD" value="500">
+          </div>
+        </div>
+        <div class="row2">
+          <div class="field" id="soloNField">
+            <label id="t-solo-n">تعداد کشو</label>
+            <input type="number" id="soloN" value="4" min="1" max="10">
+          </div>
+          <div class="field" id="soloDHField">
+            <label id="t-solo-dh">ارتفاع هر کشو (mm)</label>
+            <input type="number" id="soloDH" placeholder="خودکار" min="0">
+          </div>
+        </div>
+        <div class="row2">
+          <div class="field">
+            <label id="t-solo-top">صفحه بالا — ضخامت</label>
+            <select id="soloTop">
+              <option value="single" id="t-solo-single">سینگل (۱۸)</option>
+              <option value="double" id="t-solo-double">دوبل (۳۶)</option>
+            </select>
+          </div>
+          <div class="field">
+            <label id="t-solo-side">دیوار کناری</label>
+            <select id="soloSide">
+              <option value="single" id="t-solo-side-s">سینگل (۱۸)</option>
+              <option value="double" id="t-solo-side-d" selected>دوبل (۳۶)</option>
+            </select>
+          </div>
+        </div>
+        <div class="row2">
+          <div class="field">
+            <label id="t-solo-hm">نصب سرکشو</label>
+            <select id="soloHeadMount">
+              <option value="inset" id="t-solo-hin">توکار (بین بدنه)</option>
+              <option value="overlay" id="t-solo-hov">روکار (روی بدنه)</option>
+            </select>
+          </div>
+          <div class="field">
+            <label id="t-solo-topmode">نصب سقف</label>
+            <select id="soloTopMode">
+              <option value="outside" id="t-solo-topout">فقط صفحه</option>
+              <option value="inset" id="t-solo-topin">صفحه + سقف توکار هر ستون</option>
+            </select>
+          </div>
+        </div>
+        <div class="row2" id="soloInsetRow" style="display:none">
+          <div class="field">
+            <label id="t-solo-inset">عقب‌نشینی پاتی از لبه (mm)</label>
+            <input type="number" id="pattyInset" value="25" min="0">
+          </div>
+        </div>
+        <div class="hint" id="t-solo-insethint" style="display:none">پاتی قاب چهارطرفه زیر کف: جلو و عقب به عرض کف منهای دو برابر این عدد • چپ و راست بین آن دو</div>
+        <div class="hint" id="t-solo-hint">ارتفاع کشوها از ارتفاع کل تقسیم بر تعداد حساب می‌شود</div>
+      </div>
+
+      <div class="field" id="shapeField">
+        <label id="t-shape">شکل کمد</label>
+        <div class="seg" id="shapeSeg">
+          <button data-sh="I" class="on" id="t-shape-i">صاف (I)</button>
+          <button data-sh="L" id="t-shape-l">گوشه (L)</button>
+          <button data-sh="U" id="t-shape-u">یو (U)</button>
+        </div>
+      </div>
+
+      <div id="wallsBox"></div>
+
+      <div id="cornerBox" style="display:none">
+        <div class="row2">
+          <div class="field">
+            <label id="t-cornerfiller">فیلر گوشه (mm)</label>
+            <input type="number" id="cornerFiller" value="50">
+          </div>
+          <div class="field">
+            <label id="t-cornermin">عرض کمد زاویه (mm)</label>
+            <input type="number" id="cornerMin" value="1150">
+          </div>
+        </div>
+        <div class="field">
+          <label id="t-cornermid">فیلر وسط کمد زاویه (mm)</label>
+          <input type="number" id="cornerMidFiller" value="50">
+          <div class="hint" id="t-cornermidhint">بعد از عمقی که در گوشه می‌میرد، برای باز شدن درب‌ها</div>
+        </div>
+      </div>
+
+      <div class="field" id="wallClearField">
+        <label id="t-wallclear">کسر پاتی کناری (mm) — ۰ یعنی بدون کسر</label>
+        <input type="number" id="wallClear" value="100" min="0">
+      </div>
+
+      <div class="field" id="wallField">
+        <label id="t-wall">عرض دیوار (mm)</label>
+        <input type="number" id="wallW" value="3300">
+      </div>
+      <div class="field" id="heightField">
+        <label id="t-height">ارتفاع کل (mm)</label>
+        <input type="number" id="wallH" value="3000">
+      </div>
+
+      <div class="field" id="unitsField">
+        <label id="t-units">تعداد کمد (یونیت)</label>
+        <div class="seg" id="unitSeg"></div>
+        <div class="hint" id="t-unithint">خودکار بر اساس بازه ۸۰۰ تا ۱۰۰۰ — یا دستی وارد کن</div>
+        <div style="display:flex;gap:5px;align-items:center;margin-top:8px">
+          <button id="iMinus" style="border:1px solid var(--line);background:var(--panel);color:var(--ink);border-radius:8px;width:36px;height:38px;cursor:pointer;font-size:17px;line-height:1">−</button>
+          <input type="number" id="unitManual" placeholder="دستی…" min="1" max="14" style="flex:1;min-width:0;text-align:center">
+          <button id="iPlus" style="border:1px solid var(--accent);background:none;color:var(--accent);border-radius:8px;width:36px;height:38px;cursor:pointer;font-size:17px;line-height:1">+</button>
+        </div>
+        <label id="t-unitwidth" style="display:block;font-size:11px;color:var(--muted);margin:10px 0 4px">یونیت اضافی (اختیاری)</label>
+        <div style="display:flex;gap:6px">
+          <input type="number" id="unitWidthI" placeholder="مثلا ۵۰۰" min="0" style="flex:1;min-width:0">
+          <select id="extraSideSel" style="width:106px;padding:9px;border:1px solid var(--line);border-radius:9px;background:var(--paper);font-family:inherit;font-size:13px">
+            <option value="start">چپ</option>
+            <option value="end" selected>راست</option>
+          </select>
+        </div>
+        <div id="iSummary" style="font-size:12px;color:var(--accent);background:var(--accent-soft);border-radius:8px;padding:8px 10px;margin-top:10px"></div>
+      </div>
+
+      <div class="field" id="sheetField">
+        <label id="t-sheet">ورق MDF</label>
+        <select id="sheet">
+          <option value="2780x2050">2780 × 2050</option>
+          <option value="3640x1810" selected>3640 × 1810</option>
+        </select>
+      </div>
+
+      <div class="field" id="depthField">
+        <label id="t-bodydepth">عمق بدنه (mm)</label>
+        <input type="number" id="bodyDepth" value="582">
+        <div class="hint" id="t-bodydepthhint">۵۸۲ (با فیلر، کل ۶۰۰) • ۶۰۰ (بدون فیلر) • ۳۰۰ (کمد کفش)</div>
+      </div>
+
+      <input type="hidden" id="shelves" value="3">
+      <input type="hidden" id="doorsPer" value="2">
+      <input type="hidden" id="rail" value="1">
+
+      <div class="row2" id="ceilCorniceRow">
+        <div class="field">
+          <label id="t-ceilth">ضخامت سقف (mm)</label>
+          <input type="number" id="ceilTh" value="18">
+        </div>
+        <div class="field">
+          <label id="t-cornice">تاج بالا (mm)</label>
+          <input type="number" id="cornice" value="100">
+        </div>
+      </div>
+
+      <div class="field" id="pattyHField">
+        <label id="t-pattyh">پاتی پایین — ارتفاع (mm)</label>
+        <input type="number" id="pattyH" value="60">
+        <div class="hint" id="t-pattyhhint">۰ یعنی بدون پاتی</div>
+      </div>
+
+      <div class="field">
+        <label id="t-pattymode">محل پاتی</label>
+        <div class="seg" id="pattySeg">
+          <button data-p="inside_out" class="on" id="t-patty-io">بین بدنه — خارج</button>
+          <button data-p="inside" id="t-patty-in">بین بدنه — ساده</button>
+          <button data-p="front" id="t-patty-fr">روبه‌رو</button>
+          <button data-p="under" id="t-patty-un" style="display:none">زیر کف</button>
+        </div>
+      </div>
+
+      <div class="field" id="doorMountField">
+        <label id="t-doormount">نصب درب</label>
+        <div class="seg" id="doorMountSeg">
+          <button data-dm2="overlay" class="on" id="t-dm-ov">روکار</button>
+          <button data-dm2="inset" id="t-dm-in">توکار</button>
+        </div>
+        <div class="hint" id="t-doormounthint">روکار: عرض درب از عرض کامل یونیت • توکار: از عرض داخلی</div>
+      </div>
+
+      <div class="field" id="pattySplitField">
+        <label id="t-pattysplit">تقسیم پاتی</label>
+        <div class="seg" id="pattySplitSeg">
+          <button data-ps="unit" class="on" id="t-psplit-u">یک یونیت</button>
+          <button data-ps="connected" id="t-psplit-c">متصل</button>
+          <button data-ps="both" id="t-psplit-b">هر دو</button>
+        </div>
+        <div class="hint" id="t-pattysplithint">متصل: یک تکه سرتاسری، اگر از طول ورق بلندتر شد دو تکه مساوی</div>
+      </div>
+
+      <div class="field" id="floorField">
+        <label id="t-floormode">کف نسبت به پاتی</label>
+        <div class="seg" id="floorSeg">
+          <button data-fl="on" class="on" id="t-floor-on">روی پاتی (۱۸ دیده می‌شود)</button>
+          <button data-fl="front" id="t-floor-fr">روبه‌رو (۱۸ پنهان)</button>
+        </div>
+        <div class="hint" id="t-floorhint">اگر پاتی روبه‌رو و عمق ۶۰۰ باشد، عمق کف ۱۸ کم می‌شود</div>
+      </div>
+
+      <div id="drawerBlock">
+      <div class="field" style="border-top:1px dashed var(--line);padding-top:14px;margin-top:4px">
+        <label id="t-drawermode" style="color:var(--accent);font-weight:600">کشو</label>
+        <div class="seg" id="drawerSeg">
+          <button data-dr="0" class="on" id="t-drawer-n">بدون کشو</button>
+          <button data-dr="1" id="t-drawer-y">دارد</button>
+        </div>
+      </div>
+
+      <div id="drawerOpts" style="display:none">
+        <div class="row2">
+          <div class="field">
+            <label id="t-drawercount">تعداد کشو</label>
+            <input type="number" id="drawerCount" value="4" min="1" max="8">
+          </div>
+          <div class="field">
+            <label id="t-drawerunits">یونیت‌های کشودار</label>
+            <input type="text" id="drawerUnits" value="1" placeholder="مثلا 1,3">
+          </div>
+        </div>
+        <div class="field">
+          <label id="t-boxtop">سقف باکس کشو</label>
+          <div class="seg" id="boxtopSeg">
+            <button data-bt="double" class="on" id="t-boxtop-d">دوبل (۳۶)</button>
+            <button data-bt="single" id="t-boxtop-s">سینگل (۱۸)</button>
+          </div>
+        </div>
+        <div class="field">
+          <label id="t-abovemode">بالای کشو (تا سقف)</label>
+          <div class="seg" id="aboveSeg">
+            <button data-ab="rail" class="on" id="t-above-r">آویز</button>
+            <button data-ab="shelf" id="t-above-s">رف</button>
+          </div>
+        </div>
+        <div class="hint" id="t-drawerhint">ارتفاع دیوار دوبل = تعداد کشو × ۲۰۰ • هر کشو ۲۰۰</div>
+      </div>
+
+      </div>
+
+      <div class="field" id="designField" style="border-top:2px solid var(--accent);padding-top:14px;margin-top:8px">
+        <label id="t-designmode" style="color:var(--accent);font-weight:600">طراحی یونیت‌ها</label>
+        <div class="seg" id="designSeg">
+          <button data-dm="simple" class="on" id="t-design-s">ساده (همه یکسان)</button>
+          <button data-dm="perunit" id="t-design-p">هر یونیت جدا</button>
+        </div>
+        <div class="hint" id="t-designhint">در حالت «هر یونیت جدا» می‌توانی محتوای داخل هر یونیت را از پایین به بالا بچینی</div>
+      </div>
+
+      <div id="designerPanel" style="display:none"></div>
+
+      <button class="calcBtn" id="previewBtn" style="background:var(--accent)">پیش‌نمایش نقشه</button>
+    </div>
+
+    <!-- OUTPUT -->
+    <div>
+      <div id="result">
+        <div class="empty card">
+          <svg width="54" height="54" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3">
+            <rect x="3" y="3" width="18" height="18" rx="2"/><path d="M9 3v18M3 9h18"/>
+          </svg>
+          <div id="t-empty">ابعاد را وارد کن و «محاسبه» را بزن</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+/* ---------- i18n ---------- */
+const I18N={
+ fa:{dir:"rtl",brand:"Dar Al-Asala",sub:"استودیو کاتینگ‌لیست",input:"ورودی",
+  wall:"عرض دیوار (mm)",height:"ارتفاع کل (mm)",units:"تعداد کمد (یونیت)",
+  unithint:"خودکار بر اساس بازه ۸۰۰ تا ۱۰۰۰",sheet:"ورق MDF",bodydepth:"عمق بدنه (mm)",bodydepthhint:"۵۸۲ (با فیلر، کل ۶۰۰) • ۶۰۰ (بدون فیلر) • ۳۰۰ (کمد کفش)",
+  fillery:"با فیلر (۵۸۲)",fillern:"بدون فیلر (۶۰۰)",fillerhint:"با فیلر: بدنه ۵۸۲ + فیلر ۱۸ = عمق ۶۰۰",
+  shelves:"طبقه در هر یونیت",doors:"درب در هر یونیت",rail:"آویز لباس",
+  raily:"دارد",railn:"ندارد",cornice:"تاج بالا (mm)",skirt:"اکارتینگ پایین (mm)",
+  calc:"محاسبه",empty:"ابعاد را وارد کن و «محاسبه» را بزن",auto:"خودکار",
+  c_units:"یونیت",c_uw:"عرض هر یونیت",c_bh:"ارتفاع بدنه",c_sheets:"ورق لازم",c_waste:"پرت",
+  part:"قطعه",len:"طول",wid:"عرض",qty:"تعداد",grain:"رگه",unit:"یونیت",mat:"جنس",
+  p_body:"بدنه",p_ceil:"سقف",p_floor:"کف",p_shelf:"طبقه",p_back:"فیبر پشت",
+  p_filler:"فیلر",p_cornice:"تاج",p_cornice_side:"تاج کناری",p_patty:"پاتی (اسکارتینگ)",p_rail:"چوب آویز",p_door:"درب",
+  grain_v:"طولی",grain_h:"عرضی",mdf:"ام‌دی‌اف ۱۸",fiber:"فیبر ۴",door_mat:"درب (رنگ جدا)",
+  mdf_double:"ام‌دی‌اف دوبل ۳۶",mdf_pvc:"ام‌دی‌اف + PVC",
+  p_dw:"دیوار دوبل کشو",p_side:"دیوار کناری",p_toppanel:"صفحه بالا",p_topin:"سقف توکار",p_boxtop:"سقف باکس کشو",p_head:"سرکشو",p_fb:"جلو/عقب کشو",
+  p_lr:"چپ/راست کشو",p_dwshelf:"رف روی کشو",p_dwrail:"آویز روی کشو",p_shoe:"جاکفشی",
+  drawermode:"کشو",drawern:"بدون کشو",drawery:"دارد",drawercount:"تعداد کشو",
+  drawerunits:"یونیت‌های کشودار",boxtop:"سقف باکس کشو",boxtopd:"دوبل (۳۶)",boxtops:"سینگل (۱۸)",
+  abovemode:"بالای کشو (تا سقف)",abover:"آویز",aboves:"رف",
+  drawerhint:"ارتفاع دیوار دوبل = تعداد کشو × ۲۰۰ • هر کشو ۲۰۰",
+  designmode:"طراحی یونیت‌ها",designs:"ساده (همه یکسان)",designp:"هر یونیت جدا",
+  designhint:"در حالت «هر یونیت جدا» محتوای داخل هر یونیت را از پایین به بالا می‌چینی",
+  sum_width:"جمع عرض یونیت‌ها",from_bottom:"از پایین به بالا",add_seg:"افزودن بخش",count:"تعداد",
+  seg_shelf:"رف",seg_drawer:"کشو",seg_raillong:"آویز بلند",seg_railhalf:"آویز نصف",seg_shoe:"جاکفشی",
+  side_filler:"فیلر کناری",filler_none:"ندارد",filler_left:"چپ",filler_right:"راست",
+  door_design:"دیزاین درب",door_plain:"ساده",door_glass:"شیشه‌دار + فریم",door_frame:"فریم‌دار + چوب",door_mirror:"آینه",
+  p_sidefiller:"فیلر کناری",mirror_mat:"آینه",glass_mat:"شیشه + فریم",
+  ceilth:"ضخامت سقف (mm)",pattyh:"پاتی پایین — ارتفاع (mm)",pattymode:"محل پاتی",
+  pattyhhint:"۰ یعنی بدون پاتی",tape_legend:"خط زیر عدد = آن لبه نوار PVC می‌خورد (یک خط: یک طرف • دو خط: دو طرف)",tape_total:"جمع نوار",p_skirt:"اسکرتینگ",p_tvpanel:"صفحه ام‌دی‌اف (بک‌گراند)",tv_part:"قسمت",tv_secw:"عرض قسمت",tv_low:"کابینت پایین",tv_lowh:"ارتفاع پایین",tv_up:"کمد بالا",tv_uph:"ارتفاع بالا",tv_count:"تعداد",tv_none:"ندارد",tv_door:"درب",tv_drawer:"کشو",tv_open:"طبقه باز",tv_top:"سقف بگذار",tv_pattylr:"پاتی چپ و راست",tv_hint:"ارتفاع هر بلوک را داخل خود قسمت می‌زنی",tv_pattyh:"ارتفاع پاتی کناری (mm)",tvk_mirror:"آینه",tv_join:"مرز با قسمت بعدی",tvj_separate:"دیوار جدا (ستونی)",tvj_shared:"دیوار مشترک",tvj_gap:"فاصله با پاتی روبه‌رو",tv_gapw:"عرض فاصله",tv_okh:"ارتفاع پر شد",inset:"توکار",overlay:"روکار",doors_per_l:"تعداد درب هر یونیت",tv_single:"سینگل ۱۸",tv_double:"دوبل ۳۶",tv_perunit:"تقسیم داخل هر یونیت",tv_addseg:"تقسیم",tv_tvtype:"تلویزیون",tv_pattyr:"پاتی راست",tv_pattyl:"پاتی چپ",tv_type:"نوع قسمت",tv_sech:"ارتفاع قسمت",tv_hasdrawer:"کشو دارد",tv_dcount:"تعداد کشو",tv_shelves:"رف",tv_rail:"آویز",tv_dcols:"کشو کنار هم",tv_mount:"سرکشو",solo_dh_each:"یا ارتفاع هر کشو را جدا بزن (از بالا)",solo_dh_row:"کشو",solo_col:"ستون",solo_wsum:"جمع عرض ستون‌ها",pattyh_short:"پاتی",solo_colhint:"ارتفاع • تعداد کشو",solo_col_each:"هر ستون: ارتفاع، تعداد کشو، و ارتفاع تک‌تک کشوها (از راست)",tv_auto:"خودکار",tv_autohint:"کادر ارتفاع را خالی بگذار تا بقیه‌ی دیوار را بگیرد",p_mirror:"آینه",p_gapfiller:"پاتی روبه‌رو (فاصله)",tvk_patty:"پاتی / اسکرتینگ",tvk_door:"کمد درب‌دار",tvk_drawer:"کشو",tvk_open:"طبقه باز",tvk_panel:"صفحه ام‌دی‌اف (بک‌گراند)",tvk_desk:"صفحه میز",tvk_empty:"فضای خالی",tvk_cornice:"تاج",tvk_ceil:"سقف / کف افقی",tv_secd:"عمق قسمت",tv_shared:"دیوار مشترک با قسمت بعدی",tv_blocks:"بلوک‌ها (از پایین به بالا)",tv_addblock:"بلوک",tv_h:"ارتفاع",p_desk:"صفحه میز",tv_pattyside:"پاتی کناری",tv_right:"راست",tv_left_s:"چپ",tv_both:"هر دو طرف",tv_base:"پایه",tv_skirting:"اسکرتینگ",tv_lown:"تعداد پایین",tv_upn:"تعداد بالا",tv_ok:"جمع عرض‌ها درست است",tv_left:"باقی‌مانده",tv_over:"بیشتر از دیوار",g_body:"کمد / بدنه",g_drawer:"کشو",g_door:"درب",g_other:"متفرقه",tape_click:"روی هر عدد بزن تا نوارش عوض شود: بدون خط ← یک خط ← دو خط",print_hint:"مرورگر اجازه‌ی چاپ نداد. اپ را در یک تب جدا باز کن، یا از منوی مرورگر Print → Save as PDF بگیر.",pattyio:"بین بدنه — خارج",pattyin:"بین بدنه — ساده",pattyfr:"روبه‌رو",project:"نوع پروژه",pjw:"کمد",pjd:"کشو (مستقل)",solo_w:"عرض (mm)",solo_h:"ارتفاع (mm)",solo_d:"عمق (mm)",solo_n:"تعداد کشو",solo_boxes:"تعداد ستون (کنار هم)",solo_top:"صفحه بالا — ضخامت",solo_side:"دیوار کناری",solo_dh:"ارتفاع هر کشو (mm)",solo_hm:"نصب سرکشو",solo_topmode:"نصب سقف",solo_topout:"فقط صفحه",solo_topin:"صفحه + سقف توکار هر ستون",solo_hin:"توکار (بین بدنه)",solo_hov:"روکار (روی بدنه)",solo_hint:"ارتفاع کشوها از ارتفاع کل تقسیم بر تعداد حساب می‌شود",shape:"شکل کمد",shapei:"صاف (I)",shapel:"گوشه (L)",shapeu:"یو (U)",wall_a:"دیوار",wall_b:"دیوار دوم",l_side:"دیوار کناری در کدام سمت؟",usable:"مفید",corner_unit:"زاویه",mid_panel:"بدنه وسط",cell:"خانه",save_png:"ذخیره عکس",save_pdf:"خروجی PDF",unit_width:"یونیت اضافی (اختیاری)",optional:"اختیاری",side_start:"چپ",side_end:"راست",has_door:"با درب",no_door:"بدون درب",unitwidth_i:"یونیت اضافی (اختیاری)",add_unit:"افزودن یونیت",del_unit:"حذف یونیت",p_midpanel:"بدنه وسط",wall_left:"دیوار چپ",wall_front:"دیوار روبه‌رو",wall_right:"دیوار راست",cornerfiller:"فیلر گوشه (mm)",cornermin:"عرض کمد زاویه (mm)",cornermid:"فیلر وسط کمد زاویه (mm)",cornermidhint:"بعد از عمقی که در گوشه می‌میرد، برای باز شدن درب‌ها",wallclear:"کسر پاتی کناری (mm) — ۰ یعنی بدون کسر",p_cornerfiller:"فیلر گوشه",p_cornermid:"فیلر وسط زاویه",doormount:"نصب درب",dmov:"روکار",dmin:"توکار",doormounthint:"روکار: عرض درب از عرض کامل یونیت • توکار: از عرض داخلی",pattysplit:"تقسیم پاتی",psplitu:"یک یونیت",psplitc:"متصل",psplitb:"هر دو",pattysplithint:"متصل: یک تکه سرتاسری، اگر از طول ورق بلندتر شد دو تکه مساوی",floormode:"کف نسبت به پاتی",
+  flooron:"روی پاتی (۱۸ دیده می‌شود)",floorfr:"روبه‌رو (۱۸ پنهان)",
+  floorhint:"اگر پاتی روبه‌رو و عمق ۶۰۰ باشد، عمق کف ۱۸ کم می‌شود",
+  preview:"پیش‌نمایش نقشه",confirm:"تأیید و تقسیم",confirmq:"نقشه درست است؟ برای دیدن کاتینگ‌لیست تأیید کن",
+  section:"نمای برش از پهلو",c_depth:"عمق بدنه",depth:"عمق",floor:"کف",view_doors:"درب‌ها",view_inside:"داخل کمد",view_3d:"سه‌بعدی",view_3d_open:"سه‌بعدی باز",view_plan:"پلان",
+  xlsx:"خروجی Excel",print:"چاپ / PDF",view:"نمای روبرو",
+  pattyun:"زیر کف",p_patty_side:"پاتی کناری (چپ/راست)",solo_inset:"عقب‌نشینی پاتی از لبه (mm)",
+  solo_insethint:"پاتی قاب چهارطرفه زیر کف: جلو و عقب به عرض کف منهای دو برابر این عدد • چپ و راست بین آن دو",
+  png_nosvg:"نقشه‌ای برای ذخیره پیدا نشد — اول پیش‌نمایش را بزن",
+  png_hint:"اگر فایل خودکار دانلود نشد، روی عکس انگشت را نگه دار و «ذخیره تصویر» را بزن.",
+  xlsx_hint:"اگر فایل .xls دانلود نشد، جدول را کپی کن و در اکسل Paste کن.",
+  copy_table:"کپی جدول",
+  foot:"سقف روی بدنه • کف و طبقه از داخل (−۳۶) • فیبر پشت روکار ۴ میل • عمق بدنه ۵۸۲ برای درب توکار",
+  note_sheets:"محاسبه ورق در مرحله بهینه‌سازی برش دقیق می‌شود"},
+ ar:{dir:"rtl",brand:"دار الأصالة",sub:"استوديو قائمة القص",input:"المدخلات",
+  wall:"عرض الجدار (mm)",height:"الارتفاع الكلي (mm)",units:"عدد الخزائن",
+  unithint:"تلقائي ضمن نطاق ٨٠٠ إلى ١٠٠٠",sheet:"لوح MDF",bodydepth:"عمق الجسم (mm)",bodydepthhint:"٥٨٢ (مع فيلر، الكل ٦٠٠) • ٦٠٠ (بدون) • ٣٠٠ (خزانة أحذية)",
+  fillery:"مع فيلر (٥٨٢)",fillern:"بدون فيلر (٦٠٠)",fillerhint:"مع الفيلر: الجسم ٥٨٢ + فيلر ١٨ = عمق ٦٠٠",
+  shelves:"رفوف لكل خزانة",doors:"أبواب لكل وحدة",rail:"عصا التعليق",
+  raily:"نعم",railn:"لا",cornice:"التاج العلوي (mm)",skirt:"الحاشية السفلية (mm)",
+  calc:"احسب",empty:"أدخل الأبعاد واضغط «احسب»",auto:"تلقائي",
+  c_units:"خزانة",c_uw:"عرض الوحدة",c_bh:"ارتفاع الجسم",c_sheets:"ألواح مطلوبة",c_waste:"الهدر",
+  part:"القطعة",len:"الطول",wid:"العرض",qty:"العدد",grain:"العرق",unit:"وحدة",mat:"المادة",
+  p_body:"جانب",p_ceil:"سقف",p_floor:"أرضية",p_shelf:"رف",p_back:"لوح خلفي",
+  p_filler:"فيلر",p_cornice:"تاج",p_cornice_side:"تاج کناری",p_patty:"باتي (حاشية)",p_rail:"عصا تعليق",p_door:"باب",
+  grain_v:"طولي",grain_h:"عرضي",mdf:"MDF ١٨",fiber:"لوح ٤",door_mat:"باب (لون منفصل)",
+  mdf_double:"MDF مزدوج ٣٦",mdf_pvc:"MDF + PVC",
+  p_dw:"جدار مزدوج للدرج",p_side:"جدار جانبي",p_toppanel:"اللوح العلوي",p_topin:"سقف داخلي",p_boxtop:"سقف صندوق الدرج",p_head:"واجهة الدرج",p_fb:"أمام/خلف الدرج",
+  p_lr:"يمين/يسار الدرج",p_dwshelf:"رف فوق الدرج",p_dwrail:"تعليق فوق الدرج",p_shoe:"رف أحذية",
+  drawermode:"الأدراج",drawern:"بدون أدراج",drawery:"نعم",drawercount:"عدد الأدراج",
+  drawerunits:"وحدات الأدراج",boxtop:"سقف الصندوق",boxtopd:"مزدوج (٣٦)",boxtops:"فردي (١٨)",
+  abovemode:"فوق الأدراج (حتى السقف)",abover:"تعليق",aboves:"رف",
+  drawerhint:"ارتفاع الجدار المزدوج = عدد الأدراج × ٢٠٠ • كل درج ٢٠٠",
+  designmode:"تصميم الوحدات",designs:"بسيط (الكل متطابق)",designp:"كل وحدة على حدة",
+  designhint:"في وضع «كل وحدة على حدة» ترتّب محتوى كل وحدة من الأسفل للأعلى",
+  sum_width:"مجموع عرض الوحدات",from_bottom:"من الأسفل للأعلى",add_seg:"إضافة قسم",count:"العدد",
+  seg_shelf:"رف",seg_drawer:"درج",seg_raillong:"تعليق طويل",seg_railhalf:"تعليق نصفي",seg_shoe:"حذاء",
+  side_filler:"فيلر جانبي",filler_none:"بدون",filler_left:"يسار",filler_right:"يمين",
+  door_design:"تصميم الباب",door_plain:"سادة",door_glass:"زجاج + إطار",door_frame:"إطار + خشب",door_mirror:"مرآة",
+  p_sidefiller:"فيلر جانبي",mirror_mat:"مرآة",glass_mat:"زجاج + إطار",
+  ceilth:"سماكة السقف (mm)",pattyh:"الباتي السفلي — الارتفاع (mm)",pattymode:"موضع الباتي",
+  pattyhhint:"٠ يعني بدون باتي",tape_legend:"الخط تحت الرقم = تلك الحافة تأخذ شريط PVC (خط واحد: جهة • خطان: جهتان)",tape_total:"مجموع الشريط",p_skirt:"وزرة",p_tvpanel:"لوح إم دي إف (خلفية)",tv_part:"قسم",tv_secw:"عرض القسم",tv_low:"خزانة سفلية",tv_lowh:"ارتفاع السفلي",tv_up:"خزانة علوية",tv_uph:"ارتفاع العلوي",tv_count:"العدد",tv_none:"بدون",tv_door:"باب",tv_drawer:"درج",tv_open:"رف مفتوح",tv_top:"ضع سقفاً",tv_pattylr:"باتي يمين ويسار",tv_hint:"ارتفاع كل كتلة يُدخل داخل القسم",tv_pattyh:"ارتفاع الباتي الجانبي (mm)",tvk_mirror:"مرآة",tv_join:"الحد مع القسم التالي",tvj_separate:"جدار منفصل (عمود)",tvj_shared:"جدار مشترك",tvj_gap:"فراغ مع باتي أمامي",tv_gapw:"عرض الفراغ",tv_okh:"اكتمل الارتفاع",inset:"داخلي",overlay:"خارجي",doors_per_l:"عدد الأبواب لكل وحدة",tv_single:"مفرد ١٨",tv_double:"مزدوج ٣٦",tv_perunit:"تقسيم داخل كل وحدة",tv_addseg:"تقسيم",tv_tvtype:"تلفاز",tv_pattyr:"باتي يمين",tv_pattyl:"باتي يسار",tv_type:"نوع القسم",tv_sech:"ارتفاع القسم",tv_hasdrawer:"به أدراج",tv_dcount:"عدد الأدراج",tv_shelves:"رفوف",tv_rail:"علاقة",tv_dcols:"أدراج متجاورة",tv_mount:"واجهة الدرج",solo_dh_each:"أو حدد ارتفاع كل درج (من الأعلى)",solo_dh_row:"درج",solo_col:"عمود",solo_wsum:"مجموع عروض الأعمدة",pattyh_short:"باتي",solo_colhint:"الارتفاع • عدد الأدراج",solo_col_each:"لكل عمود: الارتفاع وعدد الأدراج وارتفاع كل درج (من اليمين)",tv_auto:"تلقائي",tv_autohint:"اترك خانة الارتفاع فارغة ليأخذ باقي الجدار",p_mirror:"مرآة",p_gapfiller:"باتي أمامي (فراغ)",tvk_patty:"باتي / وزرة",tvk_door:"خزانة بأبواب",tvk_drawer:"أدراج",tvk_open:"رف مفتوح",tvk_panel:"لوح إم دي إف (خلفية)",tvk_desk:"سطح المكتب",tvk_empty:"فراغ",tvk_cornice:"تاج",tvk_ceil:"سقف / أرضية",tv_secd:"عمق القسم",tv_shared:"جدار مشترك مع القسم التالي",tv_blocks:"الكتل (من أسفل لأعلى)",tv_addblock:"كتلة",tv_h:"الارتفاع",p_desk:"سطح المكتب",tv_pattyside:"باتي جانبي",tv_right:"يمين",tv_left_s:"يسار",tv_both:"كلا الجانبين",tv_base:"القاعدة",tv_skirting:"وزرة",tv_lown:"عدد السفلي",tv_upn:"عدد العلوي",tv_ok:"مجموع العروض صحيح",tv_left:"المتبقي",tv_over:"أكبر من الجدار",g_body:"الجسم",g_drawer:"الدرج",g_door:"الباب",g_other:"متفرقات",tape_click:"اضغط على أي رقم لتغيير الشريط: بدون خط ← خط ← خطان",print_hint:"المتصفح منع الطباعة. افتح التطبيق في تبويب مستقل، أو استخدم Print ← Save as PDF من قائمة المتصفح.",pattyio:"بين الجسم — خارج",pattyin:"بين الجسم — بسيط",pattyfr:"أمامي",project:"نوع المشروع",pjw:"خزانة",pjd:"أدراج (مستقل)",solo_w:"العرض (mm)",solo_h:"الارتفاع (mm)",solo_d:"العمق (mm)",solo_n:"عدد الأدراج",solo_boxes:"عدد الأعمدة",solo_top:"اللوح العلوي — السماكة",solo_side:"الجدار الجانبي",solo_dh:"ارتفاع كل درج (mm)",solo_hm:"تركيب واجهة الدرج",solo_topmode:"تركيب السقف",solo_topout:"اللوح فقط",solo_topin:"اللوح + سقف داخلي لكل عمود",solo_hin:"داخلي",solo_hov:"خارجي",solo_hint:"ارتفاع الأدراج = الارتفاع ÷ العدد",shape:"شكل الخزانة",shapei:"مستقيم (I)",shapel:"زاوية (L)",shapeu:"يو (U)",wall_a:"الجدار",wall_b:"الجدار الثاني",l_side:"الجدار الجانبي في أي جهة؟",usable:"صالح",corner_unit:"زاوية",mid_panel:"جسم أوسط",cell:"خانة",save_png:"حفظ صورة",save_pdf:"تصدير PDF",unit_width:"وحدة إضافية (اختياري)",optional:"اختياري",side_start:"يسار",side_end:"يمين",has_door:"مع باب",no_door:"بدون باب",unitwidth_i:"وحدة إضافية (اختياري)",add_unit:"إضافة وحدة",del_unit:"حذف وحدة",p_midpanel:"جسم أوسط",wall_left:"الجدار الأيسر",wall_front:"الجدار الأمامي",wall_right:"الجدار الأيمن",cornerfiller:"فيلر الزاوية (mm)",cornermin:"عرض خزانة الزاوية (mm)",cornermid:"فيلر وسط خزانة الزاوية (mm)",cornermidhint:"بعد العمق الميت في الزاوية، لفتح الأبواب",wallclear:"خصم الباتي الجانبي (mm) — ٠ بدون خصم",p_cornerfiller:"فيلر الزاوية",p_cornermid:"فيلر وسط الزاوية",doormount:"تركيب الباب",dmov:"خارجي",dmin:"داخلي",doormounthint:"خارجي: من العرض الكامل • داخلي: من العرض الداخلي",pattysplit:"تقسيم الباتي",psplitu:"وحدة واحدة",psplitc:"متصل",psplitb:"كلاهما",pattysplithint:"متصل: قطعة واحدة، إذا تجاوز طول اللوح قطعتان متساويتان",floormode:"الأرضية بالنسبة للباتي",
+  flooron:"فوق الباتي (١٨ ظاهر)",floorfr:"أمامي (١٨ مخفي)",
+  floorhint:"إذا كان الباتي أمامياً والعمق ٦٠٠، يُنقص عمق الأرضية ١٨",
+  preview:"معاينة المخطط",confirm:"تأكيد وتقسيم",confirmq:"هل المخطط صحيح؟ أكّد لعرض قائمة القص",
+  section:"مقطع جانبي",c_depth:"عمق الجسم",depth:"العمق",floor:"الأرضية",view_doors:"الأبواب",view_inside:"داخل الخزانة",view_3d:"ثلاثي الأبعاد",view_3d_open:"مفتوح ٣D",view_plan:"مسقط",
+  xlsx:"تصدير Excel",print:"طباعة / PDF",view:"الواجهة الأمامية",
+  pattyun:"تحت الأرضية",p_patty_side:"باتي جانبي (يسار/يمين)",solo_inset:"تراجع الباتي عن الحافة (mm)",
+  solo_insethint:"إطار باتي من أربع جهات تحت الأرضية: الأمام والخلف بعرض الأرضية ناقص ضعف هذا الرقم • الجانبان بينهما",
+  png_nosvg:"لا يوجد رسم للحفظ — اضغط المعاينة أولاً",
+  png_hint:"إذا لم يتم التنزيل تلقائياً، اضغط مطولاً على الصورة ثم «حفظ الصورة».",
+  xlsx_hint:"إذا لم يتم تنزيل ملف .xls، انسخ الجدول والصقه في Excel.",
+  copy_table:"نسخ الجدول",
+  foot:"السقف فوق الجسم • الأرضية والرف من الداخل (−٣٦) • اللوح الخلفي ٤ مم • عمق الجسم ٥٨٢ للباب الداخلي",
+  note_sheets:"يُحسب عدد الألواح بدقة في مرحلة تحسين القص"},
+ en:{dir:"ltr",brand:"Dar Al-Asala",sub:"Cutting List Studio",input:"Input",
+  wall:"Wall width (mm)",height:"Total height (mm)",units:"Wardrobe units",
+  unithint:"Auto within 800–1000 range",sheet:"MDF sheet",bodydepth:"Body depth (mm)",bodydepthhint:"582 (with filler, 600 total) • 600 (no filler) • 300 (shoe cabinet)",
+  fillery:"With filler (582)",fillern:"No filler (600)",fillerhint:"With filler: body 582 + filler 18 = 600 depth",
+  shelves:"Shelves per unit",doors:"Doors per unit",rail:"Hanging rail",
+  raily:"Yes",railn:"No",cornice:"Top cornice (mm)",skirt:"Bottom skirting (mm)",
+  calc:"Calculate",empty:"Enter dimensions and hit Calculate",auto:"Auto",
+  c_units:"units",c_uw:"Unit width",c_bh:"Body height",c_sheets:"Sheets",c_waste:"Waste",
+  part:"Part",len:"Length",wid:"Width",qty:"Qty",grain:"Grain",unit:"Unit",mat:"Material",
+  p_body:"Side",p_ceil:"Ceiling",p_floor:"Floor",p_shelf:"Shelf",p_back:"Back fiber",
+  p_filler:"Filler",p_cornice:"Cornice",p_cornice_side:"Side cornice",p_patty:"Patty (skirting)",p_rail:"Rail",p_door:"Door",
+  grain_v:"Length",grain_h:"Cross",mdf:"MDF 18",fiber:"Fiber 4",door_mat:"Door (separate color)",
+  mdf_double:"MDF double 36",mdf_pvc:"MDF + PVC",
+  p_dw:"Drawer double-wall",p_side:"Side wall",p_toppanel:"Top panel",p_topin:"Inset top",p_boxtop:"Drawer box top",p_head:"Drawer head",p_fb:"Drawer front/back",
+  p_lr:"Drawer left/right",p_dwshelf:"Shelf over drawers",p_dwrail:"Rail over drawers",p_shoe:"Shoe rack",
+  drawermode:"Drawers",drawern:"No drawers",drawery:"Yes",drawercount:"Drawer count",
+  drawerunits:"Drawer units",boxtop:"Drawer box top",boxtopd:"Double (36)",boxtops:"Single (18)",
+  abovemode:"Above drawers (to top)",abover:"Rail",aboves:"Shelf",
+  drawerhint:"Double-wall height = drawer count × 200 • each drawer 200",
+  designmode:"Unit design",designs:"Simple (all same)",designp:"Per unit",
+  designhint:"In per-unit mode you arrange each unit's content from bottom to top",
+  sum_width:"Sum of unit widths",from_bottom:"Bottom to top",add_seg:"Add section",count:"Count",
+  seg_shelf:"Shelf",seg_drawer:"Drawer",seg_raillong:"Long rail",seg_railhalf:"Half rail",seg_shoe:"Shoe rack",
+  side_filler:"Side filler",filler_none:"None",filler_left:"Left",filler_right:"Right",
+  door_design:"Door design",door_plain:"Plain",door_glass:"Glass + frame",door_frame:"Frame + wood",door_mirror:"Mirror",
+  p_sidefiller:"Side filler",mirror_mat:"Mirror",glass_mat:"Glass + frame",
+  ceilth:"Ceiling thickness (mm)",pattyh:"Bottom patty — height (mm)",pattymode:"Patty position",
+  pattyhhint:"0 = no patty",tape_legend:"A line under a number = that edge is PVC-banded (one line: one side • two lines: both)",tape_total:"Total tape",p_skirt:"Skirting",p_tvpanel:"MDF panel (background)",tv_part:"Section",tv_secw:"Section width",tv_low:"Lower cabinet",tv_lowh:"Lower height",tv_up:"Upper cabinet",tv_uph:"Upper height",tv_count:"Count",tv_none:"None",tv_door:"Door",tv_drawer:"Drawer",tv_open:"Open shelf",tv_top:"Add top",tv_pattylr:"Patty left & right",tv_hint:"Each block height is set inside its section",tv_pattyh:"Side patty height (mm)",tvk_mirror:"Mirror",tv_join:"Boundary with next section",tvj_separate:"Separate wall (column)",tvj_shared:"Shared wall",tvj_gap:"Gap with front filler",tv_gapw:"Gap width",tv_okh:"height filled",inset:"Inset",overlay:"Overlay",doors_per_l:"Doors per unit",tv_single:"Single 18",tv_double:"Double 36",tv_perunit:"Design each unit inside",tv_addseg:"segment",tv_tvtype:"TV",tv_pattyr:"Patty right",tv_pattyl:"Patty left",tv_type:"Section type",tv_sech:"Section height",tv_hasdrawer:"Has drawers",tv_dcount:"Drawer count",tv_shelves:"Shelves",tv_rail:"Rail",tv_dcols:"Drawers side by side",tv_mount:"Drawer face",solo_dh_each:"Or set each drawer height (top down)",solo_dh_row:"Drawer",solo_col:"Column",solo_wsum:"Sum of column widths",pattyh_short:"Patty",solo_colhint:"height • drawers",solo_col_each:"Each column: height, drawer count, and each drawer height (from right)",tv_auto:"auto",tv_autohint:"leave a height empty to absorb the rest of the wall",p_mirror:"Mirror",p_gapfiller:"Front filler (gap)",tvk_patty:"Patty / skirting",tvk_door:"Door cabinet",tvk_drawer:"Drawers",tvk_open:"Open shelves",tvk_panel:"MDF panel (background)",tvk_desk:"Desk top",tvk_empty:"Empty space",tvk_cornice:"Cornice",tvk_ceil:"Horizontal top/floor",tv_secd:"Section depth",tv_shared:"Shared wall with next section",tv_blocks:"Blocks (bottom to top)",tv_addblock:"block",tv_h:"Height",p_desk:"Desk top",tv_pattyside:"Side patty",tv_right:"Right",tv_left_s:"Left",tv_both:"Both sides",tv_base:"Base",tv_skirting:"Skirting",tv_lown:"Lower count",tv_upn:"Upper count",tv_ok:"Widths add up",tv_left:"Remaining",tv_over:"Over the wall",g_body:"Carcass",g_drawer:"Drawer",g_door:"Doors",g_other:"Other",tape_click:"Tap any number to change its banding: none → one line → two lines",print_hint:"The browser blocked printing. Open the app in its own tab, or use Print → Save as PDF from the browser menu.",pattyio:"Between-out",pattyin:"Between-simple",pattyfr:"Front",project:"Project type",pjw:"Wardrobe",pjd:"Drawer unit",solo_w:"Width (mm)",solo_h:"Height (mm)",solo_d:"Depth (mm)",solo_n:"Drawer count",solo_boxes:"Columns side by side",solo_top:"Top panel thickness",solo_side:"Side wall",solo_dh:"Drawer height (mm)",solo_hm:"Drawer front mount",solo_topmode:"Top mount",solo_topout:"Panel only",solo_topin:"Panel + inset top per column",solo_hin:"Inset",solo_hov:"Overlay",solo_hint:"Drawer height = total height ÷ count",shape:"Shape",shapei:"Straight (I)",shapel:"Corner (L)",shapeu:"U-shape",wall_a:"Wall",wall_b:"Wall B",l_side:"Side wall on which side?",usable:"Usable",corner_unit:"Corner",mid_panel:"Mid panel",cell:"Cell",save_png:"Save image",save_pdf:"Export PDF",unit_width:"Extra unit (optional)",optional:"optional",side_start:"Left",side_end:"Right",has_door:"With door",no_door:"No door",unitwidth_i:"Extra unit (optional)",add_unit:"Add unit",del_unit:"Delete unit",p_midpanel:"Middle divider",wall_left:"Left wall",wall_front:"Front wall",wall_right:"Right wall",cornerfiller:"Corner filler (mm)",cornermin:"Corner cabinet width (mm)",cornermid:"Corner mid filler (mm)",cornermidhint:"After the depth lost in the corner, so doors can open",wallclear:"Side patty deduction (mm) — 0 = none",p_cornerfiller:"Corner filler",p_cornermid:"Corner mid filler",doormount:"Door mount",dmov:"Overlay",dmin:"Inset",doormounthint:"Overlay: from full unit width • Inset: from inner width",pattysplit:"Patty split",psplitu:"Per unit",psplitc:"Connected",psplitb:"Both",pattysplithint:"Connected: one piece; if longer than sheet, two equal pieces",floormode:"Floor vs patty",
+  flooron:"On patty (18 visible)",floorfr:"Front (18 hidden)",
+  floorhint:"If patty is front and depth is 600, floor depth is reduced by 18",
+  preview:"Preview layout",confirm:"Confirm & split",confirmq:"Layout correct? Confirm to see the cutting list",
+  section:"Side section",c_depth:"Body depth",depth:"Depth",floor:"Floor",view_doors:"Doors",view_inside:"Inside",view_3d:"3D",view_3d_open:"3D open",view_plan:"Plan",
+  xlsx:"Export Excel",print:"Print / PDF",view:"Front elevation",
+  pattyun:"Under floor",p_patty_side:"Patty side (L/R)",solo_inset:"Patty setback from edge (mm)",
+  solo_insethint:"Four-sided patty frame under the floor: front and back = floor width minus twice this • sides fit between them",
+  png_nosvg:"No drawing to save — hit Preview first",
+  png_hint:"If the file did not download, long-press the image and choose Save image.",
+  xlsx_hint:"If the .xls did not download, copy the table and paste it into Excel.",
+  copy_table:"Copy table",
+  foot:"Ceiling over sides • floor & shelves inset (−36) • 4mm back fiber overlaid • body depth 582 for inset door",
+  note_sheets:"Sheet count is finalized in the cut-optimization phase"}
+};
+let LANG="fa";
+
+/* ---------- constants ---------- */
+const T=18, FIBER=4, SHELF_CLEAR=1, SHELF_DEPTH_GAP=2, BACK_INSET=10;
+const MIN_UW=800, MAX_UW=1000;
+const DW=36, DW_DEPTH=500, DRAWER_H=200, BOX_H=150;  // دیوار دوبل، عمق، ارتفاع هر کشو، ارتفاع باکس
+const HEAD_CUT=4, FB_RAIL_CUT=27, LR_CUT=54, LR_PUSH=20; // کسرها: سرکشو، ریل جلو/عقب، جمع 3 قطعه، احتیاط پوش
+const BOX_MIN_CUT=30; // حداکثر کسر از سرکشو برای رسیدن به ارتفاع بدنه‌ی کشو
+const BOX_H2=200, BOX_STEP2=250; // بدنه‌ی 200 برای سرکشوی بالای 250
+// ارتفاع بدنه‌ی کشو از روی سرکشو: پله‌های 150 و 200، و بیشتر از 30 هم از سرکشو کم نمی‌کند
+function boxSideH(headH){
+  const h=Math.round(headH);
+  const cap = h>BOX_STEP2 ? BOX_H2 : BOX_H;
+  return Math.max(0, Math.min(cap, h-BOX_MIN_CUT));
+}
+
+/* ---------- unit-count logic (800..1000) ---------- */
+function unitOptions(wall){
+  const opts=[];
+  for(let n=1;n<=12;n++){
+  const w=wall/n;
+  if(w>=MIN_UW-40 && w<=MAX_UW+60) opts.push({n,w:Math.round(w)});
+  }
+  if(!opts.length){ // fallback nearest
+  const n=Math.max(1,Math.round(wall/900));
+  opts.push({n,w:Math.round(wall/n)});
+  }
+  return opts;
+}
+let chosenN=null;
+
+function renderUnitSeg(){
+  const wall=totalUsableWall();
+  const opts=unitOptions(wall);
+  if(chosenN!==null && !opts.some(o=>o.n===chosenN)){
+  opts.push({n:chosenN,w:Math.round(wall/chosenN)});
+  opts.sort((a,b)=>a.n-b.n);
+  }
+  const seg=document.getElementById('unitSeg');
+  if(chosenN===null && opts.length) chosenN=opts[Math.floor(opts.length/2)].n;
+  seg.innerHTML=opts.map(o=>
+  `<button data-n="${o.n}" class="${o.n===chosenN?'on':''}">${o.n} × ${o.w}</button>`).join('');
+  seg.querySelectorAll('button').forEach(b=>b.onclick=()=>{
+  chosenN=+b.dataset.n; document.getElementById('unitManual').value=''; unitPlans=[]; manualUnits=false; renderUnitSeg();
+  if(typeof renderDesigner==='function') renderDesigner();
+  });
+  const sum=document.getElementById('iSummary');
+  if(sum){
+  if(shape!=='I'){ sum.style.display='none'; }
+  else {
+  sum.style.display='block';
+  const raw=+document.getElementById('wallW').value||0;
+  const useLen=totalUsableWall();
+  const parts=unitLayout().map(u=>u.width);
+  const segI=wallSegments()[0];
+  sum.innerHTML=`<div style="opacity:.75;margin-bottom:3px">${segI.eq||`${raw} = ${useLen}`}</div>
+  <div>${parts.join(' + ')} <span style="opacity:.7">= ${parts.reduce((a,b)=>a+b,0)}</span></div>`;
+  }
+  }
+}
+
+/* ---------- shape (I / L / U) ---------- */
+let shape='I';
+let lSide='right';            // در حالت L، دیوار کناری چپ است یا راست
+let wallLens={A:3300,B:3000,C:3000};
+let wallUnitCounts={A:0,B:0,C:0};   // 0 = خودکار
+let wallUnitWidth={A:0,B:0,C:0};    // یونیت اضافی (0 = بدون)
+let wallExtraSide={A:'end',B:'end',C:'end'};  // یونیت اضافی در کدام سر دیوار
+let extraSideI='end';               // برای شکل I
+
+function autoUnitCount(len){
+  if(len<=0) return 1;
+  let best=Math.max(1,Math.round(len/900));
+  for(let n=1;n<=14;n++){ const w=len/n; if(w>=800&&w<=1000){best=n;break;} }
+  return best;
+}
+function wallUnitCount(key,len){
+  const manual=wallUnitCounts[key];
+  return manual&&manual>0 ? manual : autoUnitCount(len);
+}
+
+function renderWalls(){
+  const box=document.getElementById('wallsBox');
+  const cbox=document.getElementById('cornerBox');
+  const singleWall=document.getElementById('wallW').parentElement;
+  const unitField=document.getElementById('unitSeg').parentElement;
+  if(shape==='I'){
+  box.innerHTML=''; cbox.style.display='none'; singleWall.style.display='';
+  unitField.style.display='';
+  return;
+  }
+  singleWall.style.display='none';
+  unitField.style.display='none';
+  cbox.style.display='block';
+
+  const segs=wallSegments();
+  let html='';
+  if(shape==='L'){
+  html+=`<div class="field">
+  <label>${t('l_side')}</label>
+  <div class="seg" id="lSideSeg">
+  <button data-ls="left" class="${lSide==='left'?'on':''}">${t('wall_left')}</button>
+  <button data-ls="right" class="${lSide==='right'?'on':''}">${t('wall_right')}</button>
+  </div>
+  </div>`;
+  }
+  const order = shape==='L' ? (lSide==='left'?['B','A']:['A','B']) : ['A','B','C'];
+  order.forEach(k=>{
+  const seg=segs.find(s=>s.key===k);
+  const sp=wallSplit(seg);
+  const n=sp.n;
+  const uw=sp.w;
+  const mine=unitLayout().filter(u=>u.wallKey===k);
+  const summary=mine.length?mine.map(u=>u.width).join(' + '):`${n} × ${uw}`;
+  html+=`<div style="border:1px solid var(--line);border-radius:9px;padding:10px;margin-bottom:8px;background:var(--paper)">
+  <div style="font-size:12px;color:var(--accent);font-weight:600;margin-bottom:6px">${seg.name}${seg.corner?' ⌐':''}</div>
+  <div class="row2">
+  <div>
+  <label style="display:block;font-size:11px;color:var(--muted);margin-bottom:4px">${t('len')} (mm)</label>
+  <input type="number" data-wl="${k}" value="${wallLens[k]}" style="width:100%;padding:8px;border:1px solid var(--line);border-radius:7px;background:var(--panel);font-family:inherit">
+  </div>
+  <div>
+  <label style="display:block;font-size:11px;color:var(--muted);margin-bottom:4px">${t('units')}</label>
+  <div style="display:flex;gap:4px;align-items:center">
+  <button data-wminus="${k}" style="border:1px solid var(--line);background:var(--panel);color:var(--ink);border-radius:7px;width:30px;height:34px;cursor:pointer;font-size:16px;line-height:1">−</button>
+  <input type="number" data-wn="${k}" value="${wallUnitCounts[k]||''}" placeholder="${n}" min="1" max="14" style="flex:1;min-width:0;padding:8px;border:1px solid var(--line);border-radius:7px;background:var(--panel);font-family:inherit;text-align:center">
+  <button data-wplus="${k}" style="border:1px solid var(--accent);background:none;color:var(--accent);border-radius:7px;width:30px;height:34px;cursor:pointer;font-size:16px;line-height:1">+</button>
+  </div>
+  </div>
+  </div>
+  <div style="font-size:11px;color:var(--muted);margin-top:5px;line-height:1.7">
+  <div>${seg.eq||seg.len}</div>
+  <div style="color:var(--accent)">${summary}</div>
+  </div>
+  <div style="margin-top:6px">
+  <label style="display:block;font-size:11px;color:var(--muted);margin-bottom:4px">${t('unit_width')}</label>
+  <div style="display:flex;gap:6px">
+  <input type="number" data-ww="${k}" value="${wallUnitWidth[k]||''}" placeholder="${t('optional')}" min="0" style="flex:1;min-width:0;padding:8px;border:1px solid var(--line);border-radius:7px;background:var(--panel);font-family:inherit">
+  <select data-wes="${k}" style="width:96px;padding:8px;border:1px solid var(--line);border-radius:7px;background:var(--panel);font-family:inherit;font-size:12.5px">
+  <option value="start" ${(wallExtraSide[k]||'end')==='start'?'selected':''}>${t('side_start')}</option>
+  <option value="end" ${(wallExtraSide[k]||'end')==='end'?'selected':''}>${t('side_end')}</option>
+  </select>
+  </div>
+  </div>
+  </div>`;
+  });
+  box.innerHTML=html;
+
+  box.querySelectorAll('[data-wl]').forEach(el=>el.onchange=e=>{
+  wallLens[e.target.dataset.wl]=+e.target.value||0;
+  unitPlans=[]; manualUnits=false; renderWalls(); renderDesigner();
+  });
+  box.querySelectorAll('[data-wn]').forEach(el=>el.onchange=e=>{
+  wallUnitCounts[e.target.dataset.wn]=+e.target.value||0;
+  unitPlans=[]; manualUnits=false; renderWalls(); renderDesigner();
+  });
+  box.querySelectorAll('[data-wes]').forEach(el=>el.onchange=e=>{
+  wallExtraSide[e.target.dataset.wes]=e.target.value;
+  unitPlans=[]; manualUnits=false; renderWalls(); renderDesigner();
+  });
+  box.querySelectorAll('[data-ww]').forEach(el=>el.onchange=e=>{
+  wallUnitWidth[e.target.dataset.ww]=+e.target.value||0;
+  unitPlans=[]; manualUnits=false; renderWalls(); renderDesigner();
+  });
+  box.querySelectorAll('[data-wplus]').forEach(el=>el.onclick=e=>{
+  const k=e.target.dataset.wplus;
+  const seg=wallSegments().find(s=>s.key===k);
+  wallUnitCounts[k]=Math.min(14, wallUnitCount(k,seg?seg.len:0)+1);
+  unitPlans=[]; manualUnits=false; renderWalls(); renderDesigner();
+  });
+  box.querySelectorAll('[data-wminus]').forEach(el=>el.onclick=e=>{
+  const k=e.target.dataset.wminus;
+  const seg=wallSegments().find(s=>s.key===k);
+  wallUnitCounts[k]=Math.max(1, wallUnitCount(k,seg?seg.len:0)-1);
+  unitPlans=[]; manualUnits=false; renderWalls(); renderDesigner();
+  });
+  const ls=document.getElementById('lSideSeg');
+  if(ls) ls.querySelectorAll('button').forEach(b=>b.onclick=()=>{
+  lSide=b.dataset.ls; unitPlans=[]; manualUnits=false; renderWalls(); renderDesigner();
+  });
+}
+
+const WALL_CLEAR=100;   // پیش‌فرض؛ مقدار واقعی از فیلد خوانده می‌شود
+function wallClearVal(){
+  const el=document.getElementById('wallClear');
+  const v=el?+el.value:WALL_CLEAR;
+  return isNaN(v)?WALL_CLEAR:Math.max(0,v);
+}
+function wallSegments(){
+  const depth=+document.getElementById('bodyDepth').value||582;
+  const cf=+document.getElementById('cornerFiller').value||50;
+  const wc=wallClearVal();
+  const cut=(v)=>Math.max(0,v-wc);   // کسر پاتی کناری (اختیاری)
+  if(shape==='I'){
+  const raw=+document.getElementById('wallW').value||0;
+  return [{key:'A', name:t('wall_a'), len:cut(raw), corner:false, cornerAt:null,
+  eq:`${raw}${wc?` − ${wc}`:''} = ${cut(raw)}`}];
+  }
+  if(shape==='L'){
+  const fRaw=wallLens.A, fLen=Math.max(0,fRaw-depth-2*cf);
+  const sRaw=wallLens.B;
+  const front={key:'A', name:t('wall_front'), len:fLen, corner:true, cornerAt:null,
+  eq:`${fRaw} − ${depth} − ${2*cf} = ${fLen}`};
+  const side={key:'B', name:lSide==='left'?t('wall_left'):t('wall_right'), len:cut(sRaw),
+  corner:false, cornerAt: lSide==='left'?'end':'start',
+  eq:`${sRaw}${wc?` − ${wc}`:''} = ${cut(sRaw)}`};
+  return lSide==='left' ? [side,front] : [front,side];
+  }
+  const fRaw=wallLens.B, fLen=Math.max(0,fRaw-2*depth-2*cf);
+  return [
+  {key:'A', name:t('wall_left'),  len:cut(wallLens.A), corner:false, cornerAt:'end',
+  eq:`${wallLens.A}${wc?` − ${wc}`:''} = ${cut(wallLens.A)}`},
+  {key:'B', name:t('wall_front'), len:fLen, corner:true, cornerAt:null,
+  eq:`${fRaw} − ${depth} − ${depth} − ${2*cf} = ${fLen}`},
+  {key:'C', name:t('wall_right'), len:cut(wallLens.C), corner:false, cornerAt:'start',
+  eq:`${wallLens.C}${wc?` − ${wc}`:''} = ${cut(wallLens.C)}`}
+  ];
+}
+function totalUsableWall(){ return wallSegments().reduce((a,w)=>a+w.len,0); }
+
+function wallSplit(seg){
+  const cornerMin=+document.getElementById('cornerMin').value||1150;
+  const hasCornerUnit = shape!=='I' && seg.cornerAt && seg.len>cornerMin;
+  const extraW = shape==='I' ? (+document.getElementById('unitWidthI').value||0) : (wallUnitWidth[seg.key]||0);
+  let rem = seg.len;
+  if(hasCornerUnit) rem -= cornerMin;
+  const hasExtra = extraW>0 && rem>extraW;
+  if(hasExtra) rem -= extraW;
+  const manual = shape==='I' ? chosenN : (wallUnitCounts[seg.key]||0);
+  const n = (manual&&manual>0) ? manual : autoUnitCount(rem);
+  const w = rem>0 ? Math.round(rem/n) : 0;
+  return {hasCornerUnit, cornerMin, hasExtra, extraW, n, w};
+}
+
+function unitLayout(){
+  const out=[];
+  wallSegments().forEach(seg=>{
+  const s=wallSplit(seg);
+  const rest=[];
+  let remLen = seg.len - (s.hasCornerUnit?s.cornerMin:0) - (s.hasExtra?s.extraW:0);
+  for(let i=0;i<s.n;i++){
+  const wid = (i===s.n-1) ? Math.max(0, remLen - s.w*(s.n-1)) : s.w;
+  rest.push({wallKey:seg.key, wallName:seg.name, width:wid, isCorner:false});
+  }
+  if(s.hasExtra){
+  const ex={wallKey:seg.key, wallName:seg.name, width:s.extraW, isCorner:false, isExtra:true};
+  const side = shape==='I' ? extraSideI : (wallExtraSide[seg.key]||'end');
+  if(side==='start') rest.unshift(ex); else rest.push(ex);
+  }
+  const cornerUnit={wallKey:seg.key, wallName:seg.name, width:s.cornerMin, isCorner:true};
+  if(s.hasCornerUnit && seg.cornerAt==='start') out.push(cornerUnit, ...rest);
+  else if(s.hasCornerUnit) out.push(...rest, cornerUnit);
+  else out.push(...rest);
+  });
+  return out;
+}
+function totalUnitCount(){ return unitLayout().length; }
+
+/* ---------- per-unit designer ---------- */
+const RAIL_LONG=1800, RAIL_HALF=900, SHELF_AFTER_RAIL=100;
+let designMode='simple';
+let unitPlans=[];  // آرایه: هر عنصر {width, wallKey, segs, filler, door, midPanel}
+let manualUnits=false;  // اگر کاربر یونیت‌ها را دستی تغییر داد، بازسازی خودکار نشود
+
+function segTypeLabel(tp){
+  return {drawer:t('seg_drawer'),rail_long:t('seg_raillong'),rail_half:t('seg_railhalf'),shelf:t('seg_shelf'),shoe:t('seg_shoe')}[tp]||tp;
+}
+
+function ensureUnitPlans(){
+  const layout=unitLayout();
+  if(manualUnits && unitPlans.length){
+  unitPlans.forEach(u=>{
+  if(u.filler===undefined) u.filler='none';
+  if(u.fillerW===undefined) u.fillerW=18;
+  if(u.door===undefined) u.door='plain';
+  if(u.doorCount===undefined) u.doorCount=2;
+  if(u.midPanel===undefined) u.midPanel=0;
+  });
+  return;
+  }
+  if(unitPlans.length!==layout.length){
+  unitPlans=layout.map(u=>({width:u.width, wallKey:u.wallKey, wallName:u.wallName, isCorner:u.isCorner,
+  segs:[{type:'shelf',count:3}], cells:[[{type:'shelf',count:3}]], filler:'none', fillerW:18, door:'plain', doorCount:2, midPanel:0}));
+  } else {
+  unitPlans.forEach((u,i)=>{ u.wallKey=layout[i].wallKey; u.wallName=layout[i].wallName; u.isCorner=layout[i].isCorner; });
+  }
+  unitPlans.forEach(u=>{
+  if(u.filler===undefined) u.filler='none';
+  if(u.fillerW===undefined) u.fillerW=18;
+  if(u.door===undefined) u.door='plain';
+  if(u.doorCount===undefined) u.doorCount=2;
+  if(u.midPanel===undefined) u.midPanel=0;
+  });
+}
+
+function renderDesigner(){
+  const panel=document.getElementById('designerPanel');
+  if(designMode!=='perunit'){ panel.style.display='none'; return; }
+  ensureUnitPlans();
+  panel.style.display='block';
+  const segs=wallSegments();
+  let html='';
+  let lastWall=null;
+  unitPlans.forEach((u,i)=>{
+  if(shape!=='I' && u.wallKey!==lastWall){
+  const seg=segs.find(s=>s.key===u.wallKey);
+  const sumThis=unitPlans.filter(x=>x.wallKey===u.wallKey).reduce((a,x)=>a+(+x.width||0),0);
+  const d=(seg?seg.len:0)-sumThis;
+  html+=`<div style="margin:14px 0 8px;padding:8px 10px;background:var(--accent-soft);border-radius:8px;
+  font-size:12.5px;font-weight:700;color:var(--accent);display:flex;justify-content:space-between;align-items:center">
+  <span>${u.wallName||''}</span>
+  <span style="display:flex;align-items:center;gap:8px">
+  <span style="font-weight:400;color:${d===0?'var(--accent)':'#c2703d'}">${sumThis} / ${seg?seg.len:0}${d!==0?` (${d>0?'+':''}${d})`:' ✓'}</span>
+  <button data-uadd="${u.wallKey}" title="${t('add_unit')}" style="border:1px solid var(--accent);background:none;color:var(--accent);border-radius:6px;width:24px;height:24px;cursor:pointer;font-size:15px;line-height:1">+</button>
+  </span>
+  </div>`;
+  lastWall=u.wallKey;
+  } else if(shape==='I' && i===0){
+  const wall=totalUsableWall();
+  const sumW=unitPlans.reduce((a,x)=>a+(+x.width||0),0);
+  const diff=wall-sumW;
+  html+=`<div style="display:flex;justify-content:space-between;align-items:center;margin:8px 0">
+  <span style="font-size:12px;color:${diff===0?'var(--accent)':'#c2703d'}">
+  ${t('sum_width')}: ${sumW} / ${wall} ${diff!==0?`(${diff>0?'+':''}${diff})`:'✓'}</span>
+  <button data-uadd="A" title="${t('add_unit')}" style="border:1px solid var(--accent);background:none;color:var(--accent);border-radius:6px;width:24px;height:24px;cursor:pointer;font-size:15px;line-height:1">+</button>
+  </div>`;
+  }
+  html+=`<div style="border:1px solid var(--line);border-radius:10px;padding:12px;margin-bottom:10px;background:var(--paper)">
+  <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
+  <b style="font-size:13px;color:var(--accent)">${t('unit')} ${i+1}${u.isCorner?` · ${t('corner_unit')}`:''}</b>
+  <div style="display:flex;align-items:center;gap:6px">
+  <span style="font-size:11px;color:var(--muted)">${t('wid')}</span>
+  <input type="number" data-uw="${i}" value="${u.width}" style="width:80px;padding:5px 8px;border:1px solid var(--line);border-radius:7px;background:var(--panel);font-family:inherit">
+  <span style="font-size:11px;color:var(--muted);margin-right:4px">${t('mid_panel')}</span>
+  <input type="number" data-umid="${i}" value="${u.midPanel||0}" min="0" max="3" style="width:48px;padding:5px 6px;border:1px solid var(--line);border-radius:7px;background:var(--panel);font-family:inherit">
+  <button data-udel="${i}" title="${t('del_unit')}" style="border:none;background:none;color:#c2703d;cursor:pointer;font-size:17px;padding:0 2px">×</button>
+  </div>
+  </div>`;
+  const mid=+u.midPanel||0;
+  if(!u.cells) u.cells=[u.segs||[{type:'shelf',count:3}]];
+  while(u.cells.length<mid+1) u.cells.push(JSON.parse(JSON.stringify(u.cells[0])));
+  if(u.cells.length>mid+1) u.cells.length=mid+1;
+  u.cells.forEach((cellSegs,c)=>{
+  if(mid>0){
+  html+=`<div style="font-size:11.5px;color:var(--accent);font-weight:600;margin:8px 0 5px;padding-bottom:3px;border-bottom:1px solid var(--accent-soft)">${t('cell')} ${c+1}</div>`;
+  } else {
+  html+=`<div style="font-size:11px;color:var(--muted);margin-bottom:6px">${t('from_bottom')}:</div>`;
+  }
+  cellSegs.forEach((s,j)=>{
+  html+=`<div style="display:flex;gap:6px;align-items:center;margin-bottom:5px">
+  <select data-seg="${i}-${c}-${j}" style="flex:1;padding:6px;border:1px solid var(--line);border-radius:7px;background:var(--panel);font-family:inherit;font-size:12.5px">
+  <option value="shelf" ${s.type==='shelf'?'selected':''}>${t('seg_shelf')}</option>
+  <option value="drawer" ${s.type==='drawer'?'selected':''}>${t('seg_drawer')}</option>
+  <option value="rail_long" ${s.type==='rail_long'?'selected':''}>${t('seg_raillong')}</option>
+  <option value="rail_half" ${s.type==='rail_half'?'selected':''}>${t('seg_railhalf')}</option>
+  <option value="shoe" ${s.type==='shoe'?'selected':''}>${t('seg_shoe')}</option>
+  </select>`;
+  if(s.type==='drawer'||s.type==='shelf'||s.type==='shoe'){
+  html+=`<input type="number" data-segc="${i}-${c}-${j}" value="${s.count||1}" min="1" max="10" title="${t('count')}" style="width:56px;padding:6px;border:1px solid var(--line);border-radius:7px;background:var(--panel);font-family:inherit;font-size:12.5px">`;
+  } else html+=`<span style="width:56px"></span>`;
+  html+=`<button data-segdel="${i}-${c}-${j}" style="border:none;background:none;color:#c2703d;cursor:pointer;font-size:16px;padding:0 4px">×</button></div>`;
+  });
+  html+=`<button data-segadd="${i}-${c}" style="margin-top:4px;margin-bottom:6px;border:1px dashed var(--accent);background:none;color:var(--accent);border-radius:7px;padding:5px 10px;cursor:pointer;font-family:inherit;font-size:12px">+ ${t('add_seg')}</button>`;
+  });
+  html+=`<div style="margin-top:10px;padding-top:8px;border-top:1px dashed var(--line)">
+  <div style="font-size:11px;color:var(--muted);margin-bottom:4px">${t('side_filler')}:</div>
+  <div style="display:flex;gap:6px;align-items:center">
+  <select data-uf="${i}" style="flex:1;padding:6px;border:1px solid var(--line);border-radius:7px;background:var(--panel);font-family:inherit;font-size:12.5px">
+  <option value="none" ${u.filler==='none'?'selected':''}>${t('filler_none')}</option>
+  <option value="left" ${u.filler==='left'?'selected':''}>${t('filler_left')}</option>
+  <option value="right" ${u.filler==='right'?'selected':''}>${t('filler_right')}</option>
+  </select>
+  ${u.filler!=='none'?`<input type="number" data-ufw="${i}" value="${u.fillerW}" title="${t('wid')}" style="width:64px;padding:6px;border:1px solid var(--line);border-radius:7px;background:var(--panel);font-family:inherit;font-size:12.5px">`:'<span style="width:64px"></span>'}
+  </div>
+  </div>`;
+  html+=`<div style="margin-top:8px">
+  <div style="font-size:11px;color:var(--muted);margin-bottom:4px">${t('door_design')}:</div>
+  <div style="display:flex;gap:6px">
+  <select data-ud="${i}" style="flex:1;padding:6px;border:1px solid var(--line);border-radius:7px;background:var(--panel);font-family:inherit;font-size:12.5px">
+  <option value="plain" ${u.door==='plain'?'selected':''}>${t('door_plain')}</option>
+  <option value="glass" ${u.door==='glass'?'selected':''}>${t('door_glass')}</option>
+  <option value="frame" ${u.door==='frame'?'selected':''}>${t('door_frame')}</option>
+  <option value="mirror" ${u.door==='mirror'?'selected':''}>${t('door_mirror')}</option>
+  </select>
+  <select data-uhd="${i}" style="width:88px;padding:6px;border:1px solid var(--line);border-radius:7px;background:var(--panel);font-family:inherit;font-size:12.5px">
+  <option value="1" ${(u.doorCount||0)>0?'selected':''}>${t('has_door')}</option>
+  <option value="0" ${(u.doorCount||0)===0?'selected':''}>${t('no_door')}</option>
+  </select>
+  <input type="number" data-udc="${i}" value="${u.doorCount||0}" min="0" max="4" title="${t('doors')}" style="width:52px;padding:6px;border:1px solid var(--line);border-radius:7px;background:var(--panel);font-family:inherit;font-size:12.5px${(u.doorCount||0)===0?';opacity:.45':''}">
+  </div>
+  </div>`;
+  html+=`</div>`;
+  });
+  panel.innerHTML=html;
+
+  panel.querySelectorAll('[data-uf]').forEach(el=>el.onchange=e=>{unitPlans[+e.target.dataset.uf].filler=e.target.value;renderDesigner();});
+  panel.querySelectorAll('[data-ufw]').forEach(el=>el.onchange=e=>{unitPlans[+e.target.dataset.ufw].fillerW=+e.target.value||18;});
+  panel.querySelectorAll('[data-ud]').forEach(el=>el.onchange=e=>{unitPlans[+e.target.dataset.ud].door=e.target.value;});
+  panel.querySelectorAll('[data-udc]').forEach(el=>el.onchange=e=>{unitPlans[+e.target.dataset.udc].doorCount=+e.target.value;renderDesigner();});
+  panel.querySelectorAll('[data-uhd]').forEach(el=>el.onchange=e=>{
+  const i=+e.target.dataset.uhd;
+  unitPlans[i].doorCount = e.target.value==='1' ? (unitPlans[i].doorCount||2) : 0;
+  renderDesigner();
+  });
+  panel.querySelectorAll('[data-umid]').forEach(el=>el.onchange=e=>{unitPlans[+e.target.dataset.umid].midPanel=+e.target.value||0;renderDesigner();});
+  panel.querySelectorAll('[data-udel]').forEach(el=>el.onclick=e=>{
+  const i=+e.target.dataset.udel;
+  if(unitPlans.length>1){ unitPlans.splice(i,1); manualUnits=true; renderDesigner(); }
+  });
+  panel.querySelectorAll('[data-uadd]').forEach(el=>el.onclick=e=>{
+  const wk=e.target.dataset.uadd;
+  let idx=-1;
+  unitPlans.forEach((u,j)=>{ if(shape==='I' || u.wallKey===wk) idx=j; });
+  const src=unitPlans[idx]||unitPlans[0];
+  const seg=wallSegments().find(s=>s.key===wk)||wallSegments()[0];
+  const sumThis=unitPlans.filter(x=>shape==='I'||x.wallKey===wk).reduce((a,x)=>a+(+x.width||0),0);
+  const remain=Math.max(100,(seg?seg.len:0)-sumThis);
+  unitPlans.splice(idx+1,0,{width:remain, wallKey:(shape==='I'?'A':wk), wallName:src?src.wallName:'', isCorner:false,
+  segs:[{type:'shelf',count:3}], cells:[[{type:'shelf',count:3}]], filler:'none', fillerW:18, door:'plain', doorCount:2, midPanel:0});
+  manualUnits=true; renderDesigner();
+  });
+  panel.querySelectorAll('[data-uw]').forEach(el=>el.onchange=e=>{unitPlans[+e.target.dataset.uw].width=+e.target.value||0;manualUnits=true;renderDesigner();});
+  panel.querySelectorAll('[data-seg]').forEach(el=>el.onchange=e=>{
+  const [i,c,j]=e.target.dataset.seg.split('-').map(Number);
+  const sg=unitPlans[i].cells[c][j];
+  sg.type=e.target.value;
+  if((sg.type==='drawer'||sg.type==='shelf'||sg.type==='shoe')&&!sg.count) sg.count=3;
+  renderDesigner();
+  });
+  panel.querySelectorAll('[data-segc]').forEach(el=>el.onchange=e=>{
+  const [i,c,j]=e.target.dataset.segc.split('-').map(Number);
+  unitPlans[i].cells[c][j].count=+e.target.value||1;
+  });
+  panel.querySelectorAll('[data-segdel]').forEach(el=>el.onclick=e=>{
+  const [i,c,j]=e.target.dataset.segdel.split('-').map(Number);
+  unitPlans[i].cells[c].splice(j,1);
+  if(!unitPlans[i].cells[c].length) unitPlans[i].cells[c].push({type:'shelf',count:3});
+  renderDesigner();
+  });
+  panel.querySelectorAll('[data-segadd]').forEach(el=>el.onclick=e=>{
+  const [i,c]=e.target.dataset.segadd.split('-').map(Number);
+  unitPlans[i].cells[c].push({type:'shelf',count:2});
+  renderDesigner();
+  });
+}
+
+/* ---------- core calculation ---------- */
+const FIBER_L=2440, FIBER_W=1220;   // ورق فیبر پشت: بزرگ‌تر از این نمی‌آید
+function addBackFiber(P, h, w, qty){
+  if(h<=0||w<=0) return;
+  const fits=(a,b)=>(a<=FIBER_L&&b<=FIBER_W)||(a<=FIBER_W&&b<=FIBER_L);
+  if(fits(h,w)){ P('p_back', Math.round(h), Math.round(w), qty, 'v', 'fiber'); return; }
+  let nh=1,nw=1,ph=h,pw=w;
+  for(let i=0;i<14;i++){
+  ph=h/nh; pw=w/nw;
+  if(fits(ph,pw)) break;
+  if(ph>pw) nh++; else nw++;
+  }
+  P('p_back', Math.round(ph), Math.round(pw), qty*nh*nw, 'v', 'fiber');
+}
+
+function doorsPerGlobal(){ return +document.getElementById('doorsPer').value||2; }
+
+function addPatty(P, split, pattyH, wall, innerWidths, sheetLen){
+  if(pattyH<=0) return;
+  const doUnit = ()=> innerWidths.forEach(iw=>P('p_patty', iw, pattyH, 1, 'h', 'mdf'));
+  const doConnected = ()=>{
+  if(wall<=sheetLen){ P('p_patty', wall, pattyH, 1, 'h', 'mdf'); }
+  else { const half=Math.round(wall/2); P('p_patty', half, pattyH, 2, 'h', 'mdf'); }
+  };
+  if(split==='unit') doUnit();
+  else if(split==='connected') doConnected();
+  else { doUnit(); doConnected(); }  // both: هر دو لایه
+}
+
+function calculate_ORIG_PLACEHOLDER(){}
+
+function layoutSegs(segs, iw, usableH, depthBody, P){
+  const shelfDepth=depthBody-SHELF_DEPTH_GAP;
+  let used=0, railCount=0, shoeCount=0;
+  const shelfSegs=[];
+  segs.forEach(s=>{
+  if(s.type==='drawer'){
+  const cnt=s.count||1;
+  const clearW=iw-2*DW;
+  P('p_dw', cnt*DRAWER_H, DW_DEPTH, 2, 'v', 'mdf_double');
+  P('p_boxtop', iw, DW_DEPTH, 1, 'h', 'mdf'); // سقف باکس، عرض مثل کف و رف (عرض داخلی)
+  P('p_head', clearW-HEAD_CUT, DRAWER_H-HEAD_CUT, cnt, 'h', 'mdf_pvc');
+  P('p_fb', clearW-FB_RAIL_CUT, boxSideH(DRAWER_H-HEAD_CUT), 2*cnt, 'h', 'mdf');
+  P('p_lr', DW_DEPTH-LR_CUT-LR_PUSH, boxSideH(DRAWER_H-HEAD_CUT), 2*cnt, 'h', 'mdf');
+  used+=cnt*DRAWER_H;
+  } else if(s.type==='rail_long'){
+  P('p_rail', iw, 30, 1, 'h', 'mdf');
+  used+=RAIL_LONG+SHELF_AFTER_RAIL;
+  } else if(s.type==='rail_half'){
+  P('p_rail', iw, 30, 1, 'h', 'mdf');
+  used+=RAIL_HALF+SHELF_AFTER_RAIL;
+  } else if(s.type==='shoe'){
+  const cnt=s.count||3;
+  P('p_shoe', iw-SHELF_CLEAR, shelfDepth, cnt, 'h', 'mdf');
+  used+=cnt*80;
+  } else if(s.type==='shelf'){
+  shelfSegs.push(s);
+  }
+  });
+  const totalShelves=shelfSegs.reduce((a,s)=>a+(s.count||1),0);
+  if(totalShelves>0){
+  P('p_shelf', iw-SHELF_CLEAR, shelfDepth, totalShelves, 'h', 'mdf');
+  }
+}
+
+let projectType='wardrobe';
+
+/* لایه‌ی نازک برای دیوار تلویزیون: فیلدها را موقتاً ست می‌کند، calcSolo را صدا می‌زند،
+   و همه‌چیز را برمی‌گرداند. خود calcSolo دست‌نخورده می‌ماند. */
+function calcSoloWith(o){
+  o=o||{};
+  const F={W:'soloW',H:'soloH',D:'soloD',nD:'soloN',cols:'soloBoxes',top:'soloTop',
+  side:'soloSide',mount:'soloHeadMount',manualDH:'soloDH',pattyH:'pattyH',pattyInset:'pattyInset'};
+  const saved={}, segs=[];
+  const segSet=(sel,attr,val)=>{
+  if(val===undefined||val===null) return;
+  const btns=[...document.querySelectorAll(sel+' button')];
+  const prev=btns.find(b=>b.classList.contains('on'));
+  const next=btns.find(b=>b.dataset[attr]===val);
+  if(next){ btns.forEach(b=>b.classList.remove('on')); next.classList.add('on'); segs.push([sel,prev]); }
+  };
+  try{
+  Object.entries(F).forEach(([k,id])=>{
+  const el=document.getElementById(id);
+  if(el && o[k]!==undefined){ saved[id]=el.value; el.value=o[k]; }
+  });
+  segSet('#pattySeg','p',o.pattyMode);
+  segSet('#pattySplitSeg','ps',o.pattySplit);
+  if(o.floorHidden!==undefined) segSet('#floorSeg','fl', o.floorHidden?'front':'on');
+  return calcSolo();
+  } finally {
+  Object.entries(saved).forEach(([id,v])=>{ const el=document.getElementById(id); if(el) el.value=v; });
+  segs.forEach(([sel,prev])=>{
+  if(!prev) return;
+  document.querySelectorAll(sel+' button').forEach(b=>b.classList.remove('on'));
+  prev.classList.add('on');
+  });
+  }
+}
+/* ارتفاع جداگانه‌ی هر کشو، از بالا به پایین. هر کادر خالی، باقی‌مانده را بین خالی‌ها تقسیم می‌کند.
+   اگر هیچ کادری پر نشده باشد، دقیقاً مثل قبل همه هم‌قد می‌شوند. */
+let SOLO_DH=[];
+let SOLO_COL=[];   // برای هر ستون: {n: تعداد کشو، dh: [ارتفاع‌ها از بالا]}
+/* ستون‌ها را برمی‌گرداند؛ ستونی که چیزی برایش تعیین نشده، همان تعداد کلی را می‌گیرد */
+function soloColumns(){
+  const cols=Math.max(1,+document.getElementById('soloBoxes').value||1);
+  const nD=+document.getElementById('soloN').value||0;
+  const out=[];
+  for(let c=0;c<cols;c++){
+  const st=SOLO_COL[c]||{};
+  out.push({ n: (+st.n>0?+st.n:nD), H: (+st.H>0?+st.H:0), w: (+st.w>0?+st.w:0),
+  patty: (st.patty===undefined?true:!!st.patty), dh: st.dh||(c===0?SOLO_DH:[]) });
+  }
+  return out;
+}
+/* عرضی که برای هر ستون وارد می‌شود، عرض بیرونی باکس است و جمعشان = عرض کل.
+   صافی داخل هر ستون = عرض بیرونی منهای سهم دیوارها:
+   دیوار کناری کامل در دو سر، و نصف بدنه‌ی وسط در هر مرز مشترک. */
+function soloOuterWidths(W, COLS){
+  const fixed=COLS.reduce((a,c)=>a+(c.w>0?c.w:0),0);
+  const blanks=COLS.filter(c=>!(c.w>0)).length;
+  const each=blanks?Math.max(0,Math.round((W-fixed)/blanks)):0;
+  return COLS.map(c=>c.w>0?c.w:each);
+}
+function soloColWidths(W, COLS, sideTh){
+  const outer=soloOuterWidths(W, COLS), n=COLS.length;
+  return outer.map((w,i)=>{
+  const left  = (i===n-1) ? sideTh : T/2;
+  const right = (i===0)   ? sideTh : T/2;
+  return Math.max(0, Math.round(w-left-right));
+  });
+}
+function soloColHeights(clearH, col){
+  const vals=[];
+  for(let i=0;i<col.n;i++) vals.push(+col.dh[i]||0);
+  if(!vals.some(v=>v>0)) return vals.map(()=>Math.round(clearH/Math.max(1,col.n)));
+  const fixed=vals.reduce((a,v)=>a+(v>0?v:0),0);
+  const blanks=vals.filter(v=>!(v>0)).length;
+  const each=blanks?Math.max(0,Math.round((clearH-fixed)/blanks)):0;
+  return vals.map(v=>v>0?v:each);
+}
+function soloDrawerHeights(clearH, nD, evenH){
+  const vals=[];
+  for(let i=0;i<nD;i++) vals.push(+SOLO_DH[i]||0);
+  if(!vals.some(v=>v>0)) return vals.map(()=>evenH);
+  const fixed=vals.reduce((a,v)=>a+(v>0?v:0),0);
+  const blanks=vals.filter(v=>!(v>0)).length;
+  const each=blanks?Math.max(0,Math.round((clearH-fixed)/blanks)):0;
+  return vals.map(v=>v>0?v:each);
+}
+function renderSoloDH(){
+  const host=document.getElementById('soloDHList');
+  if(!host) return;
+  const cols=Math.max(1,+document.getElementById('soloBoxes').value||1);
+  const nD=+document.getElementById('soloN').value||0;
+  if(nD<1 && cols<2){ host.innerHTML=''; return; }
+  const inp='padding:6px 8px;border:1px solid var(--line);border-radius:7px;background:var(--paper);color:var(--ink);font-family:inherit;font-size:12.5px';
+  // با چند ستون، هر ستون ارتفاع و تعداد خودش را دارد؛ فیلدهای کلی پایین بسته می‌شوند
+  const multi = cols>1;
+  ['soloHField','soloNField','soloDHField'].forEach(id=>{
+  const el=document.getElementById(id);
+  if(el) el.style.display = multi?'none':'';
+  });
+  if(multi) for(let c=0;c<cols;c++){
+  SOLO_COL[c]=SOLO_COL[c]||{n:0,dh:[]};
+  if(!(+SOLO_COL[c].H>0)) SOLO_COL[c].H=+document.getElementById('soloH').value||0;
+  if(!(+SOLO_COL[c].n>0)) SOLO_COL[c].n=nD;
+  }
+  const COLS=soloColumns();
+  let h=`<div style="font-size:11px;color:var(--muted);margin-bottom:4px">${t(multi?'solo_col_each':'solo_dh_each')}</div>`;
+  COLS.forEach((col,c)=>{
+  if(cols>1)
+  h+=`<div style="display:flex;align-items:center;gap:6px;margin:7px 0 4px">
+  <span style="font-size:11.5px;color:#3f6b5e;min-width:52px">${t('solo_col')} ${c+1}</span>
+  <input type="number" inputmode="numeric" data-cw="${c}" value="${col.w||''}"
+  placeholder="${t('solo_w')}" style="width:66px;${inp}">
+  <input type="number" inputmode="numeric" data-ch="${c}" value="${col.H||''}"
+  placeholder="${t('solo_h')}" style="width:66px;${inp}">
+  <input type="number" inputmode="numeric" data-cn="${c}" value="${col.n}"
+  placeholder="${t('solo_n')}" style="width:60px;${inp}">
+  <label style="display:flex;align-items:center;gap:5px;font-size:11.5px;color:var(--muted);cursor:pointer">
+  <input type="checkbox" data-cp="${c}"${col.patty?' checked':''}> ${t('pattyh_short')}</label></div>`;
+  for(let i=0;i<col.n;i++)
+  h+=`<div style="display:flex;align-items:center;gap:6px;margin-bottom:4px">
+  <span style="font-size:11.5px;color:var(--muted);min-width:52px">${t('solo_dh_row')} ${i+1}</span>
+  <input type="number" inputmode="numeric" data-c="${c}" data-dh="${i}" value="${(col.dh[i])||''}"
+  placeholder="${t('tv_auto')}" style="flex:1;min-width:0;${inp}"></div>`;
+  });
+  if(multi){
+  const Wall=+document.getElementById('soloW').value||0;
+  const sum=soloOuterWidths(Wall, COLS).reduce((a,v)=>a+v,0);
+  const d=Wall-sum;
+  h+=`<div style="font-size:11.5px;margin-top:2px;color:${d===0?'#3f6b5e':'#a8562f'}">
+  ${t('solo_wsum')}: ${sum} / ${Wall}${d===0?' ✓':' • '+(d>0?t('tv_left'):t('tv_over'))+': '+Math.abs(d)}</div>`;
+  }
+  host.innerHTML=h;
+  const store=(c)=>{ SOLO_COL[c]=SOLO_COL[c]||{n:0,dh:[]}; SOLO_COL[c].dh=SOLO_COL[c].dh||[]; return SOLO_COL[c]; };
+  host.querySelectorAll('[data-cw]').forEach(el=>{
+  el.addEventListener('input',()=>{ store(+el.dataset.cw).w=+el.value||0; });
+  el.addEventListener('change',()=>{ renderSoloDH(); if(window.__preview) preview(); });
+  });
+  host.querySelectorAll('[data-cp]').forEach(el=>{
+  el.addEventListener('change',()=>{ store(+el.dataset.cp).patty=el.checked; if(window.__preview) preview(); });
+  });
+  host.querySelectorAll('[data-ch]').forEach(el=>{
+  el.addEventListener('input',()=>{ store(+el.dataset.ch).H=+el.value||0; });
+  el.addEventListener('change',()=>{ if(window.__preview) preview(); });
+  });
+  host.querySelectorAll('[data-cn]').forEach(el=>{
+  el.addEventListener('input',()=>{ store(+el.dataset.cn).n=+el.value||0; });
+  el.addEventListener('change',()=>{ renderSoloDH(); if(window.__preview) preview(); });
+  });
+  host.querySelectorAll('[data-dh]').forEach(el=>{
+  el.addEventListener('input',()=>{
+  const c=+el.dataset.c, i=+el.dataset.dh;
+  store(c).dh[i]=+el.value||0;
+  if(c===0) SOLO_DH[i]=+el.value||0;
+  });
+  el.addEventListener('change',()=>{ if(window.__preview) preview(); });
+  });
+}
+/* ستون‌هایی با ارتفاع متفاوت (مثل میز مکتب: دو پایه بلند و وسط کوتاه).
+   فقط وقتی صدا زده می‌شود که ارتفاع ستون‌ها یکی نباشد؛ در غیر این صورت مسیر قبلی دست‌نخورده اجرا می‌شود. */
+function calcSoloVarH(){
+  const W=+document.getElementById('soloW').value||800;
+  const H=+document.getElementById('soloH').value||800;
+  const D=+document.getElementById('soloD').value||500;
+  const top=document.getElementById('soloTop').value;
+  const sideTh=(document.getElementById('soloSide').value==='single')?T:DW;
+  const topTh=(top==='double')?DW:T;
+  const pattyH=+document.getElementById('pattyH').value||0;
+  const pattyMode=document.querySelector('#pattySeg button.on').dataset.p;
+  const under=(pattyMode==='under');
+  const headOverlay=document.getElementById('soloHeadMount').value==='overlay';
+  const pattyInset=under?(+document.getElementById('pattyInset').value||0):0;
+  const sheetLen0=+document.getElementById('sheet').value.split('x')[0];
+  const COLS=soloColumns(), cols=COLS.length;
+  const parts=[];
+  const P=(key,L,Wd,q,grain,mat)=>{ if(L>0&&Wd>0&&q>0) parts.push({key,L:Math.round(L),W:Math.round(Wd),q,grain,mat}); };
+
+  const clearTotal=Math.max(0, W-2*sideTh-(cols-1)*T);
+  const OUT=soloOuterWidths(W, COLS);          // عرض بیرونی هر ستون
+  const WS=soloColWidths(W, COLS, sideTh);     // صافی داخل هر ستون
+  const iw=Math.round(clearTotal/cols);
+  const topD=D+T;                             // سقف روی سرکشو هم می‌آید
+  const OVL_SIDE=2, OVL_PATTY=20, OVL_GAP=3;
+
+  const topInset=document.getElementById('soloTopMode').value==='inset';   // سقف توکار هر ستون
+  const floorHidden=document.querySelector('#floorSeg button.on').dataset.fl==='front';
+  // کف روبه‌رو / 18 پنهان: عمق کف 18 کم می‌شود (فقط ستونی که پاتی دارد)
+  const floorDepthOf=ph=>(ph>0 && !under && (pattyMode==='front'||floorHidden)) ? D-T : D;
+  const geo=COLS.map(col=>{
+  const Hc=col.H>0?col.H:H;
+  const hang=!col.patty;                          // ستون معلق: نه پاتی، نه کف
+  const ph=hang?0:pattyH;                         // ستون بدون پاتی: ارتفاعش خالص باکس است
+  const spanH=Math.max(0,Hc-ph);                  // سقف خارجی روی بدنه می‌نشیند، از ارتفاع کم نمی‌شود
+  const clearH=Math.max(0,spanH-(hang?0:T)-(topInset?T:0));   // سقف توکار 18
+  const sideWallH=under?clearH:((pattyMode==='front')?spanH:spanH+ph);
+  return {Hc, spanH, clearH, sideWallH, ph, hang};
+  });
+
+  // دیوارهای عمودی: هر مرز به بلندترین ستون کنارش
+  for(let k=0;k<=cols;k++){
+  const L=geo[k-1], R=geo[k];
+  const h=Math.max(L?L.sideWallH:0, R?R.sideWallH:0);
+  P(sideTh===DW?'p_dw':'p_side', h, D, (k===0||k===cols)?1:1, 'v', sideTh===DW?'mdf_double':'mdf');
+  }
+
+  P('p_toppanel', W, topD, 1, 'h', top==='double'?'mdf_double':'mdf');   // صفحه‌ی بالا: عرض کامل × (عمق + 18)
+  COLS.forEach((col,c)=>{
+  const g=geo[c], iwc=WS[c];
+  if(topInset) P('p_topin', iwc, D, 1, 'h', 'mdf');   // سقف توکار 18 هر ستون، مثل کف
+  if(!g.hang) P('p_floor', iwc, floorDepthOf(g.ph), 1, 'h', 'mdf');   // ستون معلق کف ندارد
+  addBackFiber(P, g.spanH-BACK_INSET, iwc+2*T-BACK_INSET, 1);
+  const hs=soloColHeights(g.clearH, col);
+  const sum=hs.reduce((a,b)=>a+b,0)||1;
+  const faceZone=headOverlay?Math.max(0,g.Hc-g.ph+(g.ph>0?OVL_PATTY:0)):0;   // ستون بدون پاتی: نما همه‌ی ارتفاع
+  const headW=headOverlay?(OUT[c]-OVL_SIDE):(iwc-HEAD_CUT);   // روکار: عرض بیرونی باکس منهای 2
+  hs.forEach(dh=>{
+  if(dh<=0) return;
+  const headH=headOverlay?Math.max(0,Math.round(dh/sum*faceZone)-OVL_GAP):(dh-HEAD_CUT);
+  P('p_head', headW, headH, 1, 'h', 'mdf_pvc');
+  const bxH=boxSideH(headH);   // بدنه‌ی جعبه = سرکشو منهای 30
+  P('p_fb', iwc-FB_RAIL_CUT, bxH, 2, 'h', 'mdf');
+  P('p_lr', D-LR_CUT-LR_PUSH, bxH, 2, 'h', 'mdf');
+  });
+  if(g.ph>0){
+  if(under){
+  P('p_patty', Math.max(0, iwc-2*pattyInset), g.ph, 2, 'h', 'mdf');
+  P('p_patty_side', Math.max(0, D-2*pattyInset-2*T), g.ph, 2, 'h', 'mdf');
+  } else P('p_skirt', iwc, g.ph, 1, 'h', 'mdf');
+  }
+  });
+
+  const [sw,sh]=document.getElementById('sheet').value.split('x').map(Number);
+  const sheetArea=sw*sh; let used=0;
+  parts.forEach(p=>{ if(p.mat!=='fiber') used+=p.L*p.W*p.q; });
+  const sheetsRough=Math.max(1,Math.ceil(used/sheetArea/0.82));
+  const wastePct=Math.round((1-used/(sheetsRough*sheetArea))*100);
+  const maxH=Math.max(...geo.map(g=>g.Hc));
+  return {solo:true, varH:true, wall:W, H:maxH, n:cols, uw:iw, bodyH:Math.max(...geo.map(g=>g.clearH)),
+  depthBody:D, floorDepth:floorDepthOf(pattyH), pattyH, pattyMode, pattySplit:'unit', cornice:0, ceilTh:topTh, topTh, topInset,
+  drawerH:0, drawerHeights:[], columns:COLS, colGeo:geo, colW:iw, colWidths:WS, outerWidths:OUT, topDepth:topD, cols, sideTh, headOverlay,
+  parts, sheetsRough, wastePct, shelves:0, hasRail:false, drawerInfo:null};
+}
+function calcSolo(){
+  {  // اگر ارتفاع ستون‌ها با هم فرق داشت، مسیر جداگانه
+  const H0=+document.getElementById('soloH').value||800;
+  const CS=soloColumns();
+  if(CS.length>1 && (CS.some(c=>c.H>0 && c.H!==H0) || CS.some(c=>!c.patty) || CS.some(c=>c.w>0))) return calcSoloVarH();
+  }
+  const W=+document.getElementById('soloW').value||800;
+  const H=+document.getElementById('soloH').value||800;
+  const D=+document.getElementById('soloD').value||500;
+  const nD=+document.getElementById('soloN').value||4;
+  const cols=Math.max(1,+document.getElementById('soloBoxes').value||1);  // تعداد ستون کنار هم، با دیوار مشترک
+  const top=document.getElementById('soloTop').value;
+  const parts=[];
+  const P=(key,L,Wd,q,grain,mat)=>parts.push({key,L,Wd,W:Wd,q,grain,mat});
+
+  const pattyH=+document.getElementById('pattyH').value||0;
+  const pattyMode=document.querySelector('#pattySeg button.on').dataset.p;
+  const pattySplit=document.querySelector('#pattySplitSeg button.on').dataset.ps;
+  const sheetLen0=+document.getElementById('sheet').value.split('x')[0];
+  const floorHidden = document.querySelector('#floorSeg button.on').dataset.fl==='front';
+  const under = (pattyMode==='under');   // پاتی قاب چهارطرفه زیر کف
+  // عمق کف فقط وقتی تغییر می‌کند که واقعاً پاتی داشته باشیم
+  let floorD = D;
+  if(pattyH>0 && !under){
+  if(pattyMode==='inside_out')  floorD = D + T;                      // کف جلوتر
+  else if(pattyMode==='front')  floorD = D - T;                      // پاتی جلوی کف
+  else if(floorHidden)          floorD = D - T;                      // بین‌بدنه ساده + کف پنهان
+  }
+  const topTh = (top==='double') ? DW : T;
+  const topInset = document.getElementById('soloTopMode').value==='inset';   // سقف توکار مثل کف
+  const spanH = Math.max(0, H - pattyH);           // سقف خارجی روی بدنه می‌نشیند، از ارتفاع کم نمی‌شود
+  const clearH = Math.max(0, spanH - T - (topInset?T:0));   // کف همیشه، سقف توکار 18 وقتی باشد
+  const sideTh = (document.getElementById('soloSide').value==='single') ? T : DW;
+  const mids=Math.max(0, cols-1);            // دیوارهای وسط، توکار بین کف و سقف
+  const clearTotal=Math.max(0, W-2*sideTh-mids*T);  // مجموع صافی همه ستون‌ها
+  const iw=Math.round(clearTotal/cols);     // صافی هر ستون
+  const innerW=W-2*T;                       // عرض داخلی (برای کف و پاتی)
+  const manualDH=+document.getElementById('soloDH').value||0;
+  const drawerH = manualDH>0 ? manualDH : Math.round(clearH/nD);  // ارتفاع هر کشو (یکنواخت)
+  const DHS = soloDrawerHeights(clearH, nD, drawerH);             // ارتفاع تک‌تک کشوها، از بالا
+  // دیوار کناری: در حالت زیر کف بین سقف و کف، در بقیه تا زمین
+  const sideWallH = under ? clearH : ((pattyMode==='front') ? spanH : (spanH + pattyH));
+  P(sideTh===DW?'p_dw':'p_side', sideWallH, D, 2, 'v', sideTh===DW?'mdf_double':'mdf');
+  if(mids>0) P('p_midpanel', clearH, D, mids, 'v', 'mdf');   // بین کف و سقف می‌نشیند
+  P('p_toppanel', W, D+T, 1, 'h', top==='double'?'mdf_double':'mdf');   // صفحه‌ی بالا: عرض کامل × (عمق + 18)
+  if(topInset) P('p_topin', innerW, D, 1, 'h', 'mdf');   // سقف توکار 18، مثل کف
+  P('p_floor', under ? W : innerW, floorD, 1, 'h', 'mdf');   // زیر کف: کف هم‌عرض کامل، مثل سقف
+  const headOverlay = document.getElementById('soloHeadMount').value==='overlay';
+  /* روکار: سرکشو روی بدنه می‌نشیند — از هر طرف 1 تو، از بالا 2 فاصله،
+     و پایینی 20 می‌آید روی پاتی. پس نمای سرکشوها = ارتفاع − پاتی + 20 */
+  const OVL_SIDE=2, OVL_PATTY=20, OVL_GAP=3;   // GAP: از ارتفاع هر سرکشو کم می‌شود
+  const headW = headOverlay ? Math.round((W-OVL_SIDE)/cols) : (iw-HEAD_CUT);
+  const faceZone = headOverlay ? Math.max(0, H - pattyH + OVL_PATTY) : 0;
+  const COLS = soloColumns();
+  COLS.forEach(col=>{
+  const hs = (cols===1 && !(col.dh||[]).some(v=>+v>0)) ? DHS : soloColHeights(clearH, col);
+  const sumDH = hs.reduce((a,b)=>a+b,0)||1;
+  hs.forEach(dh=>{
+  if(dh<=0) return;
+  // روکار: ارتفاع سرکشو از نمای بیرونی حساب می‌شود، نه از فضای داخل
+  const headH = headOverlay ? Math.max(0, Math.round(dh/sumDH*faceZone)-OVL_GAP) : (dh-HEAD_CUT);
+  P('p_head', headW, headH, 1, 'h', 'mdf_pvc');
+  const bxH = boxSideH(headH);   // بدنه‌ی جعبه = سرکشو منهای 30
+  P('p_fb', iw-FB_RAIL_CUT, bxH, 2, 'h', 'mdf');
+  P('p_lr', D-LR_CUT-LR_PUSH, bxH, 2, 'h', 'mdf');
+  });
+  });
+  // ارتفاع پشت باکس = سقف + دیوار کناری (+ کف، در حالت زیر کف)
+  const carcassH = (topInset?0:topTh) + sideWallH + (under ? T : 0);
+  addBackFiber(P, carcassH-BACK_INSET, W-BACK_INSET, 1);
+  const pattyInset = under ? (+document.getElementById('pattyInset').value||0) : 0;
+  if(under){
+  if(pattyH>0){   // پاتی اختیاری: صفر یعنی بدون پاتی
+  // قاب پاتی از چهار طرف زیر کف، با عقب‌نشینی از لبه‌ها
+  P('p_patty',      Math.max(0, W - 2*pattyInset),           pattyH, 2, 'h', 'mdf'); // جلو و عقب
+  P('p_patty_side', Math.max(0, D - 2*pattyInset - 2*T),     pattyH, 2, 'h', 'mdf'); // چپ و راست، بین جلو و عقب
+  }
+  } else {
+  addPatty(P, pattySplit, pattyH, W, [innerW], sheetLen0);
+  }
+
+  const [sw,sh]=document.getElementById('sheet').value.split('x').map(Number);
+  const sheetArea=sw*sh; let used=0;
+  parts.forEach(p=>{ if(/mdf/.test(p.mat)) used+=p.L*p.W*p.q; });
+  const sheetsRough=Math.max(1,Math.ceil(used/sheetArea/0.82));
+  const wastePct=Math.round((1-used/(sheetsRough*sheetArea))*100);
+  return {solo:true, wall:W, H, n:cols, uw:W, bodyH:clearH, spanH, depthBody:D, floorDepth:floorD,
+  pattyH, pattyMode, pattySplit, cornice:0, ceilTh:18,
+  drawerH, drawerHeights:DHS, columns:soloColumns(), faceZone, headW, manualDH, nD, cols, boxes:cols, colW:iw, mids, sideTh, headOverlay, under, topTh, topInset, pattyInset,
+  parts, sheetsRough, wastePct, shelves:0, hasRail:false, drawerInfo:null};
+}
+
+/* نمای روبه‌روی ستون‌های نامساوی — ستون ۱ سمت راست */
+function drawSoloVarH(r){
+  const VW=760,padL=64,padR=34,padT=46,padB=60;
+  const topMm=(r.topTh||r.ceilTh||T);
+  const drawH=r.H+topMm;   // صفحه‌ی بالا همیشه روی ارتفاع بدنه
+  const sc=Math.min((VW-padL-padR)/Math.max(1,r.wall), 430/Math.max(1,drawH));
+  const VH=Math.round(drawH*sc)+padT+padB;
+  const x0=padL,y0=padT,hpx=drawH*sc,yBot=y0+hpx;
+  const extTop=topMm*sc;                      // صفحه‌ی بالا
+  const insetPx=(r.topInset?T:0)*sc;          // سقف توکار هر ستون
+  const Tpx=(r.sideTh||T)*sc, Mpx=T*sc;
+  const WS=r.outerWidths||r.colWidths||[], cols=r.cols||1;
+  let s=`<svg viewBox="0 0 ${VW} ${VH}" xmlns="http://www.w3.org/2000/svg" font-family="inherit">`;
+  s+=woodDefs();
+  // چیدمان از راست: دیوار راست، ستون ۱، بدنه وسط، ستون ۲ ...
+  const box=[];
+  let x=x0+r.wall*sc;
+  for(let c=0;c<cols;c++){
+  const wpx=(WS[c]||0)*sc;
+  box.push({xL:x-wpx, w:wpx});
+  x-=wpx;
+  }
+  const leftEdge=x;
+  let colsSvg='';
+  r.columns.forEach((col,c)=>{
+  const g=r.colGeo[c], B=box[c];
+  if(B.w<=0) return;
+  const ph=g.ph*sc, floorPx=T*sc;
+  const hang=!col.patty;
+  const yTop=hang? y0+extTop : (yBot-g.Hc*sc);
+  const yEnd=yTop+g.Hc*sc;
+  const cw=((r.colWidths&&r.colWidths[c])||0)*sc;   // صافی داخل ستون
+  const cx=B.xL+(B.w-cw)/2;
+  colsSvg+=`<rect x="${B.xL}" y="${yTop}" width="${B.w}" height="${g.Hc*sc}" fill="url(#wFront)" stroke="#8a7557" stroke-width="1.1"/>`;
+  if(ph>0) colsSvg+=`<rect x="${B.xL}" y="${yEnd-ph}" width="${B.w}" height="${ph}" fill="#b9ab8e" stroke="#1a1815" stroke-width=".8"/>`;
+  if(!hang) colsSvg+=`<rect x="${B.xL}" y="${yEnd-ph-floorPx}" width="${B.w}" height="${floorPx}" fill="#d9cdb5" stroke="#8a7557" stroke-width=".8"/>`;
+  if(insetPx>0&&cw>0) colsSvg+=`<rect x="${cx}" y="${yTop}" width="${cw}" height="${insetPx}" fill="#d9cdb5" stroke="#8a7557" stroke-width=".8"/>`;
+  const hs=soloColHeights(g.clearH, col);
+  const sum=hs.reduce((a,b)=>a+b,0)||1;
+  const faceZone=r.headOverlay?Math.max(0,g.Hc-g.ph+(g.ph>0?20:0))*sc:0;   // نما تا 20 روی پاتی، ستون بدون پاتی: همه‌ی ارتفاع
+  let y=r.headOverlay?yTop:(yTop+insetPx);
+  hs.forEach(dh=>{
+  const dpx=r.headOverlay?(dh/sum)*faceZone:dh*sc;
+  if(dpx<=0) return;
+  const fx=r.headOverlay?B.xL:cx, fw=r.headOverlay?B.w:cw;
+  colsSvg+=`<rect x="${fx+2}" y="${y+1.5}" width="${fw-4}" height="${dpx-3}" rx="1.5" fill="url(#wDoor)" stroke="#8a6d3a" stroke-width=".9"/>`;
+  colsSvg+=`<rect x="${fx+fw/2-13}" y="${y+dpx/2-2}" width="26" height="3.4" rx="1.7" fill="#6f5f47"/>`;
+  if(dpx>15&&fw>46) colsSvg+=`<text x="${fx+7}" y="${y+dpx/2+4}" font-size="11.5" fill="#5d4f3c">${dh}</text>`;
+  y+=dpx;
+  });
+  if(B.w>34){
+  colsSvg+=`<text x="${B.xL+B.w/2}" y="${yBot+18}" text-anchor="middle" font-size="11.5" fill="#5d4f3c">${r.outerWidths?r.outerWidths[c]:WS[c]}</text>`;
+  colsSvg+=`<text x="${B.xL+B.w/2}" y="${yBot+34}" text-anchor="middle" font-size="11" fill="#6f5f47">${g.Hc}</text>`;
+  }
+  });
+  // دیوارهای عمودی: دو کناری و بدنه‌های وسط
+  const hOf=i=>(r.colGeo[i]?r.colGeo[i].Hc:0)*sc;
+  let wallsSvg='';
+  wallsSvg+=`<rect x="${x0+r.wall*sc-Tpx}" y="${yBot-hOf(0)}" width="${Tpx}" height="${hOf(0)}" fill="#d8ceb8" stroke="#8a6d3a" stroke-width=".8"/>`;
+  for(let c=0;c<cols-1;c++){
+  const h=Math.max(hOf(c),hOf(c+1));
+  // بدنه‌ی وسط روی مرز دو ستون می‌نشیند (نصف عرضش سهم هر ستون)
+  wallsSvg+=`<rect x="${box[c].xL-Mpx/2}" y="${yBot-h}" width="${Mpx}" height="${h}" fill="#d8ceb8" stroke="#8a6d3a" stroke-width=".8"/>`;
+  }
+  wallsSvg+=`<rect x="${leftEdge}" y="${yBot-hOf(cols-1)}" width="${Tpx}" height="${hOf(cols-1)}" fill="#d8ceb8" stroke="#8a6d3a" stroke-width=".8"/>`;
+  // روکار: سرکشو روی دیوارها می‌نشیند، پس اول دیوار بعد نما
+  s += r.headOverlay ? (wallsSvg+colsSvg) : (colsSvg+wallsSvg);
+  // سقف خارجی یک تیکه، بالای بدنه
+  s+=`<rect x="${leftEdge}" y="${y0}" width="${x0+r.wall*sc-leftEdge}" height="${extTop}" fill="#d9cdb5" stroke="#8a7557" stroke-width="1"/>`;
+  const dx=x0-18;
+  s+=`<line x1="${dx}" y1="${y0+extTop}" x2="${dx}" y2="${yBot}" stroke="#1a1815" stroke-width="1"/>
+  <text x="${dx-7}" y="${y0+extTop+(hpx-extTop)/2}" text-anchor="middle" font-size="12" fill="#1a1815"
+  transform="rotate(-90 ${dx-7} ${y0+extTop+(hpx-extTop)/2})">${r.H}</text>`;
+  s+=`<text x="${x0}" y="${y0-14}" font-size="11" fill="#5d4f3c">${t('depth')} ${r.depthBody} • ${t('p_toppanel')} ${topMm}</text>`;
+  s+=`<text x="${x0+r.wall*sc/2}" y="${VH-6}" text-anchor="middle" font-size="12.5" fill="#5d4f3c">${r.wall} mm</text>`;
+  return s+`</svg>`;
+}
+function drawSoloAny(r){ return r.varH ? drawSoloVarH(r) : drawSolo(r); }
+function drawSolo(r){
+  const W=760,padL=76,padR=40,padT=44,padB=58;
+  const totalW=r.uw;
+  const cols=r.cols||1, mids=r.mids||0;
+  const topMm=(r.topTh||T);
+  const drawH=r.H+topMm;   // صفحه‌ی بالا همیشه روی ارتفاع بدنه می‌نشیند
+  const sc=Math.min((W-padL-padR)/totalW, 460/drawH);
+  const H=Math.round(drawH*sc)+padT+padB;
+  const x0=padL,y0=padT, wpx=totalW*sc, hpx=drawH*sc;
+  const Tpx=(r.sideTh||DW)*sc, Mpx=T*sc;
+  let s=`<svg viewBox="0 0 ${W} ${H}" xmlns="http://www.w3.org/2000/svg" font-family="inherit">`;
+  s+=woodDefs();
+  const pattyPx=(r.pattyH||0)*sc;
+  const panelPx=topMm*sc;                    // صفحه‌ی بالا
+  const insetPx=(r.topInset?T:0)*sc;         // سقف توکار
+  const floorPx=T*sc;                        // کف همیشه هست
+  const boxHpx=Math.max(0, hpx-pattyPx-panelPx-insetPx-floorPx);
+  const bodyTop=y0+panelPx;                  // بالای بدنه، زیر صفحه
+  const inTop=bodyTop+insetPx;               // زیر سقف توکار
+
+  // صفحه‌ی بالا: سرتاسر عرض
+  s+=`<rect x="${x0}" y="${y0}" width="${wpx}" height="${panelPx}" fill="#d9cdb5" stroke="#8a7557" stroke-width="1"/>`;
+  // سقف توکار، بین دو دیوار مثل کف
+  if(insetPx>0) s+=`<rect x="${x0+Tpx}" y="${bodyTop}" width="${wpx-2*Tpx}" height="${insetPx}" fill="#d9cdb5" stroke="#8a7557" stroke-width="1"/>`;
+  s+=`<rect x="${x0}" y="${inTop}" width="${wpx}" height="${boxHpx}" fill="url(#wFront)" stroke="#8a7557" stroke-width="1.2"/>`;
+  const fIn = r.under ? 0 : Tpx;   // کف توکار بین دو دیوار، مگر در حالت زیر کف
+  if(floorPx>0) s+=`<rect x="${x0+fIn}" y="${inTop+boxHpx}" width="${wpx-2*fIn}" height="${floorPx}" fill="#d9cdb5" stroke="#8a7557" stroke-width="1"/>`;
+  if(pattyPx>0){
+  const pIn = r.under ? (r.pattyInset||0)*sc : ((r.pattyMode==='front') ? 0 : (r.sideTh||DW)*sc);
+  s+=`<rect x="${x0+pIn}" y="${inTop+boxHpx+floorPx}" width="${wpx-2*pIn}" height="${pattyPx}" fill="#c9bfa9" stroke="#1a1815" stroke-width=".8"/>`;
+  if(pattyPx>13) s+=`<text x="${x0+wpx/2}" y="${inTop+boxHpx+floorPx+pattyPx/2+4}" text-anchor="middle" font-size="11" fill="#5d4f3c">${r.pattyH}</text>`;
+  }
+
+  // دیوارهای کناری، از زیر صفحه تا پایین
+  const sideH = (r.under ? boxHpx : (boxHpx+floorPx+(r.pattyMode==='front'?0:pattyPx))) + insetPx;
+  s+=`<rect x="${x0}" y="${bodyTop}" width="${Tpx}" height="${sideH}" fill="#d8ceb8" stroke="#8a6d3a" stroke-width=".7"/>`;
+  s+=`<rect x="${x0+wpx-Tpx}" y="${bodyTop}" width="${Tpx}" height="${sideH}" fill="#d8ceb8" stroke="#8a6d3a" stroke-width=".7"/>`;
+
+  const colWpx=(wpx-2*Tpx-mids*Mpx)/cols;
+  const colX=c=>x0+Tpx+c*(colWpx+Mpx);
+  // دیوارهای وسط، توکار بین کف و سقف
+  for(let m=1;m<cols;m++)
+  s+=`<rect x="${colX(m)-Mpx}" y="${inTop}" width="${Mpx}" height="${boxHpx}" fill="#cfc3a8" stroke="#8a6d3a" stroke-width=".7"/>`;
+
+  const HS=(r.drawerHeights&&r.drawerHeights.length)?r.drawerHeights:null;
+  const sumHS=HS?(HS.reduce((a,b)=>a+b,0)||1):1;
+  const faceZonePx=(r.faceZone||0)*sc;   // روکار: نما از بالای بدنه تا 20 روی پاتی
+  const dh = r.manualDH ? Math.min(boxHpx/r.nD, r.drawerH*sc) : boxHpx/r.nD;
+  for(let c=0;c<cols;c++){
+  const inX=colX(c), inW=colWpx;
+  const ovX=x0+c*(wpx/cols), ovW=wpx/cols;
+  let yAcc=r.headOverlay?bodyTop:inTop;   // از بالا به پایین، چون ارتفاع‌ها از بالا وارد می‌شوند
+  for(let d=0;d<r.nD;d++){
+  const dhx = r.headOverlay ? (HS?HS[d]/sumHS:1/r.nD)*faceZonePx : (HS ? HS[d]*sc : dh);
+  const dy = (r.headOverlay||HS) ? yAcc : (inTop+boxHpx-dh*(d+1));
+  yAcc+=dhx;
+  const hX = r.headOverlay ? ovX : inX, hW = r.headOverlay ? ovW : inW;
+  s+=`<rect x="${hX+2}" y="${dy+1.5}" width="${hW-4}" height="${dhx-3}" rx="1.5" fill="url(#wDoor)" stroke="#8a6d3a" stroke-width=".9"/>`;
+  s+=`<rect x="${hX+hW/2-14}" y="${dy+dhx/2-2}" width="28" height="3.5" rx="1.75" fill="#6f5f47"/>`;
+  if(dhx>15) s+=`<text x="${inX+7}" y="${dy+dhx/2+4}" font-size="11.5" fill="#5d4f3c">${HS?HS[d]:r.drawerH}</text>`;
+  }
+  if(colWpx>34) s+=`<text x="${inX+inW/2}" y="${y0+hpx+18}" text-anchor="middle" font-size="11.5" fill="#5d4f3c">${r.colW}</text>`;
+  }
+
+  const dx=x0-16;
+  s+=`<line x1="${dx}" y1="${bodyTop}" x2="${dx}" y2="${y0+hpx}" stroke="#1a1815" stroke-width="1"/>
+  <line x1="${dx-4}" y1="${bodyTop}" x2="${dx+4}" y2="${bodyTop}" stroke="#1a1815" stroke-width="1"/>
+  <line x1="${dx-4}" y1="${y0+hpx}" x2="${dx+4}" y2="${y0+hpx}" stroke="#1a1815" stroke-width="1"/>
+  <text x="${dx-7}" y="${(bodyTop+y0+hpx)/2}" text-anchor="middle" font-size="12" fill="#1a1815"
+  transform="rotate(-90 ${dx-7} ${(bodyTop+y0+hpx)/2})">${r.H}</text>`;
+  if(pattyPx>0){
+  const dx2=x0-38;
+  s+=`<line x1="${dx2}" y1="${inTop}" x2="${dx2}" y2="${inTop+boxHpx}" stroke="#3f6b5e" stroke-width="1"/>
+  <line x1="${dx2-4}" y1="${inTop}" x2="${dx2+4}" y2="${inTop}" stroke="#3f6b5e" stroke-width="1"/>
+  <line x1="${dx2-4}" y1="${inTop+boxHpx}" x2="${dx2+4}" y2="${inTop+boxHpx}" stroke="#3f6b5e" stroke-width="1"/>
+  <text x="${dx2-7}" y="${inTop+boxHpx/2}" text-anchor="middle" font-size="11" fill="#3f6b5e"
+  transform="rotate(-90 ${dx2-7} ${inTop+boxHpx/2})">${r.bodyH}</text>`;
+  }
+  s+=`<text x="${x0}" y="${y0-14}" font-size="11" fill="#5d4f3c">${t('depth')} ${r.depthBody} • ${t('p_toppanel')} ${topMm}</text>`;
+  s+=`<text x="${x0+wpx/2}" y="${H-6}" text-anchor="middle" font-size="12.5" fill="#5d4f3c">${totalW} mm</text>`;
+  s+=`</svg>`;
+  return s;
+}
+
+
+/* =================== دیوار تلویزیون =================== */
+/* هر قسمت یک پروژه‌ی کامل است: کمد صاف یا کشوی مستقل */
+let TV_STATE=[];
+function tvWallH(){ return +document.getElementById('tvH').value||2700; }
+function tvDefaults(type){
+  const side={pattyL:false,pattyR:false};
+  if(type==='drawer') return {...side,D:450,hasPatty:true,pattyH:80,pattyMode:'inside',
+  nD:4,cols:1,top:'single',side:'single',mount:'inset',manualDH:0};
+  if(type==='tv') return {...side,D:450,hasPatty:true,pattyH:80,
+  hasDrawer:true,drawerH:600,drawerN:3,drawerCols:1,
+  hasPanel:true,panelH:0,
+  hasShelf:false,shelfH:400,shelfN:3,
+  hasMirror:false,mirrorH:600};
+  return {...side,depthBody:582,n:2,shelves:3,hasRail:false,ceilTh:18,cornice:0,
+  hasPatty:true,pattyH:80,pattyMode:'inside',
+  doorsPer:2,doorInset:false,hasDrawer:false,drawerCount:4,perUnit:false,units:null};
+}
+function tvNewSection(w){ return {w:w||1000, H:tvWallH(), type:'wardrobe', p:tvDefaults('wardrobe')}; }
+function tvEnsure(){
+  const n=Math.max(1,Math.min(12,+document.getElementById('tvN').value||1));
+  const wall=+document.getElementById('tvW').value||0;
+  while(TV_STATE.length<n) TV_STATE.push(tvNewSection(0));
+  while(TV_STATE.length>n) TV_STATE.pop();
+  // قسمت اول کل دیوار را نشان می‌دهد تا خودت کمش کنی
+  if(TV_STATE.length && !TV_STATE.some(x=>+x.w>0)) TV_STATE[0].w=wall;
+  return TV_STATE;
+}
+/* عرضی که وارد می‌کنی از کل کم می‌شود و باقی‌مانده می‌رود به قسمت بعدی */
+function tvCascadeW(i){
+  const wall=+document.getElementById('tvW').value||0;
+  if(i>=TV_STATE.length-1) return;
+  const others=TV_STATE.reduce((a,x,k)=>a+((k===i+1)?0:(+x.w||0)),0);
+  TV_STATE[i+1].w=Math.max(0, wall-others);
+}
+/* ارتفاع دیوار خودکار توی همه‌ی قسمت‌ها نوشته می‌شود */
+function tvPushH(){
+  const H=tvWallH();
+  TV_STATE.forEach(sec=>{ sec.H=H; });
+}
+function tvTotalW(){ return TV_STATE.reduce((a,x)=>a+(+x.w||0),0); }
+
+const TV_SEGS=['shelf','drawer','raillong','railhalf','shoe'];
+function tvSyncUnits(sec){
+  const P=sec.p, n=Math.max(1,+P.n||1);
+  if(!P.units) P.units=[];
+  const w=Math.round(sec.w/n);
+  while(P.units.length<n) P.units.push({width:w, doorCount:P.doorsPer||2, door:'plain',
+  filler:'none', fillerW:18, midPanel:0, cells:[[{type:'shelf',count:3}]]});
+  if(P.units.length>n) P.units.length=n;
+  return P.units;
+}
+function tvUnitsHtml(i,sec){
+  const units=tvSyncUnits(sec);
+  let h=`<div style="border-top:1px dotted var(--line);margin-top:8px;padding-top:8px">`;
+  units.forEach((u,ui)=>{
+  h+=`<div style="background:var(--paper);border:1px solid var(--line);border-radius:9px;padding:8px;margin-bottom:7px">
+  <div style="font-size:11.5px;color:var(--muted);margin-bottom:6px">${t('unit')} ${ui+1}</div>
+  <div class="tvrow" style="grid-template-columns:1fr 1fr">
+  <input type="number" inputmode="numeric" data-s="${i}" data-u="${ui}" data-f="width" value="${u.width}" placeholder="${t('wid')}">
+  <input type="number" inputmode="numeric" data-s="${i}" data-u="${ui}" data-f="doorCount" value="${u.doorCount}" placeholder="${t('doors_per_l')}">
+  </div>`;
+  (u.cells[0]||[]).forEach((sg,si)=>{
+  h+=`<div class="tvrow">
+  <select data-s="${i}" data-u="${ui}" data-g="${si}" data-f="type">
+  ${TV_SEGS.map(k=>`<option value="${k}"${sg.type===k?' selected':''}>${t('seg_'+k)}</option>`).join('')}
+  </select>
+  <input type="number" inputmode="numeric" data-s="${i}" data-u="${ui}" data-g="${si}" data-f="count" value="${sg.count||1}" min="1" max="12">
+  <span></span>
+  <button data-s="${i}" data-u="${ui}" data-g="${si}" data-act="segdel">−</button>
+  </div>`;
+  });
+  h+=`<button data-s="${i}" data-u="${ui}" data-act="segadd" style="border:1px dashed var(--line);background:transparent;color:var(--muted);border-radius:8px;padding:5px 11px;cursor:pointer;font-family:inherit;font-size:12px">+ ${t('tv_addseg')}</button>
+  </div>`;
+  });
+  return h+`</div>`;
+}
+function tvRender(){
+  tvEnsure();
+  const host=document.getElementById('tvSections');
+  const num=(i,f,v,lbl)=>`<div class="field"><label>${lbl}</label>
+  <input type="number" inputmode="numeric" data-s="${i}" data-f="${f}" value="${v}"></div>`;
+  const sel=(i,f,v,lbl,opts)=>`<div class="field"><label>${lbl}</label>
+  <select data-s="${i}" data-f="${f}">${opts.map(([val,txt])=>
+  `<option value="${val}"${String(v)===String(val)?' selected':''}>${txt}</option>`).join('')}</select></div>`;
+  const chk=(i,f,v,lbl)=>`<label class="tvchk"><input type="checkbox" data-s="${i}" data-f="${f}"${v?' checked':''}> ${lbl}</label>`;
+  let h='';
+  TV_STATE.forEach((sec,i)=>{
+  const P=sec.p;
+  h+=`<div class="unitcard" style="border:1px solid var(--line);border-radius:10px;padding:11px;margin-bottom:9px;background:var(--panel)">
+  <div style="font-size:12px;color:var(--muted);letter-spacing:1px;margin-bottom:9px">${t('tv_part')} ${i+1}</div>
+  <div class="row2">
+  ${num(i,'w',sec.w,t('tv_secw'))}
+  ${num(i,'H',sec.H,t('tv_sech'))}
+  </div>
+  <div class="field"><label>${t('tv_type')}</label>
+  <select data-s="${i}" data-f="type">
+  <option value="wardrobe"${sec.type==='wardrobe'?' selected':''}>${t('pjw')}</option>
+  <option value="drawer"${sec.type==='drawer'?' selected':''}>${t('pjd')}</option>
+  <option value="tv"${sec.type==='tv'?' selected':''}>${t('tv_tvtype')}</option>
+  </select></div>
+  <div style="border-top:1px dashed var(--line);padding-top:9px;margin-top:4px">`;
+  if(sec.type==='wardrobe'){
+  h+=`<div class="row2">${num(i,'p.n',P.n,t('units'))}${num(i,'p.depthBody',P.depthBody,t('bodydepth'))}</div>
+  <div class="row2">${num(i,'p.doorsPer',P.doorsPer,t('doors_per_l'))}${num(i,'p.shelves',P.shelves,t('shelves'))}</div>
+  ${chk(i,'p.perUnit',P.perUnit,t('tv_perunit'))}
+  ${P.perUnit?tvUnitsHtml(i,sec):''}
+  <div class="row2">${num(i,'p.ceilTh',P.ceilTh,t('ceilth'))}${num(i,'p.cornice',P.cornice,t('cornice'))}</div>
+  <div class="row2">${num(i,'p.pattyH',P.pattyH,t('pattyh'))}
+  ${sel(i,'p.pattyMode',P.pattyMode,t('pattymode'),[['inside',t('pattyin')],['inside_out',t('pattyio')],['front',t('pattyfr')]])}</div>
+  <div class="row2">${sel(i,'p.doorInset',P.doorInset,t('doormount'),[[false,t('dmov')],[true,t('dmin')]])}
+  ${chk(i,'p.hasRail',P.hasRail,t('tv_rail'))}</div>
+  <div class="row2">${chk(i,'p.hasDrawer',P.hasDrawer,t('tv_hasdrawer'))}
+  ${P.hasDrawer?num(i,'p.drawerCount',P.drawerCount,t('tv_dcount')):'<div></div>'}</div>`;
+  } else if(sec.type==='tv'){
+  h+=`<div class="row2">${num(i,'p.D',P.D,t('tv_secd'))}<div></div></div>
+  <div class="row2">${chk(i,'p.hasPatty',P.hasPatty,t('tvk_patty'))}
+  ${P.hasPatty?num(i,'p.pattyH',P.pattyH,t('tv_h')):'<div></div>'}</div>
+  <div class="row2">${chk(i,'p.hasDrawer',P.hasDrawer,t('tvk_drawer'))}
+  ${P.hasDrawer?num(i,'p.drawerH',P.drawerH,t('tv_h')):'<div></div>'}</div>
+  ${P.hasDrawer?`<div class="row2">${num(i,'p.drawerN',P.drawerN,t('tv_dcount'))}${num(i,'p.drawerCols',P.drawerCols,t('tv_dcols'))}</div>`:''}
+  <div class="row2">${chk(i,'p.hasPanel',P.hasPanel,t('tvk_panel'))}
+  ${P.hasPanel?num(i,'p.panelH',P.panelH,t('tv_h')):'<div></div>'}</div>
+  <div class="row2">${chk(i,'p.hasShelf',P.hasShelf,t('tvk_open'))}
+  ${P.hasShelf?num(i,'p.shelfH',P.shelfH,t('tv_h')):'<div></div>'}</div>
+  ${P.hasShelf?`<div class="row2">${num(i,'p.shelfN',P.shelfN,t('shelves'))}<div></div></div>`:''}
+  <div class="row2">${chk(i,'p.hasMirror',P.hasMirror,t('tvk_mirror'))}
+  ${P.hasMirror?num(i,'p.mirrorH',P.mirrorH,t('tv_h')):'<div></div>'}</div>`;
+  } else {
+  h+=`<div class="row2">${num(i,'p.D',P.D,t('tv_secd'))}${num(i,'p.nD',P.nD,t('tv_dcount'))}</div>
+  <div class="row2">${num(i,'p.cols',P.cols,t('tv_dcols'))}${num(i,'p.manualDH',P.manualDH,t('solo_dh'))}</div>
+  <div class="row2">${sel(i,'p.top',P.top,t('solo_top'),[['single',t('tv_single')],['double',t('tv_double')]])}
+  ${sel(i,'p.side',P.side,t('solo_side'),[['single',t('tv_single')],['double',t('tv_double')]])}</div>
+  <div class="row2">${sel(i,'p.mount',P.mount,t('tv_mount'),[['inset',t('inset')],['overlay',t('overlay')]])}
+  ${num(i,'p.pattyH',P.pattyH,t('pattyh'))}</div>
+  <div class="field">${sel(i,'p.pattyMode',P.pattyMode,t('pattymode'),[['inside',t('pattyin')],['front',t('pattyfr')],['under',t('pattyun')]])}</div>`;
+  }
+  h+=`<div class="row2" style="border-top:1px dotted var(--line);margin-top:6px;padding-top:6px">
+  ${chk(i,'p.pattyR',P.pattyR,t('tv_pattyr'))}${chk(i,'p.pattyL',P.pattyL,t('tv_pattyl'))}</div>`;
+  h+=`</div></div>`;
+  });
+  host.innerHTML=h;
+  host.querySelectorAll('[data-act]').forEach(el=>el.onclick=()=>{
+  const i=+el.dataset.s, ui=+el.dataset.u;
+  const cell=TV_STATE[i].p.units[ui].cells[0];
+  if(el.dataset.act==='segadd') cell.push({type:'shelf',count:2});
+  else cell.splice(+el.dataset.g,1);
+  if(!cell.length) cell.push({type:'shelf',count:1});
+  tvRender(); tvPreviewSoon();
+  });
+  host.querySelectorAll('input,select').forEach(el=>{
+  const apply=()=>{
+  const i=+el.dataset.s, f=el.dataset.f;
+  if(el.dataset.u!==undefined){
+  const u=TV_STATE[i].p.units[+el.dataset.u];
+  const tgt = el.dataset.g!==undefined ? u.cells[0][+el.dataset.g] : u;
+  tgt[f] = el.tagName==='SELECT' ? el.value : (+el.value||0);
+  return;
+  }
+  let v = el.type==='checkbox' ? el.checked
+  : (el.tagName==='SELECT' ? el.value : (+el.value||0));
+  if(v==='true') v=true; else if(v==='false') v=false;
+  if(f.startsWith('p.')) TV_STATE[i].p[f.slice(2)]=v;
+  else {
+  TV_STATE[i][f]=v;
+  if(f==='type') TV_STATE[i].p=tvDefaults(v);
+  if(f==='w') tvCascadeW(i);
+  }
+  };
+  if(el.tagName==='SELECT'||el.type==='checkbox')
+  el.addEventListener('change',()=>{ apply(); tvRender(); tvPreviewSoon(); });
+  else {
+  el.addEventListener('input',()=>{ apply(); tvHead(); });
+  el.addEventListener('change',()=>{ if(el.dataset.f==='w') tvRender(); tvPreviewSoon(); });
+  }
+  });
+  tvHead();
+}
+let __tvTimer=null;
+function tvPreviewSoon(){
+  if(!window.__preview) return;
+  clearTimeout(__tvTimer); __tvTimer=setTimeout(()=>preview(),260);
+}
+function tvHead(){
+  const wall=+document.getElementById('tvW').value||0, sum=tvTotalW(), d=wall-sum;
+  const el=document.getElementById('tvSum');
+  el.textContent = d===0 ? `${t('tv_ok')} (${sum} / ${wall})`
+  : (d>0 ? `${t('tv_left')}: ${d} mm` : `${t('tv_over')}: ${-d} mm`);
+  el.style.color = d===0 ? '#3f6b5e' : '#a8562f';
+}
+
+function calcTv(){
+  const W=+document.getElementById('tvW').value||0, H=tvWallH();
+  tvEnsure();
+  const parts=[];
+  TV_STATE.forEach(sec=>{
+  if((+sec.w||0)<=0) return;
+  const P=sec.p;
+  const SD = sec.type==='wardrobe' ? P.depthBody : P.D;
+  const ph = P.hasPatty===false ? 0 : (P.pattyH||0);
+  // پاتی کناری راست و چپ
+  const nSide=(P.pattyR?1:0)+(P.pattyL?1:0);
+  if(nSide>0 && ph>0)
+  parts.push({key:'p_patty_side', L:Math.round(SD-2*T), W:Math.round(ph), q:nSide, grain:'h', mat:'mdf'});
+  if(sec.type==='tv'){
+  const used=(P.hasPatty?ph:0)+(P.hasDrawer?(+P.drawerH||0):0)
+  +(P.hasShelf?(+P.shelfH||0):0)+(P.hasMirror?(+P.mirrorH||0):0);
+  const panelH=(+P.panelH>0)?+P.panelH:Math.max(0,(+sec.H||0)-used);
+  if(P.hasPatty&&ph>0) parts.push({key:'p_skirt',L:sec.w,W:ph,q:1,grain:'h',mat:'mdf'});
+  if(P.hasDrawer&&+P.drawerH>0){
+  const sd=calcSoloWith({W:sec.w,H:+P.drawerH+T,D:P.D,nD:Math.max(1,+P.drawerN||1),
+  cols:Math.max(1,+P.drawerCols||1),top:'single',side:'single',mount:'inset',
+  pattyH:0,pattyMode:'inside',pattySplit:'unit',floorHidden:false,manualDH:0,pattyInset:0});
+  sd.parts.forEach(x=>{ if(x.key!=='p_boxtop') parts.push({...x}); });
+  }
+  if(P.hasShelf&&+P.shelfN>0)
+  parts.push({key:'p_shelf',L:sec.w-2*T,W:P.D,q:+P.shelfN,grain:'h',mat:'mdf'});
+  if(P.hasMirror&&+P.mirrorH>0)
+  parts.push({key:'p_mirror',L:sec.w,W:+P.mirrorH,q:1,grain:'v',mat:'mirror'});
+  if(P.hasPanel&&panelH>0)
+  parts.push({key:'p_tvpanel',L:sec.w,W:panelH,q:1,grain:'v',mat:'mdf'});
+  return;
+  }
+  const sub = sec.type==='drawer'
+  ? calcSoloWith({W:sec.w, H:sec.H, D:P.D, nD:P.nD, cols:P.cols, top:P.top, side:P.side,
+  mount:P.mount, pattyH:ph, pattyMode:P.pattyMode, manualDH:P.manualDH,
+  pattySplit:'unit', floorHidden:false, pattyInset:25})
+  : calcWardrobe({wall:sec.w, n:Math.max(1,P.n), H:sec.H, shape:'I',
+  designMode:P.perUnit?'perunit':'global',
+  unitPlans:P.perUnit?tvSyncUnits(sec):[], depthBody:P.depthBody, shelves:P.shelves, hasRail:P.hasRail,
+  ceilTh:P.ceilTh, cornice:P.cornice, pattyH:ph, pattyMode:P.pattyMode,
+  doorsPer:P.doorsPer, doorInset:P.doorInset, hasDrawer:P.hasDrawer,
+  drawerCount:P.drawerCount, pattySplit:'unit', floorHidden:false});
+  sub.parts.forEach(x=>parts.push({...x}));
+  });
+  const area=parts.reduce((a,p)=>a+(p.L*p.W*p.q),0)/1e6;
+  const sheetsRough=Math.max(1, Math.ceil(area/(2.44*1.22)));
+  const wastePct=Math.round((1-area/(sheetsRough*2.44*1.22))*100);
+  return {tv:true, solo:false, wall:W, H, n:TV_STATE.length, uw:W,
+  bodyH:H, depthBody:TV_STATE[0]?.p.depthBody||TV_STATE[0]?.p.D||0, floorDepth:0,
+  pattyH:0, pattyMode:'inside', pattySplit:'unit', cornice:0, ceilTh:T,
+  parts, sheetsRough, wastePct, shelves:0, hasRail:false, drawerInfo:null};
+}
+
+function drawTv(r){
+  const VW=760,padL=54,padR=30,padT=34,padB=48;
+  const total=tvTotalW()||r.wall;
+  const sc=Math.min((VW-padL-padR)/Math.max(1,total), 460/Math.max(1,r.H));
+  const VH=Math.round(r.H*sc)+padT+padB;
+  const x0=padL,y0=padT,hpx=r.H*sc,yBot=y0+hpx;
+  let s=`<svg viewBox="0 0 ${VW} ${VH}" xmlns="http://www.w3.org/2000/svg" font-family="inherit">`;
+  s+=woodDefs();
+  const band=(x,y,w,h,fill,dash)=>`<rect x="${x}" y="${y}" width="${w}" height="${h}" fill="${fill}" stroke="#8a7557" stroke-width="1"${dash?' stroke-dasharray="4 3"':''}/>`;
+  const lbl=(x,y,txt,sz)=>`<text x="${x}" y="${y}" text-anchor="middle" font-size="${sz||9}" fill="#6f5f47">${txt}</text>`;
+  let x=x0;
+  [...TV_STATE].reverse().forEach(sec0=>{
+  // قسمت ۱ سمت راست است؛ پاتی کناری هم قرینه می‌شود
+  const sec=sec0;
+  const wpx=(+sec.w||0)*sc; if(wpx<=0) return;
+  const P=sec.p, sh=(+sec.H||r.H)*sc, yTop=yBot-sh;
+  const ph=(P.hasPatty===false?0:(+P.pattyH||0))*sc;
+  const corn=((sec.type==='wardrobe'?(+P.cornice||0):0))*sc;
+  // بدنه‌ی کلی قسمت
+  s+=band(x,yTop,wpx,sh,'url(#wFront)');
+  if(ph>0) s+=band(x,yBot-ph,wpx,ph,'#c9bfa9');
+  if(corn>0) s+=band(x,yTop,wpx,corn,'#c9bfa9');
+  const iy=yTop+corn, ih=sh-corn-ph;   // ناحیه‌ی مفید
+
+  if(sec.type==='wardrobe'){
+  const n=Math.max(1,+P.n||1);
+  const units=(P.perUnit&&P.units&&P.units.length)?[...P.units].reverse():null;
+  const tw=units?units.reduce((a,u)=>a+(+u.width||0),0):sec.w;
+  let ux=x;
+  for(let u=0;u<n;u++){
+  const uw=units?((+units[u].width||0)/tw)*wpx:wpx/n;
+  const dc=Math.max(1, units?(+units[u].doorCount||1):(+P.doorsPer||1));
+  // کشوهای داخل یونیت: از تقسیم داخلی، یا از تیک «کشو دارد»
+  let nDr=0;
+  if(units) (units[u].cells[0]||[]).forEach(sg=>{ if(sg.type==='drawer') nDr+=(+sg.count||0); });
+  else if(P.hasDrawer) nDr=Math.max(0,+P.drawerCount||0);
+  const drH=Math.min(ih, nDr*DRAWER_H*sc);   // هر کشو 200
+  const doorH=ih-drH;
+  if(doorH>2) for(let dnum=0;dnum<dc;dnum++){
+  const dw=uw/dc;
+  s+=`<rect x="${ux+dnum*dw+2}" y="${iy+2}" width="${dw-4}" height="${doorH-4}" rx="1.5" fill="url(#wDoor)" stroke="#8a6d3a" stroke-width=".9"/>`;
+  }
+  for(let k2=0;k2<nDr;k2++){
+  const dh=drH/nDr, dy2=iy+ih-dh*(k2+1);
+  s+=`<rect x="${ux+2}" y="${dy2+1.5}" width="${uw-4}" height="${dh-3}" rx="1.5" fill="url(#wDoor)" stroke="#8a6d3a" stroke-width=".9"/>`;
+  s+=`<rect x="${ux+uw/2-11}" y="${dy2+dh/2-1.6}" width="22" height="3" rx="1.5" fill="#6f5f47"/>`;
+  }
+  s+=`<line x1="${ux}" y1="${iy}" x2="${ux}" y2="${iy+ih}" stroke="#8a7557" stroke-width="1.3"/>`;
+  ux+=uw;
+  }
+  } else if(sec.type==='drawer'){
+  const nD=Math.max(1,+P.nD||1), dc=Math.max(1,+P.cols||1);
+  for(let c=0;c<dc;c++) for(let dnum=0;dnum<nD;dnum++){
+  const dw=wpx/dc, dh=ih/nD;
+  const dx2=x+c*dw, dy2=iy+ih-dh*(dnum+1);
+  s+=`<rect x="${dx2+2}" y="${dy2+2}" width="${dw-4}" height="${dh-4}" rx="1.5" fill="url(#wDoor)" stroke="#8a6d3a" stroke-width=".9"/>`;
+  s+=`<rect x="${dx2+dw/2-11}" y="${dy2+dh/2-1.6}" width="22" height="3" rx="1.5" fill="#6f5f47"/>`;
+  }
+  } else {   // تلویزیون: از پایین به بالا
+  let y=yBot-ph;
+  const put=(mm,fill,txt,dash)=>{
+  const hh=mm*sc; if(hh<=0) return;
+  y-=hh; s+=band(x,y,wpx,hh,fill,dash);
+  if(hh>13&&wpx>52) s+=lbl(x+wpx/2,y+hh/2+3.5,txt);
+  };
+  const used=(P.hasDrawer?(+P.drawerH||0):0)+(P.hasShelf?(+P.shelfH||0):0)+(P.hasMirror?(+P.mirrorH||0):0);
+  const panelH=(+P.panelH>0)?+P.panelH:Math.max(0,(+sec.H||0)-(P.hasPatty===false?0:(+P.pattyH||0))-used);
+  if(P.hasDrawer){
+  const hh=(+P.drawerH||0)*sc, nD=Math.max(1,+P.drawerN||1), dc=Math.max(1,+P.drawerCols||1);
+  y-=hh; s+=band(x,y,wpx,hh,'#efe9dc');
+  for(let c=0;c<dc;c++) for(let dnum=0;dnum<nD;dnum++){
+  const dw=wpx/dc, dh=hh/nD;
+  s+=`<rect x="${x+c*dw+2}" y="${y+dh*dnum+2}" width="${dw-4}" height="${dh-4}" rx="1.5" fill="url(#wDoor)" stroke="#8a6d3a" stroke-width=".8"/>`;
+  }
+  }
+  if(P.hasPanel) put(panelH,'#e6ddc9',panelH,true);
+  if(P.hasShelf){
+  const hh=(+P.shelfH||0)*sc, k=Math.max(1,+P.shelfN||1);
+  y-=hh; s+=band(x,y,wpx,hh,'#f0ece1');
+  for(let j=1;j<k;j++) s+=`<line x1="${x+2}" y1="${y+hh*j/k}" x2="${x+wpx-2}" y2="${y+hh*j/k}" stroke="#8a6d3a" stroke-width=".9"/>`;
+  }
+  if(P.hasMirror) put(+P.mirrorH||0,'#dfe6e6',t('tvk_mirror'));
+  }
+  // پاتی کناری
+  const pw=6;
+  if(ph>0&&P.pattyR) s+=`<rect x="${x+wpx-pw}" y="${yBot-ph}" width="${pw}" height="${ph}" fill="#a8967a"/>`;
+  if(ph>0&&P.pattyL) s+=`<rect x="${x}" y="${yBot-ph}" width="${pw}" height="${ph}" fill="#a8967a"/>`;
+  s+=`<line x1="${x}" y1="${yTop}" x2="${x}" y2="${yBot}" stroke="#8a7557" stroke-width="1.8"/>`;
+  if(wpx>44) s+=lbl(x+wpx/2,yBot+16,sec.w,9.5);
+  if(wpx>60) s+=lbl(x+wpx/2,yTop-5,sec.type==='drawer'?t('pjd'):(sec.type==='tv'?t('tv_tvtype'):t('pjw')),9);
+  x+=wpx;
+  });
+  s+=`<line x1="${x}" y1="${y0}" x2="${x}" y2="${yBot}" stroke="#8a7557" stroke-width="1.8"/>`;
+  const dx=x0-16;
+  s+=`<line x1="${dx}" y1="${y0}" x2="${dx}" y2="${yBot}" stroke="#1a1815" stroke-width="1"/>
+  <text x="${dx-7}" y="${y0+hpx/2}" text-anchor="middle" font-size="10" fill="#1a1815"
+  transform="rotate(-90 ${dx-7} ${y0+hpx/2})">${r.H}</text>`;
+  s+=`<text x="${x0+(x-x0)/2}" y="${VH-6}" text-anchor="middle" font-size="12" fill="#8a8377">${total} mm</text>`;
+  return s+`</svg>`;
+}
+
+function calculate(){
+  if(projectType==='drawer') return calcSolo();
+  if(projectType==='tv') return calcTv();
+  return calcWardrobe();
+}
+/* معادله‌ی کمد صاف — هم پروژه‌ی کمد از آن استفاده می‌کند، هم قسمت‌های دیوار تلویزیون.
+   هر مقداری که در o داده نشود، از فیلدهای صفحه خوانده می‌شود. */
+/* این سه متغیر با let تعریف شده‌اند و روی window نیستند؛ از بیرون تابع خوانده می‌شوند */
+function wardrobeGlobals(){ return {shape, unitPlans, designMode, chosenN}; }
+function calcWardrobe(o){
+  o=o||{};
+  const G=wardrobeGlobals();
+  const gnum=(k,id,dflt)=>(o[k]!==undefined)?o[k]:(+document.getElementById(id).value||dflt);
+  const gsel=(k,sel,attr)=>(o[k]!==undefined)?o[k]:document.querySelector(sel).dataset[attr];
+  const shape=(o.shape!==undefined)?o.shape:G.shape;
+  const unitPlans=(o.unitPlans!==undefined)?o.unitPlans:G.unitPlans;
+  const designMode=(o.designMode!==undefined)?o.designMode:G.designMode;
+  const wall=(o.wall!==undefined)?o.wall:totalUsableWall();
+  const H=gnum('H','wallH',0);
+  const bodyDepthInput=gnum('depthBody','bodyDepth',582);
+  const depthBody = bodyDepthInput;
+  const hasFiller = (bodyDepthInput===582);  // فیلر وقتی عمق 582 است
+  const shelves=gnum('shelves','shelves',0);
+  const hasRail=(o.hasRail!==undefined)?o.hasRail:(document.getElementById('rail').value==='1');
+  const ceilTh=gnum('ceilTh','ceilTh',18);  // ضخامت سقف (دستی)
+  const cornice=gnum('cornice','cornice',0); // تاج بالا
+  const pattyH=gnum('pattyH','pattyH',0);   // ارتفاع پاتی پایین
+  const pattyMode=gsel('pattyMode','#pattySeg button.on','p'); // inside | front
+  const n=(o.n!==undefined)?o.n:(shape==="I"?(G.chosenN||1):totalUnitCount());
+  const uw=Math.round(wall/n);
+
+  const sheetLenForBody = (o.sheetLen!==undefined?o.sheetLen:+document.getElementById('sheet').value.split('x')[0]);
+  const isTall = H > sheetLenForBody;
+  const bodyH = isTall ? sheetLenForBody : (H - ceilTh - cornice);
+  const effCornice = isTall ? (H - sheetLenForBody) : cornice;
+  const innerW = uw - 2*T;                          // عرض داخلی
+
+  const floorHidden = (o.floorHidden!==undefined?o.floorHidden:document.querySelector('#floorSeg button.on').dataset.fl==='front');
+  let floorDepth = depthBody;
+  if(pattyMode==='inside_out') floorDepth = depthBody + T;      // کف جلوتر، 18 بدنه پایین دیده می‌شود
+  else if(pattyMode==='inside') floorDepth = depthBody;          // ساده، همان بدنه
+  else if(pattyMode==='front') floorDepth = depthBody;           // روبه‌رو: پاتی جلوی بدنه‌ها، کف کامل می‌ماند
+  const shelfDepth = depthBody - SHELF_DEPTH_GAP;
+  const pattyLenFull = (pattyMode==='front');
+  const pattySplit = (o.pattySplit!==undefined?o.pattySplit:document.querySelector('#pattySplitSeg button.on').dataset.ps);
+  const doorInset = (o.doorInset!==undefined?o.doorInset:document.querySelector('#doorMountSeg button.on').dataset.dm2==='inset');
+  const sheetLen = (o.sheetLen!==undefined?o.sheetLen:+document.getElementById('sheet').value.split('x')[0]);
+
+  const parts=[];
+  const P=(key,L,W,q,grain,mat)=>parts.push({key,L,W,q,grain,mat});
+
+  const floorOcc = ((o.floorHidden!==undefined?!o.floorHidden:document.querySelector('#floorSeg button.on').dataset.fl==='on')) ? (pattyH+T) : pattyH;
+  const usableIn = bodyH - floorOcc;
+
+  if(designMode==='perunit' && unitPlans.length===n){
+  unitPlans.forEach((plan,idx)=>{
+  const w=+plan.width||uw;
+  const iw=w-2*T;
+  P('p_body', bodyH, depthBody, 2, 'v', 'mdf');
+  P('p_ceil', w, depthBody, 1, 'h', 'mdf');
+  P('p_floor', iw, floorDepth, 1, 'h', 'mdf');
+  addBackFiber(P, bodyH-BACK_INSET, w-BACK_INSET, 1);
+  const mid=+plan.midPanel||0;
+  if(mid>0) P('p_midpanel', bodyH, depthBody, mid, 'v', 'mdf');
+  const cellW = mid>0 ? Math.round((iw - mid*T)/(mid+1)) : iw;
+  const cells = plan.cells || [plan.segs||[]];
+  for(let c=0;c<=mid;c++) layoutSegs(cells[c]||cells[0]||[], cellW, usableIn, depthBody, P);
+  if(plan.filler && plan.filler!=='none'){
+  P('p_sidefiller', bodyH, +plan.fillerW||18, 1, 'v', 'mdf');
+  }
+  const perDoors=(plan.doorCount!==undefined?plan.doorCount:2);
+  if(perDoors>0){
+  const dW=Math.round((doorInset?iw:w)/perDoors)-4;
+  const doorMat = plan.door==='mirror'?'mirror':plan.door==='glass'?'glass':'door';
+  P('p_door', H-effCornice-pattyH-5, dW, perDoors, 'v', doorMat);
+  }
+  });
+  if(effCornice>0){
+  if(wall<=sheetLen) P('p_cornice', wall, effCornice, 1, 'h', 'mdf');
+  else P('p_cornice', Math.round(wall/2), effCornice, 2, 'h', 'mdf');
+  P('p_cornice_side', depthBody, effCornice, 2, 'h', 'mdf');
+  }
+  if(shape!=='I'){
+  const cmf=+document.getElementById('cornerMidFiller').value||0;
+  const corners = shape==='L' ? 1 : 2;
+  if(cmf>0) P('p_cornermid', bodyH, cmf, corners, 'v', 'mdf');
+  }
+  addPatty(P, pattySplit, pattyH, wall, unitPlans.map(pl=>(+pl.width||uw)-2*T), sheetLen);
+  if(shape!=='I'){
+  const cf=+document.getElementById('cornerFiller').value||50;
+  const corners = shape==='L' ? 1 : 2;
+  if(cf>0) P('p_cornerfiller', bodyH, cf, corners, 'v', 'mdf');
+  }
+
+  const [sw,sh]=document.getElementById('sheet').value.split('x').map(Number);
+  const sheetArea=sw*sh; let usedArea=0;
+  parts.forEach(p=>{ if(p.mat==='mdf'||p.mat==='mdf_double'||p.mat==='mdf_pvc') usedArea+=p.L*p.W*p.q; });
+  const sheetsRough=Math.ceil(usedArea/sheetArea/0.82);
+  const wastePct=Math.round((1 - usedArea/(sheetsRough*sheetArea))*100);
+  return {wall,H,n,uw,bodyH,depthBody,floorDepth,pattyH,pattyMode,pattySplit,cornice:effCornice,ceilTh,parts,sheetsRough,wastePct,shelves,hasRail,drawerInfo:null,designMode:'perunit',unitPlans:JSON.parse(JSON.stringify(unitPlans)),usableIn};
+  }
+
+  const layout=unitLayout();
+  const nTotal=layout.length;
+  const innerWidths=[];
+  const doorsPer=(o.doorsPer!==undefined?o.doorsPer:+document.getElementById('doorsPer').value||2);
+  const doorH = H - effCornice - pattyH - 5;
+  layout.forEach(u=>{
+  const w=u.width, iw=w-2*T;
+  innerWidths.push(iw);
+  P('p_body', bodyH, depthBody, 2, 'v', 'mdf');
+  P('p_ceil', w, depthBody, 1, 'h', 'mdf');
+  P('p_floor', iw, floorDepth, 1, 'h', 'mdf');
+  if(shelves>0) P('p_shelf', iw - SHELF_CLEAR, shelfDepth, shelves, 'h', 'mdf');
+  addBackFiber(P, bodyH - BACK_INSET, w - BACK_INSET, 1);
+  if(hasRail) P('p_rail', iw, 30, 1, 'h', 'mdf');
+  const baseW = doorInset ? iw : w;
+  P('p_door', doorH, Math.round(baseW/doorsPer)-4, doorsPer, 'v', 'door');
+  });
+  if(effCornice>0){
+  if(wall<=sheetLen) P('p_cornice', wall, effCornice, 1, 'h', 'mdf');
+  else P('p_cornice', Math.round(wall/2), effCornice, 2, 'h', 'mdf');
+  P('p_cornice_side', depthBody, effCornice, 2, 'h', 'mdf');
+  }
+  addPatty(P, pattySplit, pattyH, wall, innerWidths, sheetLen);
+
+  const hasDrawer=(o.hasDrawer!==undefined?o.hasDrawer:document.querySelector('#drawerSeg button.on').dataset.dr==='1');
+  let drawerInfo=null;
+  if(hasDrawer){
+  const drawerCount=(o.drawerCount!==undefined?o.drawerCount:+document.getElementById('drawerCount').value||4);
+  const boxTop=document.querySelector('#boxtopSeg button.on').dataset.bt; // double|single
+  const above=document.querySelector('#aboveSeg button.on').dataset.ab;   // rail|shelf
+  const duRaw=(document.getElementById('drawerUnits').value||'').trim();
+  let drawerUnitCount = duRaw ? duRaw.split(',').filter(x=>x.trim()).length : 1;
+  if(drawerUnitCount<1) drawerUnitCount=1;
+  if(drawerUnitCount>n) drawerUnitCount=n;
+
+  const dwH = drawerCount*DRAWER_H;          // ارتفاع دیوار دوبل = تعداد کشو × 200
+  const clearW = innerW - 2*DW;              // صافی بین دو دیوار دوبل
+  const km=drawerUnitCount;                  // ضریب تعداد یونیت کشودار
+
+  P('p_dw', dwH, DW_DEPTH, 2*km, 'v', 'mdf_double');
+  P('p_boxtop', innerW, DW_DEPTH, 1*km, 'h', boxTop==='double'?'mdf_double':'mdf');
+  P('p_head', clearW-HEAD_CUT, DRAWER_H-HEAD_CUT, drawerCount*km, 'h', 'mdf_pvc');
+  P('p_fb', clearW-FB_RAIL_CUT, boxSideH(DRAWER_H-HEAD_CUT), 2*drawerCount*km, 'h', 'mdf');
+  P('p_lr', DW_DEPTH-LR_CUT-LR_PUSH, boxSideH(DRAWER_H-HEAD_CUT), 2*drawerCount*km, 'h', 'mdf');
+  if(above==='shelf') P('p_dwshelf', innerW, DW_DEPTH, 1*km, 'h', 'mdf');
+  else P('p_dwrail', clearW, 30, 1*km, 'h', 'mdf');
+
+  drawerInfo={drawerCount,dwH,drawerUnitCount,boxTop,above,clearW};
+  }
+
+  if(shape!=='I'){
+  const cf=+document.getElementById('cornerFiller').value||50;
+  const cmf=+document.getElementById('cornerMidFiller').value||0;
+  const corners = shape==='L' ? 1 : 2;
+  if(cf>0) P('p_cornerfiller', bodyH, cf, corners, 'v', 'mdf');
+  if(cmf>0) P('p_cornermid', bodyH, cmf, corners, 'v', 'mdf');
+  }
+
+  const [sw,sh]=document.getElementById('sheet').value.split('x').map(Number);
+  const sheetArea=sw*sh;
+  let usedArea=0;
+  parts.forEach(p=>{ if(p.mat==='mdf') usedArea+=p.L*p.W*p.q; });
+  const sheetsRough=Math.ceil(usedArea/sheetArea/0.82);
+  const wastePct=Math.round((1 - usedArea/(sheetsRough*sheetArea))*100);
+
+  return {wall,H,n,uw,bodyH,depthBody,floorDepth,pattyH,pattyMode,pattySplit,cornice:effCornice,ceilTh,parts,sheetsRough,wastePct,shelves,hasRail,drawerInfo};
+}
+
+/* ---------- preview (before split) ---------- */
+function preview(){
+  const r=calculate();
+  const el=document.getElementById('result');
+  el.innerHTML=`
+  <div class="chips">
+  <div class="chip"><div class="k">${t('c_units')}</div><div class="v">${r.n} × ${r.uw}</div></div>
+  <div class="chip"><div class="k">${t('c_bh')}</div><div class="v">${r.bodyH}</div></div>
+  <div class="chip"><div class="k">${t('c_depth')}</div><div class="v">${r.depthBody}</div></div>
+  </div>
+  <div class="view2d">
+  <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
+  <div style="font-size:12px;color:var(--muted);letter-spacing:1px" id="viewTitle">${t('view').toUpperCase()}</div>
+  <div class="seg" id="viewSeg" style="max-width:260px">
+  <button data-vw="doors" class="on">${t('view_doors')}</button>
+  <button data-vw="inside">${t('view_inside')}</button>
+  <button data-vw="iso">${t('view_3d')}</button>
+  <button data-vw="isoOpen">${t('view_3d_open')}</button>
+  <button data-vw="plan">${t('view_plan')}</button>
+  </div>
+  </div>
+  <div id="viewBox">${r.tv?drawTv(r):(r.solo?drawSoloAny(r):draw2d(r))}</div>
+  <div style="display:flex;gap:8px;margin-top:10px;flex-wrap:wrap">
+  <button id="btnPng" style="border:1px solid var(--line);background:var(--panel);color:var(--ink);padding:8px 14px;border-radius:9px;cursor:pointer;font-family:inherit;font-size:13px">🖼 ${t('save_png')}</button>
+  <button id="btnPdfView" style="border:1px solid var(--line);background:var(--panel);color:var(--ink);padding:8px 14px;border-radius:9px;cursor:pointer;font-family:inherit;font-size:13px">📄 ${t('save_pdf')}</button>
+  </div>
+  </div>
+  <div class="confirmbar">
+  <div class="confirmtext">${t('confirmq')}</div>
+  <button class="calcBtn" id="confirmBtn" style="max-width:220px">✓ ${t('confirm')}</button>
+  </div>
+  `;
+  document.getElementById('confirmBtn').onclick=render;
+  document.getElementById('btnPng').onclick=()=>exportViewPng(r);
+  document.getElementById('btnPdfView').onclick=()=>exportViewPdf(r);
+  document.querySelectorAll('#viewSeg button').forEach(b=>b.onclick=()=>{
+  document.querySelectorAll('#viewSeg button').forEach(x=>x.classList.remove('on'));
+  b.classList.add('on');
+  const vw=b.dataset.vw;
+  if(r.tv){ document.getElementById('viewBox').innerHTML=drawTv(r); return; }
+  if(r.solo){ document.getElementById('viewBox').innerHTML=drawSoloAny(r); return; }
+  document.getElementById('viewBox').innerHTML =
+  vw==='inside'?drawInside(r):
+  vw==='iso'?draw3d(r,false):
+  vw==='isoOpen'?draw3d(r,true):
+  vw==='plan'?drawPlan(r):draw2d(r);
+  });
+  window.__preview=r;
+}
+
+/* ---------- خروجی نقشه: عکس و PDF ---------- */
+function currentViewSvg(){
+  const box=document.getElementById('viewBox');
+  return box?box.querySelector('svg'):null;
+}
+function svgToDataUrl(svg){
+  const clone=svg.cloneNode(true);
+  clone.setAttribute('xmlns','http://www.w3.org/2000/svg');
+  clone.setAttribute('font-family','Tahoma, DejaVu Sans, Arial, sans-serif');
+  clone.querySelectorAll('[font-family]').forEach(el=>{
+  if(el!==clone) el.setAttribute('font-family','Tahoma, DejaVu Sans, Arial, sans-serif');
+  });
+  const vb=(clone.getAttribute('viewBox')||'0 0 900 600').split(/\s+/).map(Number);
+  const bg=document.createElementNS('http://www.w3.org/2000/svg','rect');
+  bg.setAttribute('x',vb[0]);bg.setAttribute('y',vb[1]);
+  bg.setAttribute('width',vb[2]);bg.setAttribute('height',vb[3]);
+  bg.setAttribute('fill','#faf8f3');
+  clone.insertBefore(bg,clone.firstChild);
+  const s=new XMLSerializer().serializeToString(clone);
+  return {url:'data:image/svg+xml;charset=utf-8,'+encodeURIComponent(s), w:vb[2], h:vb[3]};
+}
+function exportViewPng(r){
+  const svg=currentViewSvg();
+  if(!svg){ alert(t('png_nosvg')); return; }
+  const {url,w,h}=svgToDataUrl(svg);
+  const fname=`naghshe-${r.wall}x${r.H}.png`;
+  const img=new Image();
+  img.onerror=()=>{
+  // اگر مرورگر SVG را به عکس تبدیل نکرد، خود نقشه را نشان بده
+  showModal(fname, `<div style="background:#faf8f3;border-radius:8px">${svg.outerHTML}</div>`, t('png_hint'));
+  };
+  img.onload=()=>{
+  try{
+  const sc=2;
+  const cv=document.createElement('canvas');
+  cv.width=Math.round(w*sc); cv.height=Math.round(h*sc);
+  const ctx=cv.getContext('2d');
+  ctx.fillStyle='#faf8f3'; ctx.fillRect(0,0,cv.width,cv.height);
+  ctx.drawImage(img,0,0,cv.width,cv.height);
+  const dataUrl=cv.toDataURL('image/png');
+  cv.toBlob(bl=>{ if(bl) tryDownload(bl,fname); },'image/png');
+  showModal(fname,
+  `<img src="${dataUrl}" alt="${fname}" style="width:100%;height:auto;border-radius:8px;display:block">
+  <a href="${dataUrl}" download="${fname}" style="display:inline-block;margin-top:10px;background:#3f6b5e;color:#fff;text-decoration:none;padding:8px 15px;border-radius:9px;font-size:13px">⬇ ${t('save_png')}</a>`,
+  t('png_hint'));
+  }catch(e){
+  showModal(fname, `<div style="background:#faf8f3;border-radius:8px">${svg.outerHTML}</div>`, t('png_hint'));
+  }
+  };
+  img.src=url;
+}
+function exportViewPdf(r){
+  const svg=currentViewSvg();
+  if(!svg){ alert(t('png_nosvg')); return; }
+  const {url}=svgToDataUrl(svg);
+  const html=`<!DOCTYPE html><html><head><meta charset="utf-8"><title>naghshe-${r.wall}x${r.H}</title>
+  <style>@page{size:A4 landscape;margin:10mm}
+  body{margin:0;font-family:sans-serif;background:#fff;display:flex;flex-direction:column;align-items:center}
+  h3{font-size:13px;color:#3f6b5e;margin:6px 0}
+  img{width:100%;max-width:1100px;height:auto}</style></head>
+  <body><h3>Dar Al-Asala — ${r.wall} × ${r.H} mm</h3><img src="${url}"></body></html>`;
+  const printed=printHtml(html);
+  if(!printed || inFrame()){
+  showModal(`naghshe-${r.wall}x${r.H}`,
+  `<div style="background:#fff;border-radius:8px;padding:8px">${svg.outerHTML}</div>`, t('print_hint'));
+  }
+}
+
+function dimBlock(r,x0,y0,scale,corniceH,pattyPx,zoneTop,zoneBot,H){
+  let s='';
+  const dx=x0-16;
+  const dimLine=(y1,y2,label,color)=>{
+  if(Math.abs(y2-y1)<8) return '';
+  return `<line x1="${dx}" y1="${y1}" x2="${dx}" y2="${y2}" stroke="${color}" stroke-width="1"/>
+  <line x1="${dx-4}" y1="${y1}" x2="${dx+4}" y2="${y1}" stroke="${color}" stroke-width="1"/>
+  <line x1="${dx-4}" y1="${y2}" x2="${dx+4}" y2="${y2}" stroke="${color}" stroke-width="1"/>
+  <text x="${dx-6}" y="${(y1+y2)/2+3}" text-anchor="middle" font-size="9" fill="${color}"
+  transform="rotate(-90 ${dx-6} ${(y1+y2)/2+3})">${label}</text>`;
+  };
+  if(corniceH>0) s+=dimLine(y0, y0+corniceH, r.cornice, '#8a6d3a');
+  s+=dimLine(zoneTop, zoneBot, r.bodyH, '#3f6b5e');
+  if(pattyPx>0) s+=dimLine(y0+r.H*scale-pattyPx, y0+r.H*scale, r.pattyH, '#8a6d3a');
+  const dx2=x0-40;
+  s+=`<line x1="${dx2}" y1="${y0}" x2="${dx2}" y2="${y0+r.H*scale}" stroke="#1a1815" stroke-width="1"/>
+  <line x1="${dx2-4}" y1="${y0}" x2="${dx2+4}" y2="${y0}" stroke="#1a1815" stroke-width="1"/>
+  <line x1="${dx2-4}" y1="${y0+r.H*scale}" x2="${dx2+4}" y2="${y0+r.H*scale}" stroke="#1a1815" stroke-width="1"/>
+  <text x="${dx2-7}" y="${y0+r.H*scale/2}" text-anchor="middle" font-size="10" fill="#1a1815"
+  transform="rotate(-90 ${dx2-7} ${y0+r.H*scale/2})">${r.H}</text>`;
+  s+=`<text x="${x0}" y="${y0-10}" font-size="9.5" fill="#8a8377">${t('depth')} ${r.depthBody}</text>`;
+  s+=`<text x="${x0+r.wall*scale/2}" y="${H-4}" text-anchor="middle" font-size="12" fill="#8a8377">${r.wall} mm</text>`;
+  return s;
+}
+
+/* ---------- نمای پلان از بالا (شکل I / L / U) ---------- */
+function drawPlan(r){
+  const segs=wallSegments();
+  const depth=r.depthBody;
+  const gA=(k)=>shape==='I'?(+document.getElementById('wallW').value||0):(wallLens[k]||0);
+  let roomW, roomD;
+  if(shape==='I'){ roomW=gA('A'); roomD=depth*2.2; }
+  else if(shape==='L'){ roomW=gA('A'); roomD=gA('B'); }
+  else { roomW=gA('B'); roomD=Math.max(gA('A'),gA('C')); }
+
+  const W=900, padL=70, padR=40, padT=50, padB=60;
+  const sc=Math.min((W-padL-padR)/roomW, 520/roomD);
+  const H=Math.round(roomD*sc)+padT+padB;
+  const x0=padL, y0=padT;
+  const rw=roomW*sc, rd=roomD*sc, dp=depth*sc;
+  let s=`<svg viewBox="0 0 ${W} ${H}" xmlns="http://www.w3.org/2000/svg" font-family="inherit">`;
+  s+=woodDefs();
+  s+=`<rect x="${x0}" y="${y0}" width="${rw}" height="${rd}" fill="#f3efe4" stroke="#c9bfa9" stroke-width="1"/>`;
+  const cab=(x,y,w,h,label)=>`<rect x="${x}" y="${y}" width="${w}" height="${h}" fill="url(#wFront)" stroke="#8a7557" stroke-width="1.2"/>
+  <rect x="${x}" y="${y}" width="${w}" height="${h}" fill="url(#grain)" opacity=".45"/>`+
+  (label?`<text x="${x+w/2}" y="${y+h/2+4}" text-anchor="middle" font-size="11" fill="#5d4f3c">${label}</text>`:'');
+
+  const frontLen = shape==='I'?segs[0].len:(segs.find(x=>x.key==='B')||segs.find(x=>x.key==='A')).len;
+  if(shape==='I'){
+  s+=cab(x0,y0,rw,dp,`${segs[0].len}`);
+  } else if(shape==='L'){
+  const front=segs.find(x=>x.key==='A'), side=segs.find(x=>x.key==='B');
+  if(lSide==='left'){
+  s+=cab(x0,y0,dp,rd,'');               // دیوار کناری چپ
+  s+=cab(x0+dp,y0,rw-dp,dp,`${front.len}`);
+  s+=`<text x="${x0+dp/2}" y="${y0+rd/2}" text-anchor="middle" font-size="11" fill="#5d4f3c" transform="rotate(-90 ${x0+dp/2} ${y0+rd/2})">${side.len}</text>`;
+  } else {
+  s+=cab(x0+rw-dp,y0,dp,rd,'');         // دیوار کناری راست
+  s+=cab(x0,y0,rw-dp,dp,`${front.len}`);
+  s+=`<text x="${x0+rw-dp/2}" y="${y0+rd/2}" text-anchor="middle" font-size="11" fill="#5d4f3c" transform="rotate(-90 ${x0+rw-dp/2} ${y0+rd/2})">${side.len}</text>`;
+  }
+  } else {
+  const L=segs.find(x=>x.key==='A'), F=segs.find(x=>x.key==='B'), R=segs.find(x=>x.key==='C');
+  s+=cab(x0,y0,rw,dp,`${F.len}`);                     // روبه‌رو
+  s+=cab(x0,y0+dp,dp,rd-dp,'');                        // چپ
+  s+=cab(x0+rw-dp,y0+dp,dp,rd-dp,'');                  // راست
+  s+=`<text x="${x0+dp/2}" y="${y0+dp+(rd-dp)/2}" text-anchor="middle" font-size="11" fill="#5d4f3c" transform="rotate(-90 ${x0+dp/2} ${y0+dp+(rd-dp)/2})">${L.len}</text>`;
+  s+=`<text x="${x0+rw-dp/2}" y="${y0+dp+(rd-dp)/2}" text-anchor="middle" font-size="11" fill="#5d4f3c" transform="rotate(-90 ${x0+rw-dp/2} ${y0+dp+(rd-dp)/2})">${R.len}</text>`;
+  }
+  s+=`<text x="${x0+rw/2}" y="${H-16}" text-anchor="middle" font-size="12" fill="#8a8377">${t('depth')} ${depth} mm</text>`;
+  s+=`</svg>`;
+  return s;
+}
+
+/* ---------- نمای سه‌بعدی (مایل، بدون کتابخانه) ---------- */
+function woodDefs(){
+  let grain='';
+  for(let i=0;i<26;i++){
+  const x=(i*7.3)%110;
+  const o=(0.05+(i%4)*0.02).toFixed(2);
+  const w=(0.6+(i%3)*0.5).toFixed(1);
+  grain+=`<path d="M${x.toFixed(1)} 0 q ${(2-(i%5)).toFixed(1)} 30 0 60 q ${((i%4)-2).toFixed(1)} 30 0 60" stroke="rgba(110,85,50,${o})" stroke-width="${w}" fill="none"/>`;
+  }
+  return `<defs>
+  <pattern id="grain" width="110" height="120" patternUnits="userSpaceOnUse">${grain}</pattern>
+  <linearGradient id="wFront" x1="0" y1="0" x2="0" y2="1">
+  <stop offset="0%" stop-color="#d7c4a3"/><stop offset="45%" stop-color="#c9b48f"/>
+  <stop offset="100%" stop-color="#b89e78"/></linearGradient>
+  <linearGradient id="wTop" x1="0" y1="0" x2="1" y2="0">
+  <stop offset="0%" stop-color="#e8dcc4"/><stop offset="100%" stop-color="#d3c2a2"/></linearGradient>
+  <linearGradient id="wSide" x1="0" y1="0" x2="1" y2="0">
+  <stop offset="0%" stop-color="#a98f6b"/><stop offset="100%" stop-color="#8f7757"/></linearGradient>
+  <linearGradient id="wDoor" x1="0" y1="0" x2="1" y2="0.35">
+  <stop offset="0%" stop-color="#e2d2b5"/><stop offset="18%" stop-color="#d6c4a2"/>
+  <stop offset="62%" stop-color="#c7b18a"/><stop offset="100%" stop-color="#b49b74"/></linearGradient>
+  <linearGradient id="wGlass" x1="0" y1="0" x2="1" y2="1">
+  <stop offset="0%" stop-color="#e9f0ee"/><stop offset="55%" stop-color="#d3e0dd"/>
+  <stop offset="100%" stop-color="#c2d3cf"/></linearGradient>
+  <linearGradient id="wMirror" x1="0" y1="0" x2="0.7" y2="1">
+  <stop offset="0%" stop-color="#eef3f5"/><stop offset="40%" stop-color="#cfdde3"/>
+  <stop offset="100%" stop-color="#b7c9d1"/></linearGradient>
+  <linearGradient id="inBack" x1="0" y1="0" x2="0" y2="1">
+  <stop offset="0%" stop-color="#a08a68"/><stop offset="100%" stop-color="#8b7657"/></linearGradient>
+  <linearGradient id="inSide" x1="0" y1="0" x2="1" y2="0">
+  <stop offset="0%" stop-color="#c2ab84"/><stop offset="100%" stop-color="#a48d69"/></linearGradient>
+  <linearGradient id="shelfTop" x1="0" y1="0" x2="0" y2="1">
+  <stop offset="0%" stop-color="#e0cfae"/><stop offset="100%" stop-color="#c8b28b"/></linearGradient>
+  </defs>`;
+}
+
+function draw3d(r, openMode){
+  const W=1000, padL=40, padR=40, padT=70, padB=60;
+  const drawW=W-padL-padR;
+  const dxD=r.depthBody*0.55, dyD=r.depthBody*0.34;   // بردار عمق
+  const scale=drawW/(r.wall+dxD);
+  const H=Math.round((r.H+dyD)*scale)+padT+padB;
+  const x0=padL, y0=padT+dyD*scale;
+  const dx=dxD*scale, dy=dyD*scale;
+  const wpx=r.wall*scale, hpx=r.H*scale;
+
+  let s=`<svg viewBox="0 0 ${W} ${H}" xmlns="http://www.w3.org/2000/svg" font-family="inherit">`;
+  s+=woodDefs();
+  s+=`<ellipse cx="${x0+wpx/2+dx/2}" cy="${y0+hpx+9}" rx="${wpx/2+dx/2}" ry="9" fill="rgba(0,0,0,.13)"/>`;
+  s+=`<polygon points="${x0},${y0} ${x0+wpx},${y0} ${x0+wpx+dx},${y0-dy} ${x0+dx},${y0-dy}"
+  fill="url(#wTop)" stroke="#8a7557" stroke-width="1"/>`;
+  s+=`<polygon points="${x0},${y0} ${x0+wpx},${y0} ${x0+wpx+dx},${y0-dy} ${x0+dx},${y0-dy}" fill="url(#grain)" opacity=".5"/>`;
+  s+=`<polygon points="${x0+wpx},${y0} ${x0+wpx+dx},${y0-dy} ${x0+wpx+dx},${y0+hpx-dy} ${x0+wpx},${y0+hpx}"
+  fill="url(#wSide)" stroke="#8a7557" stroke-width="1"/>`;
+  s+=`<polygon points="${x0+wpx},${y0} ${x0+wpx+dx},${y0-dy} ${x0+wpx+dx},${y0+hpx-dy} ${x0+wpx},${y0+hpx}" fill="url(#grain)" opacity=".45"/>`;
+  s+=`<rect x="${x0}" y="${y0}" width="${wpx}" height="${hpx}" fill="url(#wFront)" stroke="#8a7557" stroke-width="1"/>`;
+
+  const corniceH=(r.cornice||0)*scale;
+  const pattyPx=(r.pattyH||0)*scale;
+  const doorTop=y0+corniceH, doorH=hpx-corniceH-pattyPx;
+  const plans=(r.designMode==='perunit'&&r.unitPlans)?r.unitPlans:null;
+  const widths0=plans?plans.map(u=>+u.width||r.uw):Array.from({length:r.n},()=>r.uw);
+  const RT=rtlUnits(widths0, plans), widths=RT.widths, plansR=RT.plans;
+  const gDoors=+document.getElementById('doorsPer').value||2;
+  const Tpx=T*scale;
+
+  if(openMode){
+  let cx=x0;
+  widths.forEach((wMm,ui)=>{
+  const uw=wMm*scale;
+  const plan=plansR?plansR[ui]:null;
+  const inX=cx+Tpx, inW=uw-2*Tpx;
+  s+=`<polygon points="${inX+dx},${doorTop-dy} ${inX+inW+dx},${doorTop-dy} ${inX+inW+dx},${doorTop+doorH-dy} ${inX+dx},${doorTop+doorH-dy}"
+  fill="url(#inBack)"/>`;
+  s+=`<polygon points="${inX+dx},${doorTop-dy} ${inX+inW+dx},${doorTop-dy} ${inX+inW+dx},${doorTop+doorH-dy} ${inX+dx},${doorTop+doorH-dy}" fill="url(#grain)" opacity=".35"/>`;
+  s+=`<polygon points="${inX},${doorTop} ${inX+dx},${doorTop-dy} ${inX+dx},${doorTop+doorH-dy} ${inX},${doorTop+doorH}"
+  fill="url(#inSide)" stroke="#8a7557" stroke-width=".6"/>`;
+  s+=`<polygon points="${inX+inW},${doorTop} ${inX+inW+dx},${doorTop-dy} ${inX+inW+dx},${doorTop+doorH-dy} ${inX+inW},${doorTop+doorH}"
+  fill="#9c8564" opacity=".9" stroke="#8a7557" stroke-width=".6"/>`;
+  s+=`<polygon points="${inX},${doorTop} ${inX+inW},${doorTop} ${inX+inW+dx},${doorTop-dy} ${inX+dx},${doorTop-dy}"
+  fill="#b39a74" opacity=".85"/>`;
+  s+=`<polygon points="${inX},${doorTop+doorH} ${inX+inW},${doorTop+doorH} ${inX+inW+dx},${doorTop+doorH-dy} ${inX+dx},${doorTop+doorH-dy}"
+  fill="url(#shelfTop)"/>`;
+  const cells=(plan&&(plan.cells||[plan.segs]))||[[{type:'shelf',count:3}]];
+  const mid=plan?(+plan.midPanel||0):0;
+  const cellW=mid>0?(inW-mid*Tpx)/(mid+1):inW;
+  for(let c=0;c<=mid;c++){
+  const cX=inX+c*(cellW+Tpx);
+  if(c<mid){
+  s+=`<polygon points="${cX+cellW},${doorTop} ${cX+cellW+dx},${doorTop-dy} ${cX+cellW+dx},${doorTop+doorH-dy} ${cX+cellW},${doorTop+doorH}"
+  fill="#a8916d" stroke="#8a7557" stroke-width=".5"/>`;
+  }
+  s+=draw3dCell(cells[c]||cells[0]||[], cX, cellW, doorTop, doorTop+doorH, r.usableIn||(doorH/scale), scale, dx, dy);
+  }
+  cx+=uw;
+  });
+  if(corniceH>0) s+=`<rect x="${x0}" y="${y0}" width="${wpx}" height="${corniceH}" fill="#c0a87f" stroke="#8a7557" stroke-width=".8"/>`;
+  if(pattyPx>0) s+=`<rect x="${x0}" y="${y0+hpx-pattyPx}" width="${wpx}" height="${pattyPx}" fill="#a8916d" stroke="#8a7557" stroke-width=".8"/>`;
+  s+=`<text x="${x0+wpx/2}" y="${y0+hpx+34}" text-anchor="middle" font-size="12" fill="#8a8377">${r.wall} × ${r.H} × ${r.depthBody} mm</text>`;
+  s+=`</svg>`;
+  return s;
+  }
+
+  s+=`<rect x="${x0}" y="${y0}" width="${wpx}" height="${hpx}" fill="url(#grain)" opacity=".5"/>`;
+  if(corniceH>0) s+=`<rect x="${x0}" y="${y0}" width="${wpx}" height="${corniceH}" fill="#c0a87f" stroke="#8a7557" stroke-width=".8"/>`;
+  if(pattyPx>0) s+=`<rect x="${x0}" y="${y0+hpx-pattyPx}" width="${wpx}" height="${pattyPx}" fill="#a8916d" stroke="#8a7557" stroke-width=".8"/>`;
+  let cx=x0;
+  widths.forEach((wMm,ui)=>{
+  const uw=wMm*scale;
+  const plan=plansR?plansR[ui]:null;
+  const design=plan?plan.door:'plain';
+  const nD=plan&&plan.doorCount!==undefined?plan.doorCount:gDoors;
+  let fill='url(#wDoor)';
+  if(design==='mirror') fill='url(#wMirror)';
+  else if(design==='glass') fill='url(#wGlass)';
+  if(nD>0){
+  const gap=2.5, dW=(uw-gap*(nD+1))/nD;
+  for(let d=0;d<nD;d++){
+  const px=cx+gap+d*(dW+gap);
+  s+=`<rect x="${px}" y="${doorTop+2}" width="${dW}" height="${doorH-4}" rx="1.5"
+  fill="${fill}" stroke="#9c8360" stroke-width=".9"/>`;
+  if(design!=='mirror'&&design!=='glass')
+  s+=`<rect x="${px}" y="${doorTop+2}" width="${dW}" height="${doorH-4}" rx="1.5" fill="url(#grain)" opacity=".6"/>`;
+  if(design==='glass'||design==='frame'){
+  s+=`<rect x="${px+7}" y="${doorTop+10}" width="${Math.max(0,dW-14)}" height="${Math.max(0,doorH-24)}"
+  fill="${design==='glass'?'rgba(255,255,255,.35)':'rgba(255,255,255,.18)'}" stroke="#b09872" stroke-width=".8"/>`;
+  }
+  if(design==='mirror'){
+  s+=`<line x1="${px+dW*0.2}" y1="${doorTop+10}" x2="${px+dW*0.65}" y2="${doorTop+doorH*0.5}"
+  stroke="rgba(255,255,255,.75)" stroke-width="2.5"/>`;
+  s+=`<line x1="${px+dW*0.5}" y1="${doorTop+10}" x2="${px+dW*0.9}" y2="${doorTop+doorH*0.45}"
+  stroke="rgba(255,255,255,.45)" stroke-width="1.6"/>`;
+  }
+  s+=`<rect x="${px-gap}" y="${doorTop+2}" width="${gap}" height="${doorH-4}" fill="rgba(90,70,45,.28)"/>`;
+  const hx=d<nD/2?px+dW-6:px+3;
+  s+=`<rect x="${hx}" y="${doorTop+doorH/2-18}" width="3" height="36" rx="1.5" fill="#6f5f47"/>`;
+  }
+  }
+  cx+=uw;
+  });
+  s+=`<text x="${x0+wpx/2}" y="${y0+hpx+34}" text-anchor="middle" font-size="12" fill="#8a8377">${r.wall} × ${r.H} × ${r.depthBody} mm</text>`;
+  s+=`</svg>`;
+  return s;
+}
+
+function draw3dCell(segs, inX, inW, zTop, zBot, usableMm, scale, dx, dy){
+  let s='';
+  const zoneH=zBot-zTop;
+  let fixedMm=0, shelfCount=0;
+  segs.forEach(sg=>{
+  if(sg.type==='drawer') fixedMm+=(sg.count||1)*DRAWER_H;
+  else if(sg.type==='rail_long') fixedMm+=RAIL_LONG+SHELF_AFTER_RAIL;
+  else if(sg.type==='rail_half') fixedMm+=RAIL_HALF+SHELF_AFTER_RAIL;
+  else if(sg.type==='shoe') fixedMm+=(sg.count||3)*80;
+  else if(sg.type==='shelf') shelfCount+=(sg.count||1);
+  });
+  const shelfSpaceMm=Math.max(0,usableMm-fixedMm);
+  const mm2px=zoneH/usableMm;
+  const shelf3d=(y)=>`<polygon points="${inX},${y} ${inX+inW},${y} ${inX+inW+dx},${y-dy} ${inX+dx},${y-dy}"
+  fill="url(#shelfTop)" stroke="#8a7557" stroke-width=".5"/>
+  <rect x="${inX}" y="${y}" width="${inW}" height="${Math.max(2,T*scale)}" fill="#bda680"/>`;
+  let yb=zBot;
+  segs.forEach(sg=>{
+  let hMm=0;
+  if(sg.type==='drawer') hMm=(sg.count||1)*DRAWER_H;
+  else if(sg.type==='rail_long') hMm=RAIL_LONG+SHELF_AFTER_RAIL;
+  else if(sg.type==='rail_half') hMm=RAIL_HALF+SHELF_AFTER_RAIL;
+  else if(sg.type==='shoe') hMm=(sg.count||3)*80;
+  else if(sg.type==='shelf') hMm=shelfCount>0?shelfSpaceMm*((sg.count||1)/shelfCount):0;
+  const hPx=hMm*mm2px, yTop=yb-hPx;
+  if(sg.type==='drawer'){
+  const cnt=sg.count||1;
+  for(let d=0;d<cnt;d++){
+  const dyy=yb-hPx*(d+1)/cnt;
+  s+=`<rect x="${inX+2}" y="${dyy+1}" width="${inW-4}" height="${hPx/cnt-2}" rx="1"
+  fill="url(#wDoor)" stroke="#8a6d3a" stroke-width=".7"/>`;
+  s+=`<rect x="${inX+inW/2-12}" y="${dyy+hPx/cnt/2-1.5}" width="24" height="3" rx="1.5" fill="#6f5f47"/>`;
+  }
+  } else if(sg.type==='rail_long'||sg.type==='rail_half'){
+  const ry=yTop+SHELF_AFTER_RAIL*mm2px;
+  s+=`<line x1="${inX+3}" y1="${ry}" x2="${inX+inW-3}" y2="${ry}" stroke="#6f5f47" stroke-width="2.5"/>`;
+  s+=`<line x1="${inX+3+dx*0.5}" y1="${ry-dy*0.5}" x2="${inX+inW-3+dx*0.5}" y2="${ry-dy*0.5}" stroke="#5d4f3c" stroke-width="2"/>`;
+  const n=Math.max(3,Math.floor(inW/26));
+  for(let k=0;k<n;k++){
+  const hx=inX+8+k*((inW-16)/Math.max(1,n-1));
+  s+=`<rect x="${hx-5}" y="${ry+3}" width="10" height="${Math.min(hPx*0.62,(yb-ry)*0.85)}" rx="3"
+  fill="rgba(255,255,255,.5)" stroke="rgba(120,100,70,.35)" stroke-width=".5"/>`;
+  }
+  } else if(sg.type==='shoe'){
+  const cnt=sg.count||3;
+  for(let d=0;d<cnt;d++) s+=shelf3d(yb-hPx*(d+1)/cnt);
+  } else if(sg.type==='shelf'){
+  const cnt=sg.count||1;
+  for(let k=1;k<=cnt;k++) s+=shelf3d(yb-hPx*k/(cnt+1));
+  }
+  if(hPx>0) yb-=hPx;
+  });
+  return s;
+}
+
+/* ---------- inside elevation (drawers / rail / shelves per unit) ---------- */
+function drawInside(r){
+  const W=980,padL=64,padR=24,padT=40,padB=44;
+  const drawW=W-padL-padR;
+  const scale=drawW/r.wall;
+  const H=Math.round(r.H*scale)+padT+padB;
+  const x0=padL,y0=padT;
+  const pad=padL;
+  const corniceH=(r.cornice||0)*scale;
+  const pattyPx=(r.pattyH||0)*scale;
+  let s=`<svg viewBox="0 0 ${W} ${H}" xmlns="http://www.w3.org/2000/svg" font-family="inherit">`;
+  if(corniceH>0) s+=`<rect x="${x0}" y="${y0}" width="${r.wall*scale}" height="${corniceH}" fill="#d9cdb5" stroke="#1a1815" stroke-width="1"/>`;
+  if(pattyPx>0) s+=`<rect x="${x0}" y="${y0+r.H*scale-pattyPx}" width="${r.wall*scale}" height="${pattyPx}" fill="#c9bfa9" stroke="#1a1815" stroke-width="1"/>`;
+
+  const zoneTop=y0+corniceH;
+  const zoneBot=y0+r.H*scale-pattyPx;
+  const zoneH=zoneBot-zoneTop;
+
+  if(r.designMode==='perunit' && r.unitPlans){
+  let cx=x0;
+  [...r.unitPlans].reverse().forEach((plan,i)=>{   // یونیت ۱ سمت راست
+  const w=(+plan.width||r.uw)*scale;
+  let bx=cx, bw=w;
+  if(plan.filler && plan.filler!=='none'){
+  const fwPx=(+plan.fillerW||18)*scale;
+  const fH=(y0+r.H*scale)-zoneTop;   // تا پایین کمد
+  if(plan.filler==='left'){
+  s+=`<rect x="${cx}" y="${zoneTop}" width="${fwPx}" height="${fH}" fill="#cbb994" stroke="#8a6d3a" stroke-width=".6"/>`;
+  bx=cx+fwPx; bw=w-fwPx;
+  } else {
+  s+=`<rect x="${cx+w-fwPx}" y="${zoneTop}" width="${fwPx}" height="${fH}" fill="#cbb994" stroke="#8a6d3a" stroke-width=".6"/>`;
+  bw=w-fwPx;
+  }
+  }
+  s+=`<rect x="${bx}" y="${zoneTop}" width="${T*scale}" height="${zoneH}" fill="#e5ddcb" stroke="#8a8377" stroke-width=".5"/>`;
+  s+=`<rect x="${bx+bw-T*scale}" y="${zoneTop}" width="${T*scale}" height="${zoneH}" fill="#e5ddcb" stroke="#8a8377" stroke-width=".5"/>`;
+  const inX=bx+T*scale, inW=bw-2*T*scale;
+  const mid=+plan.midPanel||0;
+  const cells = plan.cells || [plan.segs||[]];
+  if(mid>0){
+  const cellW=(inW-mid*T*scale)/(mid+1);
+  for(let c=0;c<=mid;c++){
+  const cx2=inX+c*(cellW+T*scale);
+  drawUnitContent(cells[c]||cells[0]||[], cx2, cellW, zoneTop, zoneBot, r.usableIn||zoneH/scale, scale, (str)=>{s+=str;});
+  if(c<mid) s+=`<rect x="${cx2+cellW}" y="${zoneTop}" width="${T*scale}" height="${zoneH}" fill="#e5ddcb" stroke="#8a8377" stroke-width=".5"/>`;
+  }
+  } else {
+  drawUnitContent(cells[0]||[], inX, inW, zoneTop, zoneBot, r.usableIn||zoneH/scale, scale, (str)=>{s+=str;});
+  }
+  if(r.pattyMode==='inside'||r.pattyMode==='inside_out'){
+  const py=zoneBot-(r.pattyH||0)*scale;
+  s+=`<line x1="${inX}" y1="${py}" x2="${inX+inW}" y2="${py}" stroke="#8a6d3a" stroke-width="1"/>`;
+  }
+  s+=`<text x="${cx+w/2}" y="${zoneBot+15}" text-anchor="middle" font-size="9" fill="#8a8377">${plan.width}</text>`;
+  cx+=w;
+  });
+  s+=dimBlock(r,x0,y0,scale,corniceH,pattyPx,zoneTop,zoneBot,H);
+  s+=`</svg>`;
+  return s;
+  }
+
+  const uwPx=r.uw*scale;
+  const di=r.drawerInfo;
+  let drawerUnitSet=new Set();
+  if(di){
+  const raw=(document.getElementById('drawerUnits').value||'').trim();
+  if(raw) raw.split(',').forEach(x=>{const v=parseInt(x.trim());if(v>=1&&v<=r.n)drawerUnitSet.add(v);});
+  else drawerUnitSet.add(1);
+  }
+  for(let i=0;i<r.n;i++){
+  const ux=x0+i*uwPx;
+  s+=`<rect x="${ux}" y="${zoneTop}" width="${T*scale}" height="${zoneH}" fill="#e5ddcb" stroke="#8a8377" stroke-width=".5"/>`;
+  s+=`<rect x="${ux+uwPx-T*scale}" y="${zoneTop}" width="${T*scale}" height="${zoneH}" fill="#e5ddcb" stroke="#8a8377" stroke-width=".5"/>`;
+  const inX=ux+T*scale, inW=uwPx-2*T*scale;
+  if(di && drawerUnitSet.has(i+1)){
+  const dzH=di.dwH*scale, dzTop=zoneBot-dzH;
+  if(di.above==='rail'){
+  const ry=zoneTop+(dzTop-zoneTop)*0.18;
+  s+=`<line x1="${inX}" y1="${ry}" x2="${inX+inW}" y2="${ry}" stroke="#3f6b5e" stroke-width="2"/>`;
+  } else {
+  const sy=zoneTop+(dzTop-zoneTop)*0.5;
+  s+=`<rect x="${inX}" y="${sy}" width="${inW}" height="${Math.max(2,T*scale)}" fill="#b89b6a" stroke="#1a1815" stroke-width=".6"/>`;
+  }
+  for(let d=0;d<di.drawerCount;d++){
+  const dy=dzTop+dzH*d/di.drawerCount;
+  s+=`<rect x="${inX+2}" y="${dy+1}" width="${inW-4}" height="${dzH/di.drawerCount-2}" fill="#efe4cf" stroke="#8a6d3a" stroke-width="1"/>`;
+  s+=`<rect x="${inX+inW/2-10}" y="${dy+dzH/di.drawerCount/2-1.5}" width="20" height="3" rx="1.5" fill="#8a6d3a"/>`;
+  }
+  } else {
+  if(r.hasRail){
+  const ry=zoneTop+zoneH*0.14;
+  s+=`<line x1="${inX}" y1="${ry}" x2="${inX+inW}" y2="${ry}" stroke="#3f6b5e" stroke-width="2"/>`;
+  }
+  const ns=r.shelves||0;
+  for(let k=1;k<=ns;k++){
+  const yy=zoneTop+zoneH*(0.22+0.72*k/(ns+1));
+  s+=`<rect x="${inX}" y="${yy}" width="${inW}" height="${Math.max(2,T*scale)}" fill="#b89b6a" stroke="#1a1815" stroke-width=".5"/>`;
+  }
+  }
+  }
+  s+=dimBlock(r,x0,y0,scale,corniceH,pattyPx,zoneTop,zoneBot,H);
+  s+=`</svg>`;
+  return s;
+}
+
+function drawUnitContent(segs, inX, inW, zoneTop, zoneBot, usableMm, scale, emit){
+  const zoneH=zoneBot-zoneTop;
+  let fixedMm=0, shelfCount=0;
+  segs.forEach(sg=>{
+  if(sg.type==='drawer') fixedMm+=(sg.count||1)*DRAWER_H;
+  else if(sg.type==='rail_long') fixedMm+=RAIL_LONG+SHELF_AFTER_RAIL;
+  else if(sg.type==='rail_half') fixedMm+=RAIL_HALF+SHELF_AFTER_RAIL;
+  else if(sg.type==='shoe') fixedMm+=(sg.count||3)*80;
+  else if(sg.type==='shelf') shelfCount+=(sg.count||1);
+  });
+  const shelfSpaceMm=Math.max(0, usableMm-fixedMm);
+  const mmToPx=zoneH/usableMm;
+  let yb=zoneBot; // از پایین شروع
+  segs.forEach(sg=>{
+  let hMm=0;
+  if(sg.type==='drawer') hMm=(sg.count||1)*DRAWER_H;
+  else if(sg.type==='rail_long') hMm=RAIL_LONG+SHELF_AFTER_RAIL;
+  else if(sg.type==='rail_half') hMm=RAIL_HALF+SHELF_AFTER_RAIL;
+  else if(sg.type==='shoe') hMm=(sg.count||3)*80;
+  else if(sg.type==='shelf') hMm=shelfCount>0?shelfSpaceMm*((sg.count||1)/shelfCount):0;
+  const hPx=hMm*mmToPx;
+  const yTop=yb-hPx;
+  if(hPx>14 && hMm>0){
+  emit(`<text x="${inX+inW-3}" y="${yTop+hPx/2+3}" text-anchor="end" font-size="8.5" fill="#8a8377">${Math.round(hMm)}</text>`);
+  }
+  if(sg.type==='drawer'){
+  const cnt=sg.count||1;
+  const dwPx=DW*scale;
+  emit(`<rect x="${inX}" y="${yTop}" width="${dwPx}" height="${hPx}" fill="#d8ceb8" stroke="#8a6d3a" stroke-width=".7"/>`);
+  emit(`<rect x="${inX+inW-dwPx}" y="${yTop}" width="${dwPx}" height="${hPx}" fill="#d8ceb8" stroke="#8a6d3a" stroke-width=".7"/>`);
+  emit(`<rect x="${inX}" y="${yTop-Math.max(2,DW*scale)}" width="${inW}" height="${Math.max(2,DW*scale)}" fill="#c9b78a" stroke="#8a6d3a" stroke-width=".7"/>`);
+  const dInX=inX+dwPx, dInW=inW-2*dwPx;
+  for(let d=0;d<cnt;d++){
+  const dy=yb-hPx*(d+1)/cnt;
+  emit(`<rect x="${dInX+2}" y="${dy+1}" width="${dInW-4}" height="${hPx/cnt-2}" fill="#efe4cf" stroke="#8a6d3a" stroke-width="1"/>`);
+  emit(`<rect x="${dInX+dInW/2-10}" y="${dy+hPx/cnt/2-1.5}" width="20" height="3" rx="1.5" fill="#8a6d3a"/>`);
+  }
+  } else if(sg.type==='rail_long'||sg.type==='rail_half'){
+  const railY=yTop+(SHELF_AFTER_RAIL*mmToPx);
+  emit(`<line x1="${inX}" y1="${railY}" x2="${inX+inW}" y2="${railY}" stroke="#3f6b5e" stroke-width="2"/>`);
+  emit(`<text x="${inX+inW/2}" y="${(railY+yb)/2}" text-anchor="middle" font-size="9" fill="#3f6b5e">${sg.type==='rail_long'?t('seg_raillong'):t('seg_railhalf')}</text>`);
+  } else if(sg.type==='shoe'){
+  const cnt=sg.count||3;
+  for(let d=0;d<cnt;d++){
+  const sy=yb-hPx*(d+1)/cnt;
+  emit(`<line x1="${inX}" y1="${sy}" x2="${inX+inW}" y2="${sy}" stroke="#8a6d3a" stroke-width="1.5"/>`);
+  }
+  } else if(sg.type==='shelf'){
+  const cnt=sg.count||1;
+  const gapMm=Math.round((hMm - cnt*T)/(cnt+1));
+  for(let k=1;k<=cnt;k++){
+  const sy=yb-hPx*k/(cnt+1);
+  emit(`<rect x="${inX}" y="${sy}" width="${inW}" height="${Math.max(2,T*scale)}" fill="#b89b6a" stroke="#1a1815" stroke-width=".5"/>`);
+  }
+  if(hPx>20) emit(`<text x="${inX+4}" y="${yb-hPx/2+3}" font-size="8.5" fill="#3f6b5e">${gapMm}</text>`);
+  }
+  if(hPx>0){
+  yb-=hPx;
+  emit(`<line x1="${inX}" y1="${yb}" x2="${inX+inW}" y2="${yb}" stroke="#8a8377" stroke-width=".8" stroke-dasharray="3,3"/>`);
+  }
+  });
+}
+
+/* ---------- render ---------- */
+function grainLabel(g){return g==='v'?t('grain_v'):t('grain_h');}
+function matLabel(m){
+  if(m==='fiber')return t('fiber');
+  if(m==='door')return t('door_mat');
+  if(m==='mirror')return t('mirror_mat');
+  if(m==='glass')return t('glass_mat');
+  if(m==='mdf_double')return t('mdf_double');
+  if(m==='mdf_pvc')return t('mdf_pvc');
+  return t('mdf');
+}
+function t(k){return I18N[LANG][k];}
+
+/* ---------- نوار PVC: خط زیر عدد = آن لبه نوار می‌خورد ---------- */
+/* [تعداد لبه‌های طول ، تعداد لبه‌های عرض] — یک خط یعنی یک طرف، دو خط یعنی دو طرف */
+const EDGE = {
+  p_head:[2,2], p_door:[2,2],
+  p_boxtop:[1,2], p_toppanel:[1,2], p_topin:[1,2], p_ceil:[1,2], p_floor:[2,0],
+  p_side:[1,2], p_dw:[1,2], p_body:[1,2], p_midpanel:[1,0],
+  p_shelf:[1,0], p_dwshelf:[1,0], p_shoe:[1,0],
+  p_fb:[0,0], p_lr:[0,0],
+  p_patty:[1,0], p_patty_side:[1,0], p_skirt:[1,0], p_tvpanel:[2,2], p_desk:[2,2], p_mirror:[0,0], p_gapfiller:[2,2],
+  p_cornice:[1,0], p_cornice_side:[1,0],
+  p_sidefiller:[1,0], p_cornerfiller:[1,0], p_cornermid:[1,0],
+  p_back:[0,0], p_rail:[0,0], p_dwrail:[0,0]
+};
+const EDGE_OVERRIDE = {};   // انتخاب دستی کاربر برای هر ردیف جدول
+function rowKey(p){ return `${p.key}|${p.L}|${p.W}|${p.grain}|${p.mat}`; }
+/* گروه هر قطعه — عنوانش بالای آن دسته در جدول می‌آید */
+const GROUP = {
+  p_side:'g_body', p_dw:'g_body', p_midpanel:'g_body', p_boxtop:'g_body', p_toppanel:'g_body', p_topin:'g_body', p_ceil:'g_body',
+  p_floor:'g_body', p_body:'g_body', p_shelf:'g_body', p_shoe:'g_body', p_rail:'g_body',
+  p_back:'g_body', p_patty:'g_body', p_patty_side:'g_body', p_cornice:'g_body',
+  p_cornice_side:'g_body', p_sidefiller:'g_body', p_cornerfiller:'g_body', p_cornermid:'g_body',
+  p_head:'g_drawer', p_fb:'g_drawer', p_lr:'g_drawer', p_dwshelf:'g_drawer', p_dwrail:'g_drawer',
+  p_skirt:'g_body', p_tvpanel:'g_body', p_desk:'g_body', p_mirror:'g_body', p_gapfiller:'g_body',
+  p_door:'g_door'
+};
+const GROUP_ORDER = ['g_body','g_drawer','g_door','g_other'];
+function groupOf(key){ return GROUP[key] || 'g_other'; }
+/* قطعات را به ترتیب گروه مرتب می‌کند و مرز هر گروه را علامت می‌زند */
+function groupRows(merged){
+  const out=[];
+  GROUP_ORDER.forEach(g=>{
+  const items=merged.filter(p=>groupOf(p.key)===g);
+  if(items.length) out.push({head:g, items});
+  });
+  return out;
+}
+function edgeOf(p){
+  if(typeof p==='string') return (EDGE[p]||[0,0]).slice();
+  const ov=EDGE_OVERRIDE[rowKey(p)];
+  return (ov || EDGE[p.key] || [0,0]).slice();
+}
+function edgeCss(n){
+  if(n===1) return 'border-bottom:1.6px solid #1a1815;padding-bottom:1px';
+  if(n>=2)  return 'border-bottom:4px double #1a1815;padding-bottom:1px';
+  return '';
+}
+/* طول کل نوار بر حسب متر */
+function tapeMeters(parts){
+  let mm=0;
+  parts.forEach(p=>{ const [a,b]=edgeOf(p); mm += (a*p.L + b*p.W) * p.q; });
+  return Math.round(mm/100)/10;
+}
+function mergeParts(parts){
+  const map=new Map();
+  parts.forEach(p=>{
+  const k=`${p.key}|${p.L}|${p.W}|${p.grain}|${p.mat}`;
+  if(map.has(k)) map.get(k).q+=p.q;
+  else map.set(k,{...p});
+  });
+  return [...map.values()];
+}
+
+function render(){
+  const r=calculate();
+  const el=document.getElementById('result');
+  const merged=mergeParts(r.parts);
+  const rowHtml=p=>`
+  <tr>
+  <td>${t(p.key)}</td>
+  <td class="dim"><span class="edgepick" data-k="${rowKey(p)}" data-d="0" style="cursor:pointer;${edgeCss(edgeOf(p)[0])}">${p.L}</span></td>
+  <td class="dim"><span class="edgepick" data-k="${rowKey(p)}" data-d="1" style="cursor:pointer;${edgeCss(edgeOf(p)[1])}">${p.W}</span></td>
+  <td class="dim">${p.q}</td>
+  <td class="unittag">${grainLabel(p.grain)}</td>
+  <td class="unittag">${matLabel(p.mat)}</td>
+  </tr>`;
+  const rows=groupRows(merged).map(g=>
+  `<tr class="ghead"><td colspan="6" style="background:#efe9dc;color:#5d4f3c;font-size:11.5px;letter-spacing:1px;padding:6px 8px">${t(g.head)}</td></tr>`
+  + g.items.map(rowHtml).join('')).join('');
+
+  el.innerHTML=`
+  <div class="chips">
+  <div class="chip"><div class="k">${t('c_units')}</div><div class="v">${r.n} × ${r.uw}</div></div>
+  <div class="chip"><div class="k">${t('c_bh')}</div><div class="v">${r.bodyH}</div></div>
+  <div class="chip"><div class="k">${t('c_sheets')}</div><div class="v">≈${r.sheetsRough}</div></div>
+  <div class="chip"><div class="k">${t('c_waste')}</div><div class="v">${r.wastePct}%</div></div>
+  </div>
+
+  <div class="view2d">
+  <div style="font-size:12px;color:var(--muted);margin-bottom:8px;letter-spacing:1px">${t('view').toUpperCase()}</div>
+  ${r.tv?drawTv(r):(r.solo?drawSoloAny(r):draw2d(r))}
+  </div>
+
+  <div class="tablewrap">
+  <table>
+  <thead><tr>
+  <th>${t('part')}</th><th>${t('len')}</th><th>${t('wid')}</th>
+  <th>${t('qty')}</th><th>${t('grain')}</th><th>${t('mat')}</th>
+  </tr></thead>
+  <tbody>${rows}</tbody>
+  </table>
+  </div>
+
+  <div class="toolbar">
+  <button id="btnXlsx">📊 ${t('xlsx')}</button>
+  <button id="btnPrint">🖨 ${t('print')}</button>
+  </div>
+  <div class="footnote">${t('tape_click')}<br>${t('tape_legend')} • ${t('tape_total')}: ${tapeMeters(merged)} m<br>${t('foot')}<br>${t('note_sheets')}</div>
+  `;
+  el.querySelectorAll('.edgepick').forEach(sp=>{
+  sp.title=t('tape_click');
+  sp.onclick=()=>{
+  const k=sp.dataset.k, d=+sp.dataset.d;
+  const cur = EDGE_OVERRIDE[k] ? EDGE_OVERRIDE[k].slice() : (EDGE[k.split('|')[0]]||[0,0]).slice();
+  cur[d]=(cur[d]+1)%3;        // 0 → 1 خط → 2 خط → بدون خط
+  EDGE_OVERRIDE[k]=cur;
+  render();
+  };
+  });
+  document.getElementById('btnXlsx').onclick=()=>exportCsv(r);
+  document.getElementById('btnPrint').onclick=()=>printList(r);
+  window.__last=r;
+}
+
+/* ---------- 2D front elevation ---------- */
+/* یونیت ۱ سمت راست است؛ برای کشیدن، ترتیب را برعکس می‌کنیم و فیلر را قرینه */
+function rtlUnits(widths, plans){
+  // فقط ترتیب برعکس می‌شود؛ چپ و راستِ خود یونیت دست‌نخورده می‌ماند
+  const idx=widths.map((_,i)=>i).reverse();
+  return {widths:idx.map(i=>widths[i]), plans:plans?idx.map(i=>plans[i]):null, idx};
+}
+function draw2d(r){
+  const W=920,pad=30;
+  const drawW=W-pad*2;
+  const scale=drawW/r.wall;
+  const H=Math.round(r.H*scale)+pad*2;
+  const x0=pad,y0=pad;
+  const doorsPer=+document.getElementById('doorsPer').value||2;
+  let s=`<svg viewBox="0 0 ${W} ${H}" xmlns="http://www.w3.org/2000/svg">`+woodDefs();
+  s+=`<rect x="${x0}" y="${y0}" width="${r.wall*scale}" height="${r.H*scale}" fill="#efe9dc" stroke="#1a1815" stroke-width="2"/>`;
+  const corniceH=(r.cornice||0)*scale;
+  const pattyPx=(r.pattyH||0)*scale;
+  if(corniceH>0) s+=`<rect x="${x0}" y="${y0}" width="${r.wall*scale}" height="${corniceH}" fill="#d9cdb5" stroke="#1a1815" stroke-width="1"/>`;
+  const pattyBetween = (r.pattyMode==='inside'||r.pattyMode==='inside_out');
+  const pattyConnected = (r.pattySplit==='connected'||r.pattySplit==='both');
+  const drawPattyPerUnit = pattyBetween && !pattyConnected;
+  if(pattyPx>0 && !drawPattyPerUnit){
+  s+=`<rect x="${x0}" y="${y0+r.H*scale-pattyPx}" width="${r.wall*scale}" height="${pattyPx}" fill="#c9bfa9" stroke="#1a1815" stroke-width="1"/>`;
+  }
+
+  const doorTop=y0+corniceH;
+  const doorH=r.H*scale-corniceH-pattyPx;
+
+  const plans = (r.designMode==='perunit' && r.unitPlans) ? r.unitPlans : null;
+  const widths0 = plans ? plans.map(u=>+u.width||r.uw) : Array.from({length:r.n},()=>r.uw);
+  const RT=rtlUnits(widths0, plans), widths=RT.widths, plansR=RT.plans;
+
+  let cx=x0;
+  widths.forEach((wMm,ui)=>{
+  const uwPx=wMm*scale;
+  const plan=plansR?plansR[ui]:null;
+  const design=plan?plan.door:'plain';
+  let dxStart=cx, dUwPx=uwPx;
+  if(plan && plan.filler && plan.filler!=='none'){
+  const fwPx=(+plan.fillerW||18)*scale;
+  const fTop=doorTop, fH=(y0+r.H*scale)-doorTop;   // تا پایین کمد
+  if(plan.filler==='left'){
+  s+=`<rect x="${cx}" y="${fTop}" width="${fwPx}" height="${fH}" fill="#cbb994" stroke="#8a6d3a" stroke-width="1"/>`;
+  dxStart=cx+fwPx; dUwPx=uwPx-fwPx;
+  } else {
+  s+=`<rect x="${cx+uwPx-fwPx}" y="${fTop}" width="${fwPx}" height="${fH}" fill="#cbb994" stroke="#8a6d3a" stroke-width="1"/>`;
+  dUwPx=uwPx-fwPx;
+  }
+  }
+  const nDoors = plan && plan.doorCount!==undefined ? plan.doorCount : doorsPer;
+  if(nDoors>0){
+  const gap=3;
+  const dW=(dUwPx-gap*(nDoors+1))/nDoors;
+  for(let d=0;d<nDoors;d++){
+  const dx=dxStart+gap+d*(dW+gap);
+  let fill='url(#wDoor)';
+  if(design==='mirror') fill='url(#wMirror)';
+  else if(design==='glass') fill='url(#wGlass)';
+  s+=`<rect x="${dx}" y="${doorTop+2}" width="${dW}" height="${doorH-4}" fill="${fill}" stroke="#8a8377" stroke-width="1.2"/>`;
+  if(design==='glass'||design==='frame'){
+  s+=`<rect x="${dx+7}" y="${doorTop+10}" width="${dW-14}" height="${doorH-26}" fill="${design==='glass'?'#e3ebe9':'#ede2cc'}" stroke="#c9bfa9" stroke-width="1.2"/>`;
+  } else if(design==='mirror'){
+  s+=`<line x1="${dx+dW*0.25}" y1="${doorTop+8}" x2="${dx+dW*0.55}" y2="${doorTop+doorH*0.4}" stroke="#fff" stroke-width="2" opacity=".6"/>`;
+  s+=`<line x1="${dx+dW*0.5}" y1="${doorTop+8}" x2="${dx+dW*0.8}" y2="${doorTop+doorH*0.4}" stroke="#fff" stroke-width="1.5" opacity=".4"/>`;
+  } else {
+  s+=`<rect x="${dx+6}" y="${doorTop+10}" width="${dW-12}" height="${doorH-24}" fill="none" stroke="#c9bfa9" stroke-width="1"/>`;
+  }
+  const hx = d<nDoors/2 ? dx+dW-5 : dx+3;
+  s+=`<rect x="${hx}" y="${doorTop+doorH/2-16}" width="3" height="32" rx="1.5" fill="#8a8377"/>`;
+  }
+  }
+  if(pattyPx>0 && drawPattyPerUnit){
+  const bodyPx=T*scale;
+  s+=`<rect x="${dxStart+bodyPx}" y="${y0+r.H*scale-pattyPx}" width="${dUwPx-2*bodyPx}" height="${pattyPx}" fill="#c9bfa9" stroke="#1a1815" stroke-width="1"/>`;
+  }
+  cx+=uwPx;
+  });
+  if(r.designMode==='perunit' && r.unitPlans && shape!=='I'){
+  let bx=x0, prev=null;
+  r.unitPlans.forEach(pl=>{
+  if(prev!==null && pl.wallKey!==prev){
+  s+=`<line x1="${bx}" y1="${y0}" x2="${bx}" y2="${y0+r.H*scale}" stroke="#3f6b5e" stroke-width="2.5" stroke-dasharray="6,3"/>`;
+  }
+  prev=pl.wallKey; bx+=(+pl.width||r.uw)*scale;
+  });
+  }
+  s+=`<text x="${x0+r.wall*scale/2}" y="${H-6}" text-anchor="middle" font-size="12" fill="#8a8377">${r.wall} mm</text>`;
+  s+=`</svg>`;
+  return s;
+}
+
+/* ---------- CSV/Excel export ---------- */
+function printList(r){
+  const merged=mergeParts(r.parts);
+  const prow=p=>`<tr><td>${t(p.key)}</td><td><span style="${edgeCss(edgeOf(p)[0])}">${p.L}</span></td><td><span style="${edgeCss(edgeOf(p)[1])}">${p.W}</span></td><td>${p.q}</td><td>${grainLabel(p.grain)}</td><td>${matLabel(p.mat)}</td></tr>`;
+  const rows=groupRows(merged).map(g=>
+  `<tr><td colspan="6" style="background:#efe9dc;font-weight:bold;padding:5px 8px">${t(g.head)}</td></tr>`
+  + g.items.map(prow).join('')).join('');
+  const html=`<!DOCTYPE html><html dir="${I18N[LANG].dir}"><head><meta charset="utf-8">
+    <title>cutting-list-${r.wall}x${r.H}</title>
+    <style>@page{size:A4;margin:12mm}
+    body{font-family:Tahoma,Arial,sans-serif;font-size:12px;color:#1a1815}
+    h3{margin:0 0 4px;font-size:15px}
+    .sub{color:#777;font-size:11px;margin-bottom:10px}
+    table{width:100%;border-collapse:collapse}
+    th{background:#1a1815;color:#fff;padding:6px 8px;font-size:11px;text-align:start}
+    td{padding:5px 8px;border-bottom:1px solid #ddd}
+    tr:nth-child(even) td{background:#f7f4ee}</style></head><body>
+    <h3>Dar Al-Asala — ${t('brand')}</h3>
+    <div class="sub">${r.wall} × ${r.H} mm • ${t('c_depth')}: ${r.depthBody}</div>
+    <table><thead><tr><th>${t('part')}</th><th>${t('len')}</th><th>${t('wid')}</th><th>${t('qty')}</th><th>${t('grain')}</th><th>${t('mat')}</th></tr></thead>
+    <tbody>${rows}</tbody></table>
+    <div class="sub" style="margin-top:8px">${t('tape_legend')} • ${t('tape_total')}: ${tapeMeters(merged)} m</div></body></html>`;
+  const printed=printHtml(html);
+  if(!printed || inFrame()){
+  showModal(`cutting-list-${r.wall}x${r.H}`,
+  `<div style="max-height:56vh;overflow:auto;border:1px solid #e2dccf;border-radius:8px;background:#fff">${html.split('<body>')[1].split('</body>')[0]}</div>`,
+  t('print_hint'));
+  }
+}
+/* ---------- چاپ مطمئن: iframe داخل صفحه، بعد پنجره‌ی جدید ---------- */
+function inFrame(){ try{ return window.self!==window.top; }catch(e){ return true; } }
+function printHtml(html){
+  let f=null;
+  try{
+    f=document.createElement('iframe');
+    f.style.cssText='position:fixed;right:0;bottom:0;width:0;height:0;border:0;visibility:hidden';
+    document.body.appendChild(f);
+    const doc=f.contentWindow.document;
+    doc.open(); doc.write(html); doc.close();
+    f.contentWindow.focus();
+    f.contentWindow.print();               // اگر بلاک باشد استثنا می‌دهد
+    setTimeout(()=>{ try{f.remove();}catch(e){} }, 60000);
+    return true;
+  }catch(e){
+    if(f){ try{f.remove();}catch(_){} }
+    try{
+      const w=window.open('','_blank');
+      if(w){ w.document.write(html); w.document.close();
+      setTimeout(()=>{ try{w.focus();w.print();}catch(_){} },400); return true; }
+    }catch(_){}
+    return false;
+  }
+}
+function openFallback(text, filename){
+  // اگر دانلود بلاک شد، محتوا در پنجره جدید باز می‌شود
+  const w=window.open('','_blank');
+  if(w){ w.document.write('<pre style="font-family:monospace;direction:ltr">'+text.replace(/</g,'&lt;')+'</pre>'); w.document.close(); }
+  else { alert(filename+'\n\n'+text); }
+}
+/* ---------- دانلود مطمئن + پنجره‌ی جایگزین ---------- */
+function tryDownload(blob, fname){
+  try{
+    if(navigator.msSaveBlob){ navigator.msSaveBlob(blob,fname); return true; }
+    const url=URL.createObjectURL(blob);
+    const a=document.createElement('a');
+    a.href=url; a.download=fname; a.rel='noopener';
+    document.body.appendChild(a); a.click();
+    setTimeout(()=>{ a.remove(); URL.revokeObjectURL(url); },2000);
+    return true;
+  }catch(e){ return false; }
+}
+function showModal(title, innerHtml, hint){
+  const bg=document.createElement('div');
+  bg.style.cssText='position:fixed;inset:0;background:rgba(20,18,14,.62);z-index:9999;display:flex;align-items:center;justify-content:center;padding:12px';
+  bg.innerHTML=`<div style="background:#faf8f3;border-radius:14px;max-width:97vw;max-height:92vh;overflow:auto;padding:14px;width:660px;box-shadow:0 18px 50px rgba(0,0,0,.35)">
+  <div style="display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:10px">
+  <b style="font-size:13.5px;color:#1a1815">${title}</b>
+  <button data-x="1" style="border:none;background:#1a1815;color:#fff;border-radius:8px;padding:6px 13px;cursor:pointer;font-family:inherit;font-size:14px">×</button>
+  </div>
+  ${innerHtml}
+  ${hint?`<div style="font-size:11.5px;color:#7d7568;margin-top:9px;line-height:1.7">${hint}</div>`:''}
+  </div>`;
+  bg.querySelector('[data-x]').onclick=()=>bg.remove();
+  bg.onclick=e=>{ if(e.target===bg) bg.remove(); };
+  document.body.appendChild(bg);
+  return bg;
+}
+function exportCsv(r){
+  const head=[t('part'),t('len'),t('wid'),t('qty'),t('grain'),t('mat')];
+  const merged=mergeParts(r.parts);
+  const grouped=groupRows(merged);
+  const flat=[]; grouped.forEach(g=>{ flat.push({head:t(g.head)}); g.items.forEach(p=>flat.push({p})); });
+  const rows=merged.map(p=>[t(p.key),p.L,p.W,p.q,grainLabel(p.grain),matLabel(p.mat)]);
+  const esc=v=>String(v).replace(/&/g,'&amp;').replace(/</g,'&lt;');
+  const text=[head.join(','),...rows.map(x=>x.join(','))].join("\n");
+  const base=`cutting-list-${r.wall}x${r.H}`;
+
+  // جدول HTML با کدگذاری UTF-8 — اکسل فارسی/عربی را درست باز می‌کند
+  const tableHtml=`<table border="1" cellspacing="0" cellpadding="4" dir="${I18N[LANG].dir}" style="border-collapse:collapse;width:100%;font-size:12.5px">
+  <thead><tr style="background:#1a1815;color:#fff">${head.map(h=>`<th>${esc(h)}</th>`).join('')}</tr></thead>
+  <tbody>${flat.map(f=>{
+  if(f.head) return `<tr><td colspan="6" style="background:#efe9dc;font-weight:bold">${esc(f.head)}</td></tr>`;
+  const p=f.p, e=edgeOf(p);
+  const cells=[t(p.key),p.L,p.W,p.q,grainLabel(p.grain),matLabel(p.mat)];
+  return `<tr>${cells.map((v,j)=>{
+  const st = (j===1) ? edgeCss(e[0]) : (j===2 ? edgeCss(e[1]) : '');
+  return `<td style="${st}">${esc(v)}</td>`;
+  }).join('')}</tr>`;
+  }).join('')}</tbody></table>
+  <div style="font-size:11.5px;margin-top:6px">${esc(t('tape_legend'))} — ${esc(t('tape_total'))}: ${tapeMeters(merged)} m</div>`;
+  const xls=`<html xmlns:x="urn:schemas-microsoft-com:office:excel"><head><meta charset="utf-8"></head>
+  <body>${tableHtml}</body></html>`;
+
+  let ok=false;
+  try{
+    ok=tryDownload(new Blob(["\uFEFF"+xls],{type:'application/vnd.ms-excel;charset=utf-8'}), base+'.xls');
+  }catch(e){ ok=false; }
+
+  // همیشه یک نسخه‌ی قابل کپی هم نشان بده — روی موبایل دانلود اغلب بلاک است
+  const m=showModal(base,
+  `<div style="max-height:52vh;overflow:auto;border:1px solid #e2dccf;border-radius:8px">${tableHtml}</div>
+  <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:10px">
+  <button data-copy="1" style="border:none;background:#3f6b5e;color:#fff;border-radius:9px;padding:8px 15px;cursor:pointer;font-family:inherit;font-size:13px">📋 ${t('copy_table')}</button>
+  <button data-csv="1" style="border:1px solid #cfc7b6;background:#fff;color:#1a1815;border-radius:9px;padding:8px 15px;cursor:pointer;font-family:inherit;font-size:13px">CSV</button>
+  </div>`, t('xlsx_hint'));
+
+  m.querySelector('[data-copy]').onclick=(e)=>{
+    const btn=e.currentTarget;
+    const done=()=>{ btn.textContent='✓'; };
+    if(navigator.clipboard&&navigator.clipboard.writeText){
+      navigator.clipboard.writeText(text).then(done).catch(()=>openFallback(text,base+'.csv'));
+    } else { openFallback(text,base+'.csv'); }
+  };
+  m.querySelector('[data-csv]').onclick=()=>{
+    if(!tryDownload(new Blob(["\uFEFF"+text],{type:'text/csv;charset=utf-8'}), base+'.csv')) openFallback(text,base+'.csv');
+  };
+  return ok;
+}
+
+/* ---------- language ---------- */
+function applyLang(){
+  const d=I18N[LANG];
+  document.documentElement.lang=LANG;
+  document.documentElement.dir=d.dir;
+  document.body.classList.toggle('ltr',d.dir==='ltr');
+  const map={'t-brand':'brand','t-sub':'sub','t-input':'input','t-wall':'wall','t-height':'height',
+  't-units':'units','t-unithint':'unithint','t-unitwidth':'unitwidth_i','t-sheet':'sheet','t-bodydepth':'bodydepth',
+  't-bodydepthhint':'bodydepthhint',
+  't-ceilth':'ceilth','t-cornice':'cornice','t-pattyh':'pattyh','t-pattymode':'pattymode',
+  't-patty-io':'pattyio','t-patty-in':'pattyin','t-patty-fr':'pattyfr','t-patty-un':'pattyun',
+  't-solo-inset':'solo_inset','t-solo-insethint':'solo_insethint','t-pattyhhint':'pattyhhint',
+  't-project':'project','t-pj-w':'pjw','t-pj-d':'pjd','t-solo-w':'solo_w','t-solo-h':'solo_h','t-solo-d':'solo_d','t-solo-n':'solo_n','t-solo-boxes':'solo_boxes','t-solo-top':'solo_top','t-solo-side':'solo_side','t-solo-dh':'solo_dh','t-solo-hm':'solo_hm','t-solo-topmode':'solo_topmode','t-solo-topout':'solo_topout','t-solo-topin':'solo_topin','t-solo-hin':'solo_hin','t-solo-hov':'solo_hov','t-solo-hint':'solo_hint','t-shape':'shape','t-shape-i':'shapei','t-shape-l':'shapel','t-shape-u':'shapeu',
+  't-cornerfiller':'cornerfiller','t-cornermin':'cornermin','t-cornermid':'cornermid','t-cornermidhint':'cornermidhint','t-wallclear':'wallclear',
+  't-doormount':'doormount','t-dm-ov':'dmov','t-dm-in':'dmin','t-doormounthint':'doormounthint',
+  't-pattysplit':'pattysplit','t-psplit-u':'psplitu','t-psplit-c':'psplitc','t-psplit-b':'psplitb',
+  't-pattysplithint':'pattysplithint','t-floormode':'floormode',
+  't-floor-on':'flooron','t-floor-fr':'floorfr','t-floorhint':'floorhint',
+  't-drawermode':'drawermode','t-drawer-n':'drawern','t-drawer-y':'drawery',
+  't-drawercount':'drawercount','t-drawerunits':'drawerunits','t-boxtop':'boxtop',
+  't-boxtop-d':'boxtopd','t-boxtop-s':'boxtops','t-abovemode':'abovemode',
+  't-above-r':'abover','t-above-s':'aboves','t-drawerhint':'drawerhint',
+  't-designmode':'designmode','t-design-s':'designs','t-design-p':'designp','t-designhint':'designhint',
+  't-empty':'empty'};
+  for(const id in map){const e=document.getElementById(id); if(e)e.textContent=d[map[id]];}
+  document.getElementById('previewBtn').textContent=d.preview;
+  renderWalls();
+  if(typeof applyProjectVis==='function') applyProjectVis();   // فیلدهای مخصوص هر پروژه بعد از تعویض زبان
+  if(window.__last) render();
+  else if(window.__preview) preview();
+}
+document.querySelectorAll('.langs button').forEach(b=>b.onclick=()=>{
+  LANG=b.dataset.l;
+  document.querySelectorAll('.langs button').forEach(x=>x.classList.remove('on'));
+  b.classList.add('on');
+  applyLang();
+});
+
+/* filler seg */
+/* patty seg */
+function syncPattyUnder(){
+  if(typeof projectType!=='undefined' && projectType==='tv') return;
+  const on = !!document.querySelector('#pattySeg button.on[data-p="under"]');
+  const row=document.getElementById('soloInsetRow');
+  const hint=document.getElementById('t-solo-insethint');
+  if(row)  row.style.display  = on?'':'none';
+  if(hint) hint.style.display = on?'':'none';
+  // پاتی زیر کف یک قاب چهارطرفه است، تقسیم پاتی معنی ندارد
+  const sp=document.getElementById('pattySplitField')||document.getElementById('pattySplitSeg');
+  if(sp) sp.style.display = on?'none':'';
+}
+document.querySelectorAll('#pattySeg button').forEach(b=>b.onclick=()=>{
+  document.querySelectorAll('#pattySeg button').forEach(x=>x.classList.remove('on'));
+  b.classList.add('on');
+  syncPattyUnder();
+});
+/* patty split seg */
+document.querySelectorAll('#pattySplitSeg button').forEach(b=>b.onclick=()=>{
+  document.querySelectorAll('#pattySplitSeg button').forEach(x=>x.classList.remove('on'));
+  b.classList.add('on');
+});
+/* corner fields — تغییرشان معادله را دوباره حساب می‌کند */
+['cornerMin','cornerFiller','wallClear','cornerMidFiller'].forEach(id=>{
+  const el=document.getElementById(id);
+  if(el) ['change','input'].forEach(ev=>el.addEventListener(ev,()=>{
+  unitPlans=[]; manualUnits=false; renderWalls(); renderUnitSeg(); renderDesigner();
+  }));
+});
+/* shape seg */
+document.querySelectorAll('#shapeSeg button').forEach(b=>b.onclick=()=>{
+  document.querySelectorAll('#shapeSeg button').forEach(x=>x.classList.remove('on'));
+  b.classList.add('on');
+  shape=b.dataset.sh;
+  unitPlans=[]; manualUnits=false; chosenN=null;
+  renderWalls(); renderUnitSeg(); renderDesigner();
+});
+/* door mount seg */
+document.querySelectorAll('#doorMountSeg button').forEach(b=>b.onclick=()=>{
+  document.querySelectorAll('#doorMountSeg button').forEach(x=>x.classList.remove('on'));
+  b.classList.add('on');
+});
+/* floor seg */
+document.querySelectorAll('#floorSeg button').forEach(b=>b.onclick=()=>{
+  document.querySelectorAll('#floorSeg button').forEach(x=>x.classList.remove('on'));
+  b.classList.add('on');
+});
+/* drawer seg -> show/hide options */
+document.querySelectorAll('#drawerSeg button').forEach(b=>b.onclick=()=>{
+  document.querySelectorAll('#drawerSeg button').forEach(x=>x.classList.remove('on'));
+  b.classList.add('on');
+  document.getElementById('drawerOpts').style.display = b.dataset.dr==='1'?'block':'none';
+});
+/* boxtop + above segs */
+['boxtopSeg','aboveSeg'].forEach(id=>{
+  document.querySelectorAll('#'+id+' button').forEach(b=>b.onclick=()=>{
+  document.querySelectorAll('#'+id+' button').forEach(x=>x.classList.remove('on'));
+  b.classList.add('on');
+  });
+});
+/* project type seg */
+/* نمایش فیلدها بر اساس نوع پروژه — بعد از هر بازسازی فرم (مثل تعویض زبان) دوباره صدا زده می‌شود */
+function applyProjectVis(){
+  const solo=projectType==='drawer';
+  const tv=projectType==='tv';
+  document.getElementById('soloBox').style.display = solo?'block':'none';
+  document.getElementById('tvBox').style.display = tv?'block':'none';
+  if(tv) tvRender();
+  if(solo) renderSoloDH();
+  ['shapeField','wallsBox','cornerBox','wallClearField','wallField','unitsField','sheetKeep',
+  'drawerBlock','designField','designerPanel','doorMountField','ceilCorniceRow'].forEach(id=>{
+  const el=document.getElementById(id);
+  if(el) el.style.display = (solo||tv)?'none':'';
+  });
+  // فیلدهای سراسری کمد در حالت تلویزیون معنی ندارند
+  ['heightField','sheetField','depthField','pattyHField','pattySplitField','floorField'].forEach(id=>{
+  const el=document.getElementById(id);
+  if(el) el.style.display = tv?'none':'';
+  });
+  // پروژه‌ی کشو ارتفاع و عمق خودش را دارد؛ این دو فیلد کمد را نشان نده
+  ['heightField','depthField'].forEach(id=>{
+  const el=document.getElementById(id);
+  if(el && solo) el.style.display='none';
+  });
+  // دیوار تلویزیون اسکرتینگ خودش را دارد
+  ['t-pattyh','pattyH'].forEach(id=>{ const el=document.getElementById(id); if(el&&el.parentElement) el.parentElement.style.display = tv?'none':''; });
+  const pmField=document.getElementById('pattySeg'); if(pmField&&pmField.parentElement) pmField.parentElement.style.display = tv?'none':'';
+  const ioBtn=document.querySelector('#pattySeg button[data-p="inside_out"]');
+  if(ioBtn){
+  ioBtn.style.display = solo?'none':'';
+  if(solo && ioBtn.classList.contains('on')){
+  ioBtn.classList.remove('on');
+  const simple=document.querySelector('#pattySeg button[data-p="inside"]');
+  if(simple) simple.classList.add('on');
+  }
+  }
+  // «زیر کف» فقط برای پروژه‌ی کشوی مستقل
+  const unBtn=document.querySelector('#pattySeg button[data-p="under"]');
+  if(unBtn){
+  unBtn.style.display = solo?'':'none';
+  if(!solo && unBtn.classList.contains('on')){
+  unBtn.classList.remove('on');
+  const simple=document.querySelector('#pattySeg button[data-p="inside"]');
+  if(simple) simple.classList.add('on');
+  }
+  }
+  syncPattyUnder();
+  if(tv){ ['pattySplitField','floorField','pattyHField'].forEach(id=>{
+  const el=document.getElementById(id); if(el) el.style.display='none'; }); }
+}
+document.querySelectorAll('#projectSeg button').forEach(b=>b.onclick=()=>{
+  document.querySelectorAll('#projectSeg button').forEach(x=>x.classList.remove('on'));
+  b.classList.add('on');
+  projectType=b.dataset.pj;
+  applyProjectVis();
+});
+(function(){
+  ['soloN','soloBoxes'].forEach(id=>{
+  const el=document.getElementById(id);
+  if(el) el.addEventListener('input',renderSoloDH);
+  });
+})();
+['tvN','tvW','tvH'].forEach(id=>{
+  const el=document.getElementById(id);
+  if(!el) return;
+  el.addEventListener('input',()=>{ if(projectType==='tv') tvHead(); });
+  el.addEventListener('change',()=>{ if(projectType==='tv'){
+  if(id==='tvH') tvPushH();
+  if(id==='tvW'){ TV_STATE.forEach(x=>x.w=0); }
+  tvRender(); tvPreviewSoon(); } });
+});
+['pattyInset'].forEach(id=>{
+  const el=document.getElementById(id);
+  if(el) el.addEventListener('input',()=>{ if(window.__preview) preview(); });
+});
+['soloW','soloH','soloD','soloN','soloBoxes','soloTop','soloSide','soloDH','soloHeadMount','soloTopMode'].forEach(id=>{
+  const el=document.getElementById(id);
+  if(el) el.addEventListener('change',()=>{ if(window.__preview) preview(); });
+});
+/* design mode seg */
+document.querySelectorAll('#designSeg button').forEach(b=>b.onclick=()=>{
+  document.querySelectorAll('#designSeg button').forEach(x=>x.classList.remove('on'));
+  b.classList.add('on');
+  designMode=b.dataset.dm;
+  const db=document.getElementById('drawerBlock');
+  if(db) db.style.display = designMode==='perunit' ? 'none' : '';
+  renderDesigner();
+});
+
+/* wall change -> recompute unit options */
+document.getElementById('wallW').addEventListener('input',()=>{chosenN=null;document.getElementById('unitManual').value='';renderUnitSeg();});
+document.getElementById('unitManual').addEventListener('input',e=>{
+  const v=+e.target.value;
+  if(v>=1&&v<=14){chosenN=v;unitPlans=[];manualUnits=false;renderUnitSeg();renderDesigner();}
+});
+document.getElementById('extraSideSel').addEventListener('change',e=>{
+  extraSideI=e.target.value;
+  unitPlans=[];manualUnits=false;renderUnitSeg();renderDesigner();
+});
+document.getElementById('unitWidthI').addEventListener('change',()=>{
+  unitPlans=[];manualUnits=false;renderUnitSeg();renderDesigner();
+});
+document.getElementById('iPlus').onclick=()=>{
+  const cur=chosenN||autoUnitCount(totalUsableWall());
+  chosenN=Math.min(14,cur+1);
+  document.getElementById('unitManual').value=chosenN;
+  unitPlans=[];manualUnits=false;renderUnitSeg();renderDesigner();
+};
+document.getElementById('iMinus').onclick=()=>{
+  const cur=chosenN||autoUnitCount(totalUsableWall());
+  chosenN=Math.max(1,cur-1);
+  document.getElementById('unitManual').value=chosenN;
+  unitPlans=[];manualUnits=false;renderUnitSeg();renderDesigner();
+};
+document.getElementById('previewBtn').onclick=preview;
+
+renderWalls();
+renderUnitSeg();
+applyLang();
+
+/* نصب روی گوشی و کار در حالت آفلاین */
+if('serviceWorker' in navigator){
+  window.addEventListener('load',()=>{ navigator.serviceWorker.register('sw.js').catch(()=>{}); });
+}
+</script>
+</body>
+</html>
