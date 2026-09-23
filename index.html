@@ -331,6 +331,15 @@ background:var(--accent-soft);border:1px dashed var(--accent);border-radius:12px
         </select>
       </div>
 
+      <div class="field" id="bodyThField">
+        <label id="t-bodyth">بدنه‌ی یونیت</label>
+        <select id="bodyTh">
+          <option value="18" id="t-bodyth-s">سینگل (۱۸)</option>
+          <option value="36" id="t-bodyth-d">دوبل (۳۶)</option>
+        </select>
+        <div class="hint" id="t-bodythhint">دوبل: عرض صافی هر یونیت ۳۶ از هر طرف کم می‌شود</div>
+      </div>
+
       <div class="field" id="depthField">
         <label id="t-bodydepth">عمق بدنه (mm)</label>
         <input type="number" id="bodyDepth" value="582">
@@ -468,7 +477,7 @@ background:var(--accent-soft);border:1px dashed var(--accent);border-radius:12px
 const I18N={
  fa:{dir:"rtl",brand:"Dar Al-Asala",sub:"استودیو کاتینگ‌لیست",input:"ورودی",
   wall:"عرض دیوار (mm)",height:"ارتفاع کل (mm)",units:"تعداد کمد (یونیت)",
-  unithint:"خودکار بر اساس بازه ۸۰۰ تا ۱۰۰۰",sheet:"ورق MDF",bodydepth:"عمق بدنه (mm)",bodydepthhint:"۵۸۲ (با فیلر، کل ۶۰۰) • ۶۰۰ (بدون فیلر) • ۳۰۰ (کمد کفش)",
+  unithint:"خودکار بر اساس بازه ۸۰۰ تا ۱۰۰۰",sheet:"ورق MDF",bodydepth:"عمق بدنه (mm)",bodyth:"بدنه‌ی یونیت",bodyth_s:"سینگل (۱۸)",bodyth_d:"دوبل (۳۶)",bodythhint:"دوبل: عرض صافی هر یونیت ۳۶ از هر طرف کم می‌شود",bodydepthhint:"۵۸۲ (با فیلر، کل ۶۰۰) • ۶۰۰ (بدون فیلر) • ۳۰۰ (کمد کفش)",
   fillery:"با فیلر (۵۸۲)",fillern:"بدون فیلر (۶۰۰)",fillerhint:"با فیلر: بدنه ۵۸۲ + فیلر ۱۸ = عمق ۶۰۰",
   shelves:"طبقه در هر یونیت",doors:"درب در هر یونیت",rail:"آویز لباس",
   raily:"دارد",railn:"ندارد",cornice:"تاج بالا (mm)",skirt:"اکارتینگ پایین (mm)",
@@ -509,7 +518,7 @@ const I18N={
   note_sheets:"محاسبه ورق در مرحله بهینه‌سازی برش دقیق می‌شود"},
  ar:{dir:"rtl",brand:"دار الأصالة",sub:"استوديو قائمة القص",input:"المدخلات",
   wall:"عرض الجدار (mm)",height:"الارتفاع الكلي (mm)",units:"عدد الخزائن",
-  unithint:"تلقائي ضمن نطاق ٨٠٠ إلى ١٠٠٠",sheet:"لوح MDF",bodydepth:"عمق الجسم (mm)",bodydepthhint:"٥٨٢ (مع فيلر، الكل ٦٠٠) • ٦٠٠ (بدون) • ٣٠٠ (خزانة أحذية)",
+  unithint:"تلقائي ضمن نطاق ٨٠٠ إلى ١٠٠٠",sheet:"لوح MDF",bodydepth:"عمق الجسم (mm)",bodyth:"جانب الوحدة",bodyth_s:"مفرد (١٨)",bodyth_d:"مزدوج (٣٦)",bodythhint:"مزدوج: يُخصم ٣٦ من كل جانب من العرض الصافي",bodydepthhint:"٥٨٢ (مع فيلر، الكل ٦٠٠) • ٦٠٠ (بدون) • ٣٠٠ (خزانة أحذية)",
   fillery:"مع فيلر (٥٨٢)",fillern:"بدون فيلر (٦٠٠)",fillerhint:"مع الفيلر: الجسم ٥٨٢ + فيلر ١٨ = عمق ٦٠٠",
   shelves:"رفوف لكل خزانة",doors:"أبواب لكل وحدة",rail:"عصا التعليق",
   raily:"نعم",railn:"لا",cornice:"التاج العلوي (mm)",skirt:"الحاشية السفلية (mm)",
@@ -550,7 +559,7 @@ const I18N={
   note_sheets:"يُحسب عدد الألواح بدقة في مرحلة تحسين القص"},
  en:{dir:"ltr",brand:"Dar Al-Asala",sub:"Cutting List Studio",input:"Input",
   wall:"Wall width (mm)",height:"Total height (mm)",units:"Wardrobe units",
-  unithint:"Auto within 800–1000 range",sheet:"MDF sheet",bodydepth:"Body depth (mm)",bodydepthhint:"582 (with filler, 600 total) • 600 (no filler) • 300 (shoe cabinet)",
+  unithint:"Auto within 800–1000 range",sheet:"MDF sheet",bodydepth:"Body depth (mm)",bodyth:"Unit side panel",bodyth_s:"Single (18)",bodyth_d:"Double (36)",bodythhint:"Double: 36 comes off each side of the clear width",bodydepthhint:"582 (with filler, 600 total) • 600 (no filler) • 300 (shoe cabinet)",
   fillery:"With filler (582)",fillern:"No filler (600)",fillerhint:"With filler: body 582 + filler 18 = 600 depth",
   shelves:"Shelves per unit",doors:"Doors per unit",rail:"Hanging rail",
   raily:"Yes",railn:"No",cornice:"Top cornice (mm)",skirt:"Bottom skirting (mm)",
@@ -1826,7 +1835,7 @@ function calcTv(){
   ? calcSoloWith({W:sec.w, H:sec.H, D:P.D, nD:P.nD, cols:P.cols, top:P.top, side:P.side,
   mount:P.mount, pattyH:ph, pattyMode:P.pattyMode, manualDH:P.manualDH,
   pattySplit:'unit', floorHidden:false, pattyInset:25})
-  : calcWardrobe({wall:sec.w, n:Math.max(1,P.n), H:sec.H, shape:'I',
+  : calcWardrobe({wall:sec.w, n:Math.max(1,P.n), H:sec.H, shape:'I', bodyTh:T,
   designMode:P.perUnit?'perunit':'global',
   unitPlans:P.perUnit?tvSyncUnits(sec):[], depthBody:P.depthBody, shelves:P.shelves, hasRail:P.hasRail,
   ceilTh:P.ceilTh, cornice:P.cornice, pattyH:ph, pattyMode:P.pattyMode,
@@ -1979,7 +1988,9 @@ function calcWardrobe(o){
   const isTall = H > sheetLenForBody;
   const bodyH = isTall ? sheetLenForBody : (H - ceilTh - cornice);
   const effCornice = isTall ? (H - sheetLenForBody) : cornice;
-  const innerW = uw - 2*T;                          // عرض داخلی
+  const BT = (o.bodyTh!==undefined)?o.bodyTh:(+(document.getElementById('bodyTh')||{}).value||T);   // ضخامت بدنه‌ی یونیت: 18 یا 36
+  const bodyMat = (BT===DW) ? 'mdf_double' : 'mdf';
+  const innerW = uw - 2*BT;                         // عرض داخلی
 
   const floorHidden = (o.floorHidden!==undefined?o.floorHidden:document.querySelector('#floorSeg button.on').dataset.fl==='front');
   let floorDepth = depthBody;
@@ -2001,8 +2012,8 @@ function calcWardrobe(o){
   if(designMode==='perunit' && unitPlans.length===n){
   unitPlans.forEach((plan,idx)=>{
   const w=+plan.width||uw;
-  const iw=w-2*T;
-  P('p_body', bodyH, depthBody, 2, 'v', 'mdf');
+  const iw=w-2*BT;
+  P('p_body', bodyH, depthBody, 2, 'v', bodyMat);
   P('p_ceil', w, depthBody, 1, 'h', 'mdf');
   P('p_floor', iw, floorDepth, 1, 'h', 'mdf');
   addBackFiber(P, bodyH-BACK_INSET, w-BACK_INSET, 1);
@@ -2031,7 +2042,7 @@ function calcWardrobe(o){
   const corners = shape==='L' ? 1 : 2;
   if(cmf>0) P('p_cornermid', bodyH, cmf, corners, 'v', 'mdf');
   }
-  addPatty(P, pattySplit, pattyH, wall, unitPlans.map(pl=>(+pl.width||uw)-2*T), sheetLen);
+  addPatty(P, pattySplit, pattyH, wall, unitPlans.map(pl=>(+pl.width||uw)-2*BT), sheetLen);
   if(shape!=='I'){
   const cf=+document.getElementById('cornerFiller').value||50;
   const corners = shape==='L' ? 1 : 2;
@@ -2043,7 +2054,7 @@ function calcWardrobe(o){
   parts.forEach(p=>{ if(p.mat==='mdf'||p.mat==='mdf_double'||p.mat==='mdf_pvc') usedArea+=p.L*p.W*p.q; });
   const sheetsRough=Math.ceil(usedArea/sheetArea/0.82);
   const wastePct=Math.round((1 - usedArea/(sheetsRough*sheetArea))*100);
-  return {wall,H,n,uw,bodyH,depthBody,floorDepth,pattyH,pattyMode,pattySplit,cornice:effCornice,ceilTh,parts,sheetsRough,wastePct,shelves,hasRail,drawerInfo:null,designMode:'perunit',unitPlans:JSON.parse(JSON.stringify(unitPlans)),usableIn};
+  return {wall,H,n,uw,bodyH,depthBody,floorDepth,pattyH,pattyMode,pattySplit,cornice:effCornice,ceilTh,bodyTh:BT,parts,sheetsRough,wastePct,shelves,hasRail,drawerInfo:null,designMode:'perunit',unitPlans:JSON.parse(JSON.stringify(unitPlans)),usableIn};
   }
 
   const layout=unitLayout();
@@ -2052,9 +2063,9 @@ function calcWardrobe(o){
   const doorsPer=(o.doorsPer!==undefined?o.doorsPer:+document.getElementById('doorsPer').value||2);
   const doorH = H - effCornice - pattyH - 5;
   layout.forEach(u=>{
-  const w=u.width, iw=w-2*T;
+  const w=u.width, iw=w-2*BT;
   innerWidths.push(iw);
-  P('p_body', bodyH, depthBody, 2, 'v', 'mdf');
+  P('p_body', bodyH, depthBody, 2, 'v', bodyMat);
   P('p_ceil', w, depthBody, 1, 'h', 'mdf');
   P('p_floor', iw, floorDepth, 1, 'h', 'mdf');
   if(shelves>0) P('p_shelf', iw - SHELF_CLEAR, shelfDepth, shelves, 'h', 'mdf');
@@ -2111,7 +2122,7 @@ function calcWardrobe(o){
   const sheetsRough=Math.ceil(usedArea/sheetArea/0.82);
   const wastePct=Math.round((1 - usedArea/(sheetsRough*sheetArea))*100);
 
-  return {wall,H,n,uw,bodyH,depthBody,floorDepth,pattyH,pattyMode,pattySplit,cornice:effCornice,ceilTh,parts,sheetsRough,wastePct,shelves,hasRail,drawerInfo};
+  return {wall,H,n,uw,bodyH,depthBody,floorDepth,pattyH,pattyMode,pattySplit,cornice:effCornice,ceilTh,bodyTh:BT,parts,sheetsRough,wastePct,shelves,hasRail,drawerInfo};
 }
 
 /* ---------- preview (before split) ---------- */
@@ -2370,7 +2381,7 @@ function draw3d(r, openMode){
   const widths0=plans?plans.map(u=>+u.width||r.uw):Array.from({length:r.n},()=>r.uw);
   const RT=rtlUnits(widths0, plans), widths=RT.widths, plansR=RT.plans;
   const gDoors=+document.getElementById('doorsPer').value||2;
-  const Tpx=T*scale;
+  const Tpx=(r.bodyTh||T)*scale;
 
   if(openMode){
   let cx=x0;
@@ -2540,9 +2551,10 @@ function drawInside(r){
   bw=w-fwPx;
   }
   }
-  s+=`<rect x="${bx}" y="${zoneTop}" width="${T*scale}" height="${zoneH}" fill="#e5ddcb" stroke="#8a8377" stroke-width=".5"/>`;
-  s+=`<rect x="${bx+bw-T*scale}" y="${zoneTop}" width="${T*scale}" height="${zoneH}" fill="#e5ddcb" stroke="#8a8377" stroke-width=".5"/>`;
-  const inX=bx+T*scale, inW=bw-2*T*scale;
+  s+=`<rect x="${bx}" y="${zoneTop}" width="${(r.bodyTh||T)*scale}" height="${zoneH}" fill="#e5ddcb" stroke="#8a8377" stroke-width=".5"/>`;
+  s+=`<rect x="${bx+bw-(r.bodyTh||T)*scale}" y="${zoneTop}" width="${(r.bodyTh||T)*scale}" height="${zoneH}" fill="#e5ddcb" stroke="#8a8377" stroke-width=".5"/>`;
+  const BTs=(r.bodyTh||T)*scale;
+  const inX=bx+BTs, inW=bw-2*BTs;
   const mid=+plan.midPanel||0;
   const cells = plan.cells || [plan.segs||[]];
   if(mid>0){
@@ -2577,9 +2589,10 @@ function drawInside(r){
   }
   for(let i=0;i<r.n;i++){
   const ux=x0+i*uwPx;
-  s+=`<rect x="${ux}" y="${zoneTop}" width="${T*scale}" height="${zoneH}" fill="#e5ddcb" stroke="#8a8377" stroke-width=".5"/>`;
-  s+=`<rect x="${ux+uwPx-T*scale}" y="${zoneTop}" width="${T*scale}" height="${zoneH}" fill="#e5ddcb" stroke="#8a8377" stroke-width=".5"/>`;
-  const inX=ux+T*scale, inW=uwPx-2*T*scale;
+  const BTs2=(r.bodyTh||T)*scale;
+  s+=`<rect x="${ux}" y="${zoneTop}" width="${BTs2}" height="${zoneH}" fill="#e5ddcb" stroke="#8a8377" stroke-width=".5"/>`;
+  s+=`<rect x="${ux+uwPx-BTs2}" y="${zoneTop}" width="${BTs2}" height="${zoneH}" fill="#e5ddcb" stroke="#8a8377" stroke-width=".5"/>`;
+  const inX=ux+BTs2, inW=uwPx-2*BTs2;
   if(di && drawerUnitSet.has(i+1)){
   const dzH=di.dwH*scale, dzTop=zoneBot-dzH;
   if(di.above==='rail'){
@@ -2883,7 +2896,7 @@ function draw2d(r){
   }
   }
   if(pattyPx>0 && drawPattyPerUnit){
-  const bodyPx=T*scale;
+  const bodyPx=(r.bodyTh||T)*scale;
   s+=`<rect x="${dxStart+bodyPx}" y="${y0+r.H*scale-pattyPx}" width="${dUwPx-2*bodyPx}" height="${pattyPx}" fill="#c9bfa9" stroke="#1a1815" stroke-width="1"/>`;
   }
   cx+=uwPx;
@@ -3049,7 +3062,7 @@ function applyLang(){
   document.body.classList.toggle('ltr',d.dir==='ltr');
   const map={'t-brand':'brand','t-sub':'sub','t-input':'input','t-wall':'wall','t-height':'height',
   't-units':'units','t-unithint':'unithint','t-unitwidth':'unitwidth_i','t-sheet':'sheet','t-bodydepth':'bodydepth',
-  't-bodydepthhint':'bodydepthhint',
+  't-bodydepthhint':'bodydepthhint','t-bodyth':'bodyth','t-bodyth-s':'bodyth_s','t-bodyth-d':'bodyth_d','t-bodythhint':'bodythhint',
   't-ceilth':'ceilth','t-cornice':'cornice','t-pattyh':'pattyh','t-pattymode':'pattymode',
   't-patty-io':'pattyio','t-patty-in':'pattyin','t-patty-fr':'pattyfr','t-patty-un':'pattyun',
   't-solo-inset':'solo_inset','t-solo-insethint':'solo_insethint','t-pattyhhint':'pattyhhint',
@@ -3160,12 +3173,12 @@ function applyProjectVis(){
   if(el) el.style.display = (solo||tv)?'none':'';
   });
   // فیلدهای سراسری کمد در حالت تلویزیون معنی ندارند
-  ['heightField','sheetField','depthField','pattyHField','pattySplitField','floorField'].forEach(id=>{
+  ['heightField','sheetField','depthField','pattyHField','pattySplitField','floorField','bodyThField'].forEach(id=>{
   const el=document.getElementById(id);
   if(el) el.style.display = tv?'none':'';
   });
   // پروژه‌ی کشو ارتفاع و عمق خودش را دارد؛ این دو فیلد کمد را نشان نده
-  ['heightField','depthField'].forEach(id=>{
+  ['heightField','depthField','bodyThField'].forEach(id=>{
   const el=document.getElementById(id);
   if(el && solo) el.style.display='none';
   });
@@ -3259,6 +3272,7 @@ document.getElementById('iMinus').onclick=()=>{
   document.getElementById('unitManual').value=chosenN;
   unitPlans=[];manualUnits=false;renderUnitSeg();renderDesigner();
 };
+document.getElementById('bodyTh').addEventListener('change',()=>{ if(window.__preview) preview(); });
 document.getElementById('previewBtn').onclick=preview;
 
 renderWalls();
