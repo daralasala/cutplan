@@ -604,7 +604,13 @@ let LANG="fa";
 /* ---------- constants ---------- */
 const T=18, FIBER=4, SHELF_CLEAR=1, SHELF_DEPTH_GAP=2, BACK_INSET=10;
 const MIN_UW=800, MAX_UW=1000;
-const DW=36, DW_DEPTH=500, DRAWER_H=200, BOX_H=150;  // دیوار دوبل، عمق، ارتفاع هر کشو، ارتفاع باکس
+const DW=36, DW_DEPTH=500, DRAWER_H=200, BOX_H=150;  // دیوار دوبل، عمق ریل، ارتفاع هر کشو، ارتفاع باکس
+const DW_CUT_OPEN=20, DW_CUT_DOOR=82, DW_CUT_DOOR_SMALL=70, DW_DEEP=500;
+/* عمق کشو در پروژه‌ی کمد: بدون درب 20 • درب‌دار با عمق 500 به بالا 82 • درب‌دار کم‌عمق‌تر 70 */
+function drawerDepth(depthBody, hasDoor){
+  const cut = hasDoor ? (depthBody>=DW_DEEP ? DW_CUT_DOOR : DW_CUT_DOOR_SMALL) : DW_CUT_OPEN;
+  return Math.max(0, depthBody - cut);
+}
 const HEAD_CUT=4, FB_RAIL_CUT=27, LR_CUT=54, LR_PUSH=20; // کسرها: سرکشو، ریل جلو/عقب، جمع 3 قطعه، احتیاط پوش
 const BOX_MIN_CUT=30; // حداکثر کسر از سرکشو برای رسیدن به ارتفاع بدنه‌ی کشو
 const BOX_H2=200, BOX_STEP2=250; // بدنه‌ی 200 برای سرکشوی بالای 250
@@ -1076,7 +1082,7 @@ function addPatty(P, split, pattyH, wall, innerWidths, sheetLen){
 
 function calculate_ORIG_PLACEHOLDER(){}
 
-function layoutSegs(segs, iw, usableH, depthBody, P){
+function layoutSegs(segs, iw, usableH, depthBody, P, hasDoor){
   const shelfDepth=depthBody-SHELF_DEPTH_GAP;
   let used=0, railCount=0, shoeCount=0;
   const shelfSegs=[];
@@ -1084,7 +1090,7 @@ function layoutSegs(segs, iw, usableH, depthBody, P){
   if(s.type==='drawer'){
   const cnt=s.count||1;
   const clearW=iw-2*DW;
-  const dwD=Math.min(DW_DEPTH, depthBody);   // عمق کشو از عمق بدنه بیشتر نمی‌شود
+  const dwD=drawerDepth(depthBody, !!hasDoor);
   P('p_dw', cnt*DRAWER_H, dwD, 2, 'v', 'mdf_double');
   P('p_boxtop', iw, dwD, 1, 'h', 'mdf'); // سقف باکس، عرض مثل کف و رف (عرض داخلی)
   P('p_head', clearW-HEAD_CUT, DRAWER_H-HEAD_CUT, cnt, 'h', 'mdf_pvc');
@@ -2021,7 +2027,8 @@ function calcWardrobe(o){
   if(mid>0) P('p_midpanel', bodyH, depthBody, mid, 'v', 'mdf');
   const cellW = mid>0 ? Math.round((iw - mid*T)/(mid+1)) : iw;
   const cells = plan.cells || [plan.segs||[]];
-  for(let c=0;c<=mid;c++) layoutSegs(cells[c]||cells[0]||[], cellW, usableIn, depthBody, P);
+  const planDoors=(plan.doorCount!==undefined?plan.doorCount:2);
+  for(let c=0;c<=mid;c++) layoutSegs(cells[c]||cells[0]||[], cellW, usableIn, depthBody, P, planDoors>0);
   if(plan.filler && plan.filler!=='none'){
   P('p_sidefiller', bodyH, +plan.fillerW||18, 1, 'v', 'mdf');
   }
@@ -2096,7 +2103,7 @@ function calcWardrobe(o){
   const clearW = innerW - 2*DW;              // صافی بین دو دیوار دوبل
   const km=drawerUnitCount;                  // ضریب تعداد یونیت کشودار
 
-  const dwD=Math.min(DW_DEPTH, depthBody);   // عمق کشو از عمق بدنه بیشتر نمی‌شود
+  const dwD=drawerDepth(depthBody, doorsPer>0);
   P('p_dw', dwH, dwD, 2*km, 'v', 'mdf_double');
   P('p_boxtop', innerW, dwD, 1*km, 'h', boxTop==='double'?'mdf_double':'mdf');
   P('p_head', clearW-HEAD_CUT, DRAWER_H-HEAD_CUT, drawerCount*km, 'h', 'mdf_pvc');
