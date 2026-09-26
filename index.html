@@ -1084,11 +1084,12 @@ function layoutSegs(segs, iw, usableH, depthBody, P){
   if(s.type==='drawer'){
   const cnt=s.count||1;
   const clearW=iw-2*DW;
-  P('p_dw', cnt*DRAWER_H, DW_DEPTH, 2, 'v', 'mdf_double');
-  P('p_boxtop', iw, DW_DEPTH, 1, 'h', 'mdf'); // سقف باکس، عرض مثل کف و رف (عرض داخلی)
+  const dwD=Math.min(DW_DEPTH, depthBody);   // عمق کشو از عمق بدنه بیشتر نمی‌شود
+  P('p_dw', cnt*DRAWER_H, dwD, 2, 'v', 'mdf_double');
+  P('p_boxtop', iw, dwD, 1, 'h', 'mdf'); // سقف باکس، عرض مثل کف و رف (عرض داخلی)
   P('p_head', clearW-HEAD_CUT, DRAWER_H-HEAD_CUT, cnt, 'h', 'mdf_pvc');
   P('p_fb', clearW-FB_RAIL_CUT, boxSideH(DRAWER_H-HEAD_CUT), 2*cnt, 'h', 'mdf');
-  P('p_lr', DW_DEPTH-LR_CUT-LR_PUSH, boxSideH(DRAWER_H-HEAD_CUT), 2*cnt, 'h', 'mdf');
+  P('p_lr', dwD-LR_CUT-LR_PUSH, boxSideH(DRAWER_H-HEAD_CUT), 2*cnt, 'h', 'mdf');
   used+=cnt*DRAWER_H;
   } else if(s.type==='rail_long'){
   P('p_rail', iw, 30, 1, 'h', 'mdf');
@@ -1995,8 +1996,7 @@ function calcWardrobe(o){
   const floorHidden = (o.floorHidden!==undefined?o.floorHidden:document.querySelector('#floorSeg button.on').dataset.fl==='front');
   let floorDepth = depthBody;
   if(pattyMode==='inside_out') floorDepth = depthBody + T;      // کف جلوتر، 18 بدنه پایین دیده می‌شود
-  else if(pattyMode==='inside') floorDepth = depthBody;          // ساده، همان بدنه
-  else if(pattyMode==='front') floorDepth = depthBody;           // روبه‌رو: پاتی جلوی بدنه‌ها، کف کامل می‌ماند
+  else if(pattyH>0 && floorHidden) floorDepth = depthBody - T;  // کف روبه‌رو (18 پنهان): لبه‌ی کف پشت پاتی می‌رود
   const shelfDepth = depthBody - SHELF_DEPTH_GAP;
   const pattyLenFull = (pattyMode==='front');
   const pattySplit = (o.pattySplit!==undefined?o.pattySplit:document.querySelector('#pattySplitSeg button.on').dataset.ps);
@@ -2096,12 +2096,13 @@ function calcWardrobe(o){
   const clearW = innerW - 2*DW;              // صافی بین دو دیوار دوبل
   const km=drawerUnitCount;                  // ضریب تعداد یونیت کشودار
 
-  P('p_dw', dwH, DW_DEPTH, 2*km, 'v', 'mdf_double');
-  P('p_boxtop', innerW, DW_DEPTH, 1*km, 'h', boxTop==='double'?'mdf_double':'mdf');
+  const dwD=Math.min(DW_DEPTH, depthBody);   // عمق کشو از عمق بدنه بیشتر نمی‌شود
+  P('p_dw', dwH, dwD, 2*km, 'v', 'mdf_double');
+  P('p_boxtop', innerW, dwD, 1*km, 'h', boxTop==='double'?'mdf_double':'mdf');
   P('p_head', clearW-HEAD_CUT, DRAWER_H-HEAD_CUT, drawerCount*km, 'h', 'mdf_pvc');
   P('p_fb', clearW-FB_RAIL_CUT, boxSideH(DRAWER_H-HEAD_CUT), 2*drawerCount*km, 'h', 'mdf');
-  P('p_lr', DW_DEPTH-LR_CUT-LR_PUSH, boxSideH(DRAWER_H-HEAD_CUT), 2*drawerCount*km, 'h', 'mdf');
-  if(above==='shelf') P('p_dwshelf', innerW, DW_DEPTH, 1*km, 'h', 'mdf');
+  P('p_lr', dwD-LR_CUT-LR_PUSH, boxSideH(DRAWER_H-HEAD_CUT), 2*drawerCount*km, 'h', 'mdf');
+  if(above==='shelf') P('p_dwshelf', innerW, dwD, 1*km, 'h', 'mdf');
   else P('p_dwrail', clearW, 30, 1*km, 'h', 'mdf');
 
   drawerInfo={drawerCount,dwH,drawerUnitCount,boxTop,above,clearW};
