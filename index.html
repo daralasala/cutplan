@@ -1992,9 +1992,11 @@ function calcWardrobe(o){
   const uw=Math.round(wall/n);
 
   const sheetLenForBody = (o.sheetLen!==undefined?o.sheetLen:+document.getElementById('sheet').value.split('x')[0]);
-  const isTall = H > sheetLenForBody;
-  const bodyH = isTall ? sheetLenForBody : (H - ceilTh - cornice);
-  const effCornice = isTall ? (H - sheetLenForBody) : cornice;
+  // تاج همان است که وارد شده؛ فقط اگر خودِ بدنه از طول ورق بلندتر شود، بدنه سقف می‌خورد و باقی‌مانده می‌رود توی تاج
+  const bodyPlain = H - ceilTh - cornice;
+  const isTall = bodyPlain > sheetLenForBody;
+  const bodyH = isTall ? sheetLenForBody : bodyPlain;
+  const effCornice = isTall ? (H - ceilTh - sheetLenForBody) : cornice;
   const boxTopSel = (o.boxTop!==undefined) ? o.boxTop
   : ((document.querySelector('#boxtopSeg button.on')||{dataset:{}}).dataset.bt||'single');
   const boxTopMat = (boxTopSel==='double') ? 'mdf_double' : 'mdf';   // سقف باکس کشو: سینگل یا دوبل
