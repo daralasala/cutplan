@@ -1082,7 +1082,7 @@ function addPatty(P, split, pattyH, wall, innerWidths, sheetLen){
 
 function calculate_ORIG_PLACEHOLDER(){}
 
-function layoutSegs(segs, iw, usableH, depthBody, P, hasDoor){
+function layoutSegs(segs, iw, usableH, depthBody, P, hasDoor, boxTopMat){
   const shelfDepth=depthBody-SHELF_DEPTH_GAP;
   let used=0, railCount=0, shoeCount=0;
   const shelfSegs=[];
@@ -1092,7 +1092,7 @@ function layoutSegs(segs, iw, usableH, depthBody, P, hasDoor){
   const clearW=iw-2*DW;
   const dwD=drawerDepth(depthBody, !!hasDoor);
   P('p_dw', cnt*DRAWER_H, dwD, 2, 'v', 'mdf_double');
-  P('p_boxtop', iw, dwD, 1, 'h', 'mdf'); // سقف باکس، عرض مثل کف و رف (عرض داخلی)
+  P('p_boxtop', iw, dwD, 1, 'h', boxTopMat||'mdf'); // سقف باکس، عرض مثل کف و رف (عرض داخلی)
   P('p_head', clearW-HEAD_CUT, DRAWER_H-HEAD_CUT, cnt, 'h', 'mdf_pvc');
   P('p_fb', clearW-FB_RAIL_CUT, boxSideH(DRAWER_H-HEAD_CUT), 2*cnt, 'h', 'mdf');
   P('p_lr', dwD-LR_CUT-LR_PUSH, boxSideH(DRAWER_H-HEAD_CUT), 2*cnt, 'h', 'mdf');
@@ -1842,7 +1842,7 @@ function calcTv(){
   ? calcSoloWith({W:sec.w, H:sec.H, D:P.D, nD:P.nD, cols:P.cols, top:P.top, side:P.side,
   mount:P.mount, pattyH:ph, pattyMode:P.pattyMode, manualDH:P.manualDH,
   pattySplit:'unit', floorHidden:false, pattyInset:25})
-  : calcWardrobe({wall:sec.w, n:Math.max(1,P.n), H:sec.H, shape:'I', bodyTh:T,
+  : calcWardrobe({wall:sec.w, n:Math.max(1,P.n), H:sec.H, shape:'I', bodyTh:T, boxTop:'single',
   designMode:P.perUnit?'perunit':'global',
   unitPlans:P.perUnit?tvSyncUnits(sec):[], depthBody:P.depthBody, shelves:P.shelves, hasRail:P.hasRail,
   ceilTh:P.ceilTh, cornice:P.cornice, pattyH:ph, pattyMode:P.pattyMode,
@@ -1995,6 +1995,9 @@ function calcWardrobe(o){
   const isTall = H > sheetLenForBody;
   const bodyH = isTall ? sheetLenForBody : (H - ceilTh - cornice);
   const effCornice = isTall ? (H - sheetLenForBody) : cornice;
+  const boxTopSel = (o.boxTop!==undefined) ? o.boxTop
+  : ((document.querySelector('#boxtopSeg button.on')||{dataset:{}}).dataset.bt||'single');
+  const boxTopMat = (boxTopSel==='double') ? 'mdf_double' : 'mdf';   // سقف باکس کشو: سینگل یا دوبل
   const BT = (o.bodyTh!==undefined)?o.bodyTh:(+(document.getElementById('bodyTh')||{}).value||T);   // ضخامت بدنه‌ی یونیت: 18 یا 36
   const bodyMat = (BT===DW) ? 'mdf_double' : 'mdf';
   const innerW = uw - 2*BT;                         // عرض داخلی
@@ -2028,7 +2031,7 @@ function calcWardrobe(o){
   const cellW = mid>0 ? Math.round((iw - mid*T)/(mid+1)) : iw;
   const cells = plan.cells || [plan.segs||[]];
   const planDoors=(plan.doorCount!==undefined?plan.doorCount:2);
-  for(let c=0;c<=mid;c++) layoutSegs(cells[c]||cells[0]||[], cellW, usableIn, depthBody, P, planDoors>0);
+  for(let c=0;c<=mid;c++) layoutSegs(cells[c]||cells[0]||[], cellW, usableIn, depthBody, P, planDoors>0, boxTopMat);
   if(plan.filler && plan.filler!=='none'){
   P('p_sidefiller', bodyH, +plan.fillerW||18, 1, 'v', 'mdf');
   }
@@ -2537,7 +2540,10 @@ function drawInside(r){
   const pattyPx=(r.pattyH||0)*scale;
   let s=`<svg viewBox="0 0 ${W} ${H}" xmlns="http://www.w3.org/2000/svg" font-family="inherit">`;
   if(corniceH>0) s+=`<rect x="${x0}" y="${y0}" width="${r.wall*scale}" height="${corniceH}" fill="#d9cdb5" stroke="#1a1815" stroke-width="1"/>`;
-  if(pattyPx>0) s+=`<rect x="${x0}" y="${y0+r.H*scale-pattyPx}" width="${r.wall*scale}" height="${pattyPx}" fill="#c9bfa9" stroke="#1a1815" stroke-width="1"/>`;
+  const pattyBetween=(r.pattyMode==='inside'||r.pattyMode==='inside_out');
+  const pattyConnected=(r.pattySplit==='connected'||r.pattySplit==='both');
+  const pattyPerUnit=pattyBetween && !pattyConnected;          // پاتی بین بدنه‌ها، هر یونیت جدا
+  if(pattyPx>0 && !pattyPerUnit) s+=`<rect x="${x0}" y="${y0+r.H*scale-pattyPx}" width="${r.wall*scale}" height="${pattyPx}" fill="#c9bfa9" stroke="#1a1815" stroke-width="1"/>`;
 
   const zoneTop=y0+corniceH;
   const zoneBot=y0+r.H*scale-pattyPx;
@@ -2559,8 +2565,9 @@ function drawInside(r){
   bw=w-fwPx;
   }
   }
-  s+=`<rect x="${bx}" y="${zoneTop}" width="${(r.bodyTh||T)*scale}" height="${zoneH}" fill="#e5ddcb" stroke="#8a8377" stroke-width=".5"/>`;
-  s+=`<rect x="${bx+bw-(r.bodyTh||T)*scale}" y="${zoneTop}" width="${(r.bodyTh||T)*scale}" height="${zoneH}" fill="#e5ddcb" stroke="#8a8377" stroke-width=".5"/>`;
+  const bodyH=zoneH+(pattyBetween?pattyPx:0);   // بین بدنه: بدنه تا زمین می‌رود
+  s+=`<rect x="${bx}" y="${zoneTop}" width="${(r.bodyTh||T)*scale}" height="${bodyH}" fill="#e5ddcb" stroke="#8a8377" stroke-width=".5"/>`;
+  s+=`<rect x="${bx+bw-(r.bodyTh||T)*scale}" y="${zoneTop}" width="${(r.bodyTh||T)*scale}" height="${bodyH}" fill="#e5ddcb" stroke="#8a8377" stroke-width=".5"/>`;
   const BTs=(r.bodyTh||T)*scale;
   const inX=bx+BTs, inW=bw-2*BTs;
   const mid=+plan.midPanel||0;
@@ -2575,10 +2582,8 @@ function drawInside(r){
   } else {
   drawUnitContent(cells[0]||[], inX, inW, zoneTop, zoneBot, r.usableIn||zoneH/scale, scale, (str)=>{s+=str;});
   }
-  if(r.pattyMode==='inside'||r.pattyMode==='inside_out'){
-  const py=zoneBot-(r.pattyH||0)*scale;
-  s+=`<line x1="${inX}" y1="${py}" x2="${inX+inW}" y2="${py}" stroke="#8a6d3a" stroke-width="1"/>`;
-  }
+  if(pattyPx>0 && pattyPerUnit)
+  s+=`<rect x="${inX}" y="${zoneBot}" width="${inW}" height="${pattyPx}" fill="#c9bfa9" stroke="#1a1815" stroke-width="1"/>`;
   s+=`<text x="${cx+w/2}" y="${zoneBot+15}" text-anchor="middle" font-size="9" fill="#8a8377">${plan.width}</text>`;
   cx+=w;
   });
@@ -2598,9 +2603,12 @@ function drawInside(r){
   for(let i=0;i<r.n;i++){
   const ux=x0+i*uwPx;
   const BTs2=(r.bodyTh||T)*scale;
-  s+=`<rect x="${ux}" y="${zoneTop}" width="${BTs2}" height="${zoneH}" fill="#e5ddcb" stroke="#8a8377" stroke-width=".5"/>`;
-  s+=`<rect x="${ux+uwPx-BTs2}" y="${zoneTop}" width="${BTs2}" height="${zoneH}" fill="#e5ddcb" stroke="#8a8377" stroke-width=".5"/>`;
+  const bodyH2=zoneH+(pattyBetween?pattyPx:0);
+  s+=`<rect x="${ux}" y="${zoneTop}" width="${BTs2}" height="${bodyH2}" fill="#e5ddcb" stroke="#8a8377" stroke-width=".5"/>`;
+  s+=`<rect x="${ux+uwPx-BTs2}" y="${zoneTop}" width="${BTs2}" height="${bodyH2}" fill="#e5ddcb" stroke="#8a8377" stroke-width=".5"/>`;
   const inX=ux+BTs2, inW=uwPx-2*BTs2;
+  if(pattyPx>0 && pattyPerUnit)
+  s+=`<rect x="${inX}" y="${zoneBot}" width="${inW}" height="${pattyPx}" fill="#c9bfa9" stroke="#1a1815" stroke-width="1"/>`;
   if(di && drawerUnitSet.has(i+1)){
   const dzH=di.dwH*scale, dzTop=zoneBot-dzH;
   if(di.above==='rail'){
