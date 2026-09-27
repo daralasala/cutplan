@@ -433,6 +433,13 @@ background:var(--accent-soft);border:1px dashed var(--accent);border-radius:12px
           </div>
         </div>
         <div class="field">
+          <label id="t-dwwall">دیوار باکس کشو</label>
+          <div class="seg" id="dwwallSeg">
+            <button data-dww="double" class="on" id="t-dwwall-d">دوبل (۳۶)</button>
+            <button data-dww="single" id="t-dwwall-s">سینگل (۱۸)</button>
+          </div>
+        </div>
+        <div class="field">
           <label id="t-abovemode">بالای کشو (تا سقف)</label>
           <div class="seg" id="aboveSeg">
             <button data-ab="rail" class="on" id="t-above-r">آویز</button>
@@ -491,7 +498,7 @@ const I18N={
   p_dw:"دیوار دوبل کشو",p_side:"دیوار کناری",p_toppanel:"صفحه بالا",p_topin:"سقف توکار",p_boxtop:"سقف باکس کشو",p_head:"سرکشو",p_fb:"جلو/عقب کشو",
   p_lr:"چپ/راست کشو",p_dwshelf:"رف روی کشو",p_dwrail:"آویز روی کشو",p_shoe:"جاکفشی",
   drawermode:"کشو",drawern:"بدون کشو",drawery:"دارد",drawercount:"تعداد کشو",
-  drawerunits:"یونیت‌های کشودار",boxtop:"سقف باکس کشو",boxtopd:"دوبل (۳۶)",boxtops:"سینگل (۱۸)",
+  drawerunits:"یونیت‌های کشودار",boxtop:"سقف باکس کشو",dwwall:"دیوار باکس کشو",dwwall_d:"دوبل (۳۶)",dwwall_s:"سینگل (۱۸)",boxtopd:"دوبل (۳۶)",boxtops:"سینگل (۱۸)",
   abovemode:"بالای کشو (تا سقف)",abover:"آویز",aboves:"رف",
   drawerhint:"ارتفاع دیوار دوبل = تعداد کشو × ۲۰۰ • هر کشو ۲۰۰",
   designmode:"طراحی یونیت‌ها",designs:"ساده (همه یکسان)",designp:"هر یونیت جدا",
@@ -532,7 +539,7 @@ const I18N={
   p_dw:"جدار مزدوج للدرج",p_side:"جدار جانبي",p_toppanel:"اللوح العلوي",p_topin:"سقف داخلي",p_boxtop:"سقف صندوق الدرج",p_head:"واجهة الدرج",p_fb:"أمام/خلف الدرج",
   p_lr:"يمين/يسار الدرج",p_dwshelf:"رف فوق الدرج",p_dwrail:"تعليق فوق الدرج",p_shoe:"رف أحذية",
   drawermode:"الأدراج",drawern:"بدون أدراج",drawery:"نعم",drawercount:"عدد الأدراج",
-  drawerunits:"وحدات الأدراج",boxtop:"سقف الصندوق",boxtopd:"مزدوج (٣٦)",boxtops:"فردي (١٨)",
+  drawerunits:"وحدات الأدراج",boxtop:"سقف الصندوق",dwwall:"جدار صندوق الدرج",dwwall_d:"مزدوج (٣٦)",dwwall_s:"مفرد (١٨)",boxtopd:"مزدوج (٣٦)",boxtops:"فردي (١٨)",
   abovemode:"فوق الأدراج (حتى السقف)",abover:"تعليق",aboves:"رف",
   drawerhint:"ارتفاع الجدار المزدوج = عدد الأدراج × ٢٠٠ • كل درج ٢٠٠",
   designmode:"تصميم الوحدات",designs:"بسيط (الكل متطابق)",designp:"كل وحدة على حدة",
@@ -573,7 +580,7 @@ const I18N={
   p_dw:"Drawer double-wall",p_side:"Side wall",p_toppanel:"Top panel",p_topin:"Inset top",p_boxtop:"Drawer box top",p_head:"Drawer head",p_fb:"Drawer front/back",
   p_lr:"Drawer left/right",p_dwshelf:"Shelf over drawers",p_dwrail:"Rail over drawers",p_shoe:"Shoe rack",
   drawermode:"Drawers",drawern:"No drawers",drawery:"Yes",drawercount:"Drawer count",
-  drawerunits:"Drawer units",boxtop:"Drawer box top",boxtopd:"Double (36)",boxtops:"Single (18)",
+  drawerunits:"Drawer units",boxtop:"Drawer box top",dwwall:"Drawer box wall",dwwall_d:"Double (36)",dwwall_s:"Single (18)",boxtopd:"Double (36)",boxtops:"Single (18)",
   abovemode:"Above drawers (to top)",abover:"Rail",aboves:"Shelf",
   drawerhint:"Double-wall height = drawer count × 200 • each drawer 200",
   designmode:"Unit design",designs:"Simple (all same)",designp:"Per unit",
@@ -1082,16 +1089,17 @@ function addPatty(P, split, pattyH, wall, innerWidths, sheetLen){
 
 function calculate_ORIG_PLACEHOLDER(){}
 
-function layoutSegs(segs, iw, usableH, depthBody, P, hasDoor, boxTopMat){
+function layoutSegs(segs, iw, usableH, depthBody, P, hasDoor, boxTopMat, dwTh, dwMat){
   const shelfDepth=depthBody-SHELF_DEPTH_GAP;
   let used=0, railCount=0, shoeCount=0;
   const shelfSegs=[];
   segs.forEach(s=>{
   if(s.type==='drawer'){
   const cnt=s.count||1;
-  const clearW=iw-2*DW;
+  const dwT=dwTh||DW, dwM=dwMat||'mdf_double';
+  const clearW=iw-2*dwT;
   const dwD=drawerDepth(depthBody, !!hasDoor);
-  P('p_dw', cnt*DRAWER_H, dwD, 2, 'v', 'mdf_double');
+  P('p_dw', cnt*DRAWER_H, dwD, 2, 'v', dwM);
   P('p_boxtop', iw, dwD, 1, 'h', boxTopMat||'mdf'); // سقف باکس، عرض مثل کف و رف (عرض داخلی)
   P('p_head', clearW-HEAD_CUT, DRAWER_H-HEAD_CUT, cnt, 'h', 'mdf_pvc');
   P('p_fb', clearW-FB_RAIL_CUT, boxSideH(DRAWER_H-HEAD_CUT), 2*cnt, 'h', 'mdf');
@@ -1842,7 +1850,7 @@ function calcTv(){
   ? calcSoloWith({W:sec.w, H:sec.H, D:P.D, nD:P.nD, cols:P.cols, top:P.top, side:P.side,
   mount:P.mount, pattyH:ph, pattyMode:P.pattyMode, manualDH:P.manualDH,
   pattySplit:'unit', floorHidden:false, pattyInset:25})
-  : calcWardrobe({wall:sec.w, n:Math.max(1,P.n), H:sec.H, shape:'I', bodyTh:T, boxTop:'single',
+  : calcWardrobe({wall:sec.w, n:Math.max(1,P.n), H:sec.H, shape:'I', bodyTh:T, boxTop:'single', dwWall:'double',
   designMode:P.perUnit?'perunit':'global',
   unitPlans:P.perUnit?tvSyncUnits(sec):[], depthBody:P.depthBody, shelves:P.shelves, hasRail:P.hasRail,
   ceilTh:P.ceilTh, cornice:P.cornice, pattyH:ph, pattyMode:P.pattyMode,
@@ -2000,6 +2008,10 @@ function calcWardrobe(o){
   const boxTopSel = (o.boxTop!==undefined) ? o.boxTop
   : ((document.querySelector('#boxtopSeg button.on')||{dataset:{}}).dataset.bt||'single');
   const boxTopMat = (boxTopSel==='double') ? 'mdf_double' : 'mdf';   // سقف باکس کشو: سینگل یا دوبل
+  const dwSel = (o.dwWall!==undefined) ? o.dwWall
+  : ((document.querySelector('#dwwallSeg button.on')||{dataset:{}}).dataset.dww||'double');
+  const dwTh = (dwSel==='single') ? T : DW;                          // دیوار باکس کشو: 18 یا 36
+  const dwMat = (dwSel==='single') ? 'mdf' : 'mdf_double';
   const BT = (o.bodyTh!==undefined)?o.bodyTh:(+(document.getElementById('bodyTh')||{}).value||T);   // ضخامت بدنه‌ی یونیت: 18 یا 36
   const bodyMat = (BT===DW) ? 'mdf_double' : 'mdf';
   const innerW = uw - 2*BT;                         // عرض داخلی
@@ -2033,7 +2045,7 @@ function calcWardrobe(o){
   const cellW = mid>0 ? Math.round((iw - mid*T)/(mid+1)) : iw;
   const cells = plan.cells || [plan.segs||[]];
   const planDoors=(plan.doorCount!==undefined?plan.doorCount:2);
-  for(let c=0;c<=mid;c++) layoutSegs(cells[c]||cells[0]||[], cellW, usableIn, depthBody, P, planDoors>0, boxTopMat);
+  for(let c=0;c<=mid;c++) layoutSegs(cells[c]||cells[0]||[], cellW, usableIn, depthBody, P, planDoors>0, boxTopMat, dwTh, dwMat);
   if(plan.filler && plan.filler!=='none'){
   P('p_sidefiller', bodyH, +plan.fillerW||18, 1, 'v', 'mdf');
   }
@@ -2066,7 +2078,7 @@ function calcWardrobe(o){
   parts.forEach(p=>{ if(p.mat==='mdf'||p.mat==='mdf_double'||p.mat==='mdf_pvc') usedArea+=p.L*p.W*p.q; });
   const sheetsRough=Math.ceil(usedArea/sheetArea/0.82);
   const wastePct=Math.round((1 - usedArea/(sheetsRough*sheetArea))*100);
-  return {wall,H,n,uw,bodyH,depthBody,floorDepth,pattyH,pattyMode,pattySplit,cornice:effCornice,ceilTh,bodyTh:BT,parts,sheetsRough,wastePct,shelves,hasRail,drawerInfo:null,designMode:'perunit',unitPlans:JSON.parse(JSON.stringify(unitPlans)),usableIn};
+  return {wall,H,n,uw,bodyH,depthBody,floorDepth,pattyH,pattyMode,pattySplit,cornice:effCornice,ceilTh,bodyTh:BT,dwTh,parts,sheetsRough,wastePct,shelves,hasRail,drawerInfo:null,designMode:'perunit',unitPlans:JSON.parse(JSON.stringify(unitPlans)),usableIn};
   }
 
   const layout=unitLayout();
@@ -2105,11 +2117,11 @@ function calcWardrobe(o){
   if(drawerUnitCount>n) drawerUnitCount=n;
 
   const dwH = drawerCount*DRAWER_H;          // ارتفاع دیوار دوبل = تعداد کشو × 200
-  const clearW = innerW - 2*DW;              // صافی بین دو دیوار دوبل
+  const clearW = innerW - 2*dwTh;            // صافی بین دو دیوار باکس
   const km=drawerUnitCount;                  // ضریب تعداد یونیت کشودار
 
   const dwD=drawerDepth(depthBody, doorsPer>0);
-  P('p_dw', dwH, dwD, 2*km, 'v', 'mdf_double');
+  P('p_dw', dwH, dwD, 2*km, 'v', dwMat);
   P('p_boxtop', innerW, dwD, 1*km, 'h', boxTop==='double'?'mdf_double':'mdf');
   P('p_head', clearW-HEAD_CUT, DRAWER_H-HEAD_CUT, drawerCount*km, 'h', 'mdf_pvc');
   P('p_fb', clearW-FB_RAIL_CUT, boxSideH(DRAWER_H-HEAD_CUT), 2*drawerCount*km, 'h', 'mdf');
@@ -2135,7 +2147,7 @@ function calcWardrobe(o){
   const sheetsRough=Math.ceil(usedArea/sheetArea/0.82);
   const wastePct=Math.round((1 - usedArea/(sheetsRough*sheetArea))*100);
 
-  return {wall,H,n,uw,bodyH,depthBody,floorDepth,pattyH,pattyMode,pattySplit,cornice:effCornice,ceilTh,bodyTh:BT,parts,sheetsRough,wastePct,shelves,hasRail,drawerInfo};
+  return {wall,H,n,uw,bodyH,depthBody,floorDepth,pattyH,pattyMode,pattySplit,cornice:effCornice,ceilTh,bodyTh:BT,dwTh,parts,sheetsRough,wastePct,shelves,hasRail,drawerInfo};
 }
 
 /* ---------- preview (before split) ---------- */
@@ -2578,11 +2590,11 @@ function drawInside(r){
   const cellW=(inW-mid*T*scale)/(mid+1);
   for(let c=0;c<=mid;c++){
   const cx2=inX+c*(cellW+T*scale);
-  drawUnitContent(cells[c]||cells[0]||[], cx2, cellW, zoneTop, zoneBot, r.usableIn||zoneH/scale, scale, (str)=>{s+=str;});
+  drawUnitContent(cells[c]||cells[0]||[], cx2, cellW, zoneTop, zoneBot, r.usableIn||zoneH/scale, scale, (str)=>{s+=str;}, r.dwTh);
   if(c<mid) s+=`<rect x="${cx2+cellW}" y="${zoneTop}" width="${T*scale}" height="${zoneH}" fill="#e5ddcb" stroke="#8a8377" stroke-width=".5"/>`;
   }
   } else {
-  drawUnitContent(cells[0]||[], inX, inW, zoneTop, zoneBot, r.usableIn||zoneH/scale, scale, (str)=>{s+=str;});
+  drawUnitContent(cells[0]||[], inX, inW, zoneTop, zoneBot, r.usableIn||zoneH/scale, scale, (str)=>{s+=str;}, r.dwTh);
   }
   if(pattyPx>0 && pattyPerUnit)
   s+=`<rect x="${inX}" y="${zoneBot}" width="${inW}" height="${pattyPx}" fill="#c9bfa9" stroke="#1a1815" stroke-width="1"/>`;
@@ -2642,7 +2654,7 @@ function drawInside(r){
   return s;
 }
 
-function drawUnitContent(segs, inX, inW, zoneTop, zoneBot, usableMm, scale, emit){
+function drawUnitContent(segs, inX, inW, zoneTop, zoneBot, usableMm, scale, emit, dwThMm){
   const zoneH=zoneBot-zoneTop;
   let fixedMm=0, shelfCount=0;
   segs.forEach(sg=>{
@@ -2669,10 +2681,10 @@ function drawUnitContent(segs, inX, inW, zoneTop, zoneBot, usableMm, scale, emit
   }
   if(sg.type==='drawer'){
   const cnt=sg.count||1;
-  const dwPx=DW*scale;
+  const dwPx=(dwThMm||DW)*scale;
   emit(`<rect x="${inX}" y="${yTop}" width="${dwPx}" height="${hPx}" fill="#d8ceb8" stroke="#8a6d3a" stroke-width=".7"/>`);
   emit(`<rect x="${inX+inW-dwPx}" y="${yTop}" width="${dwPx}" height="${hPx}" fill="#d8ceb8" stroke="#8a6d3a" stroke-width=".7"/>`);
-  emit(`<rect x="${inX}" y="${yTop-Math.max(2,DW*scale)}" width="${inW}" height="${Math.max(2,DW*scale)}" fill="#c9b78a" stroke="#8a6d3a" stroke-width=".7"/>`);
+  emit(`<rect x="${inX}" y="${yTop-Math.max(2,dwPx)}" width="${inW}" height="${Math.max(2,dwPx)}" fill="#c9b78a" stroke="#8a6d3a" stroke-width=".7"/>`);
   const dInX=inX+dwPx, dInW=inW-2*dwPx;
   for(let d=0;d<cnt;d++){
   const dy=yb-hPx*(d+1)/cnt;
@@ -3130,7 +3142,7 @@ function applyLang(){
   't-floor-on':'flooron','t-floor-fr':'floorfr','t-floorhint':'floorhint',
   't-drawermode':'drawermode','t-drawer-n':'drawern','t-drawer-y':'drawery',
   't-drawercount':'drawercount','t-drawerunits':'drawerunits','t-boxtop':'boxtop',
-  't-boxtop-d':'boxtopd','t-boxtop-s':'boxtops','t-abovemode':'abovemode',
+  't-boxtop-d':'boxtopd','t-boxtop-s':'boxtops','t-dwwall':'dwwall','t-dwwall-d':'dwwall_d','t-dwwall-s':'dwwall_s','t-abovemode':'abovemode',
   't-above-r':'abover','t-above-s':'aboves','t-drawerhint':'drawerhint',
   't-designmode':'designmode','t-design-s':'designs','t-design-p':'designp','t-designhint':'designhint',
   't-empty':'empty'};
@@ -3208,7 +3220,7 @@ document.querySelectorAll('#drawerSeg button').forEach(b=>b.onclick=()=>{
   document.getElementById('drawerOpts').style.display = b.dataset.dr==='1'?'block':'none';
 });
 /* boxtop + above segs */
-['boxtopSeg','aboveSeg'].forEach(id=>{
+['boxtopSeg','dwwallSeg','aboveSeg'].forEach(id=>{
   document.querySelectorAll('#'+id+' button').forEach(b=>b.onclick=()=>{
   document.querySelectorAll('#'+id+' button').forEach(x=>x.classList.remove('on'));
   b.classList.add('on');
