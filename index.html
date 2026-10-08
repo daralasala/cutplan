@@ -164,22 +164,91 @@ background:var(--accent-soft);border:1px dashed var(--accent);border-radius:12px
         <div class="seg" id="projectSeg">
           <button data-pj="wardrobe" class="on" id="t-pj-w">کمد</button>
           <button data-pj="drawer" id="t-pj-d">کشو (مستقل)</button>
-          <button data-pj="tv" id="t-pj-t">تلویزیون</button>
+          <button data-pj="kitchen" id="t-pj-k">آشپزخانه</button>
         </div>
       </div>
 
-      <!-- بخش دیوار تلویزیون -->
-      <div id="tvBox" style="display:none">
-        <div class="row2">
-          <div class="field"><label id="t-tv-w">عرض دیوار (mm)</label><input type="number" id="tvW" value="4000"></div>
-          <div class="field"><label id="t-tv-h">ارتفاع دیوار (mm)</label><input type="number" id="tvH" value="2700"></div>
+      <!-- بخش آشپزخانه -->
+      <div id="kitBox" style="display:none">
+        <div class="field">
+          <label id="t-kit-shape">شکل آشپزخانه</label>
+          <div class="seg" id="kitShapeSeg">
+            <button data-ks="I" class="on" id="t-kit-si">صاف (I)</button>
+            <button data-ks="L" id="t-kit-sl">گوشه (L)</button>
+            <button data-ks="U" id="t-kit-su">یو (U)</button>
+          </div>
         </div>
+        <div id="kitWallsBox"></div>
         <div class="row2">
-          <div class="field"><label id="t-tv-n">تعداد قسمت</label><input type="number" id="tvN" value="3" min="1" max="12"></div>
-          <div class="field"><label id="t-tv-skirt">&nbsp;</label><div class="hint" id="t-tv-hint">ارتفاع هر بلوک را داخل قسمت می‌زنی</div></div>
+          <div class="field"><label id="t-kit-gap">فاصله‌ی زیر دیواری (mm)</label><input type="number" id="kitGap" value="600"></div>
+          <div class="field" id="kitCornerField"><label id="t-kit-corner">کسر گوشه (mm)</label><input type="number" id="kitCorner" value="0"></div>
         </div>
-        <div id="tvSections"></div>
-        <div class="hint" id="tvSum"></div>
+        <div class="hint" id="t-kit-cornerhint" style="margin-top:-4px">در گوشه، عمق کابینت زمینی از دیوار روبه‌رو کم می‌شود، به‌علاوه‌ی این عدد</div>
+
+        <div style="border:1px solid var(--line);border-radius:10px;padding:11px;margin:9px 0;background:var(--paper)">
+          <label class="tvchk" style="font-weight:600;color:var(--accent)"><input type="checkbox" id="kitBaseOn" checked> <span id="t-kit-base">کابینت زمینی</span></label>
+          <div class="row2">
+            <div class="field"><label id="t-kit-baseh">ارتفاع بدنه</label><input type="number" id="kitBaseH" value="720"></div>
+            <div class="field"><label id="t-kit-based">عمق</label><input type="number" id="kitBaseD" value="600"></div>
+          </div>
+          <div class="row2">
+            <div class="field"><label id="t-kit-legh">ارتفاع پایه</label><input type="number" id="kitLegH" value="100"></div>
+            <div class="field"><label id="t-kit-dwcut">کسر عمق کشو</label><input type="number" id="kitDwCut" value="100"></div>
+          </div>
+          <div class="row2">
+            <div class="field"><label id="t-kit-baseshelf">طبقه در هر یونیت</label><input type="number" id="kitBaseShelf" value="1" min="0" max="6"></div>
+            <div class="field"><label id="t-kit-basedoors">درب در هر یونیت</label><input type="number" id="kitBaseDoors" value="1" min="0" max="4"></div>
+          </div>
+          <div class="hint" id="t-kit-basehint">بالای یونیت زمینی دو کلاف ۱۰۰ می‌خورد، نه سقف کامل • پاتی (کیک‌پلیت) به ارتفاع پایه</div>
+        </div>
+
+        <div style="border:1px solid var(--line);border-radius:10px;padding:11px;margin-bottom:9px;background:var(--paper)">
+          <label class="tvchk" style="font-weight:600;color:var(--accent)"><input type="checkbox" id="kitWallOn" checked> <span id="t-kit-wall">کابینت دیواری</span></label>
+          <div class="row2">
+            <div class="field"><label id="t-kit-wallh">ارتفاع</label><input type="number" id="kitWallH" value="720"></div>
+            <div class="field"><label id="t-kit-walld">عمق</label><input type="number" id="kitWallD" value="320"></div>
+          </div>
+          <div class="row2">
+            <div class="field"><label id="t-kit-wallshelf">طبقه در هر یونیت</label><input type="number" id="kitWallShelf" value="1" min="0" max="6"></div>
+            <div class="field"><label id="t-kit-walldoors">درب در هر یونیت</label><input type="number" id="kitWallDoors" value="1" min="0" max="4"></div>
+          </div>
+        </div>
+
+        <div style="border:1px solid var(--line);border-radius:10px;padding:11px;margin-bottom:9px;background:var(--paper)">
+          <label class="tvchk" style="font-weight:600;color:var(--accent)"><input type="checkbox" id="kitTallOn"> <span id="t-kit-tall">ستون قدبلند (فر / یخچال / آذوقه)</span></label>
+          <div class="row2">
+            <div class="field"><label id="t-kit-tallh">ارتفاع</label><input type="number" id="kitTallH" value="2200"></div>
+            <div class="field"><label id="t-kit-talld">عمق</label><input type="number" id="kitTallD" value="600"></div>
+          </div>
+          <div class="row2">
+            <div class="field"><label id="t-kit-tallw">عرض هر ستون</label><input type="number" id="kitTallW" value="600"></div>
+            <div class="field"><label id="t-kit-talln">تعداد ستون</label><input type="number" id="kitTallN" value="1" min="1" max="6"></div>
+          </div>
+          <div class="row2">
+            <div class="field"><label id="t-kit-tallshelf">طبقه در هر ستون</label><input type="number" id="kitTallShelf" value="4" min="0" max="10"></div>
+            <div class="field"><label id="t-kit-talldoors">درب در هر ستون</label><input type="number" id="kitTallDoors" value="2" min="0" max="4"></div>
+          </div>
+          <div class="hint" id="t-kit-tallhint">عرض ستون‌ها از دیوار روبه‌رو کم می‌شود</div>
+        </div>
+
+        <div style="border:1px solid var(--line);border-radius:10px;padding:11px;margin-bottom:9px;background:var(--paper)">
+          <label class="tvchk" style="font-weight:600;color:var(--accent)"><input type="checkbox" id="kitTopOn" checked> <span id="t-kit-top">صفحه‌ی کار</span></label>
+          <div class="row2">
+            <div class="field"><label id="t-kit-topd">عمق صفحه</label><input type="number" id="kitTopD" value="620"></div>
+            <div class="field"><label id="t-kit-topth">ضخامت صفحه</label><input type="number" id="kitTopTh" value="40"></div>
+          </div>
+        </div>
+
+        <div class="field">
+          <label id="t-kit-design">طراحی یونیت‌ها</label>
+          <div class="seg" id="kitDesignSeg">
+            <button data-kd="simple" class="on" id="t-kit-dsimple">ساده (همه یکسان)</button>
+            <button data-kd="perunit" id="t-kit-dper">هر یونیت جدا</button>
+          </div>
+          <div class="hint" id="t-kit-designhint">در حالت «هر یونیت جدا» عرض و محتوای هر یونیت را خودت می‌زنی</div>
+        </div>
+        <div id="kitDesigner"></div>
+        <div class="hint" id="kitSum"></div>
       </div>
 
       <!-- بخش کشوی مستقل -->
@@ -509,7 +578,7 @@ const I18N={
   door_design:"دیزاین درب",door_plain:"ساده",door_glass:"شیشه‌دار + فریم",door_frame:"فریم‌دار + چوب",door_mirror:"آینه",
   p_sidefiller:"فیلر کناری",mirror_mat:"آینه",glass_mat:"شیشه + فریم",
   ceilth:"ضخامت سقف (mm)",pattyh:"پاتی پایین — ارتفاع (mm)",pattymode:"محل پاتی",
-  pattyhhint:"۰ یعنی بدون پاتی",tape_legend:"خط زیر عدد = آن لبه نوار PVC می‌خورد (یک خط: یک طرف • دو خط: دو طرف)",tape_total:"جمع نوار",p_skirt:"اسکرتینگ",p_tvpanel:"صفحه ام‌دی‌اف (بک‌گراند)",tv_part:"قسمت",tv_secw:"عرض قسمت",tv_low:"کابینت پایین",tv_lowh:"ارتفاع پایین",tv_up:"کمد بالا",tv_uph:"ارتفاع بالا",tv_count:"تعداد",tv_none:"ندارد",tv_door:"درب",tv_drawer:"کشو",tv_open:"طبقه باز",tv_top:"سقف بگذار",tv_pattylr:"پاتی چپ و راست",tv_hint:"ارتفاع هر بلوک را داخل خود قسمت می‌زنی",tv_pattyh:"ارتفاع پاتی کناری (mm)",tvk_mirror:"آینه",tv_join:"مرز با قسمت بعدی",tvj_separate:"دیوار جدا (ستونی)",tvj_shared:"دیوار مشترک",tvj_gap:"فاصله با پاتی روبه‌رو",tv_gapw:"عرض فاصله",tv_okh:"ارتفاع پر شد",inset:"توکار",overlay:"روکار",doors_per_l:"تعداد درب هر یونیت",tv_single:"سینگل ۱۸",tv_double:"دوبل ۳۶",tv_perunit:"تقسیم داخل هر یونیت",tv_addseg:"تقسیم",tv_tvtype:"تلویزیون",tv_pattyr:"پاتی راست",tv_pattyl:"پاتی چپ",tv_type:"نوع قسمت",tv_sech:"ارتفاع قسمت",tv_hasdrawer:"کشو دارد",tv_dcount:"تعداد کشو",tv_shelves:"رف",tv_rail:"آویز",tv_dcols:"کشو کنار هم",tv_mount:"سرکشو",solo_dh_each:"یا ارتفاع هر کشو را جدا بزن (از بالا)",solo_dh_row:"کشو",solo_col:"ستون",solo_wsum:"جمع عرض ستون‌ها",pattyh_short:"پاتی",solo_colhint:"ارتفاع • تعداد کشو",solo_col_each:"هر ستون: ارتفاع، تعداد کشو، و ارتفاع تک‌تک کشوها (از راست)",tv_auto:"خودکار",tv_autohint:"کادر ارتفاع را خالی بگذار تا بقیه‌ی دیوار را بگیرد",p_mirror:"آینه",p_gapfiller:"پاتی روبه‌رو (فاصله)",tvk_patty:"پاتی / اسکرتینگ",tvk_door:"کمد درب‌دار",tvk_drawer:"کشو",tvk_open:"طبقه باز",tvk_panel:"صفحه ام‌دی‌اف (بک‌گراند)",tvk_desk:"صفحه میز",tvk_empty:"فضای خالی",tvk_cornice:"تاج",tvk_ceil:"سقف / کف افقی",tv_secd:"عمق قسمت",tv_shared:"دیوار مشترک با قسمت بعدی",tv_blocks:"بلوک‌ها (از پایین به بالا)",tv_addblock:"بلوک",tv_h:"ارتفاع",p_desk:"صفحه میز",tv_pattyside:"پاتی کناری",tv_right:"راست",tv_left_s:"چپ",tv_both:"هر دو طرف",tv_base:"پایه",tv_skirting:"اسکرتینگ",tv_lown:"تعداد پایین",tv_upn:"تعداد بالا",tv_ok:"جمع عرض‌ها درست است",tv_left:"باقی‌مانده",tv_over:"بیشتر از دیوار",g_body:"کمد / بدنه",g_drawer:"کشو",g_door:"درب",g_other:"متفرقه",tape_click:"روی هر عدد بزن تا نوارش عوض شود: بدون خط ← یک خط ← دو خط",qty_click:"تعداد را می‌توانی دستی عوض کنی",sets:"تعداد دست",sets_hint:"همه‌ی تعدادها ضرب در این عدد می‌شود",print_hint:"مرورگر اجازه‌ی چاپ نداد. اپ را در یک تب جدا باز کن، یا از منوی مرورگر Print → Save as PDF بگیر.",pattyio:"بین بدنه — خارج",pattyin:"بین بدنه — ساده",pattyfr:"روبه‌رو",project:"نوع پروژه",proj_title:"پروژه‌ها",proj_name:"اسم مشتری…",proj_save:"ذخیره",proj_open:"باز کردن",proj_copy:"کپی",proj_export:"فایل",proj_del:"حذف",proj_import:"↥ ورودی فایل",proj_empty:"هنوز پروژه‌ای ذخیره نشده",proj_over:"پروژه‌ای با این اسم هست. جایگزین شود؟",proj_delq:"این پروژه پاک شود؟",proj_noname:"اول یک اسم بنویس",proj_loaded:"باز شد",pjw:"کمد",pjd:"کشو (مستقل)",solo_w:"عرض (mm)",solo_h:"ارتفاع (mm)",solo_d:"عمق (mm)",solo_n:"تعداد کشو",solo_boxes:"تعداد ستون (کنار هم)",solo_top:"صفحه بالا — ضخامت",solo_side:"دیوار کناری",solo_dh:"ارتفاع هر کشو (mm)",solo_hm:"نصب سرکشو",solo_topmode:"نصب سقف",solo_topout:"فقط صفحه",solo_topin:"صفحه + سقف توکار هر ستون",solo_hin:"توکار (بین بدنه)",solo_hov:"روکار (روی بدنه)",solo_hint:"ارتفاع کشوها از ارتفاع کل تقسیم بر تعداد حساب می‌شود",shape:"شکل کمد",shapei:"صاف (I)",shapel:"گوشه (L)",shapeu:"یو (U)",wall_a:"دیوار",wall_b:"دیوار دوم",l_side:"دیوار کناری در کدام سمت؟",usable:"مفید",corner_unit:"زاویه",mid_panel:"بدنه وسط",cell:"خانه",save_png:"ذخیره عکس",save_pdf:"خروجی PDF",unit_width:"یونیت اضافی (اختیاری)",optional:"اختیاری",side_start:"چپ",side_end:"راست",has_door:"با درب",no_door:"بدون درب",unitwidth_i:"یونیت اضافی (اختیاری)",add_unit:"افزودن یونیت",del_unit:"حذف یونیت",p_midpanel:"بدنه وسط",wall_left:"دیوار چپ",wall_front:"دیوار روبه‌رو",wall_right:"دیوار راست",cornerfiller:"فیلر گوشه (mm)",cornermin:"عرض کمد زاویه (mm)",cornermid:"فیلر وسط کمد زاویه (mm)",cornermidhint:"بعد از عمقی که در گوشه می‌میرد، برای باز شدن درب‌ها",wallclear:"کسر پاتی کناری (mm) — ۰ یعنی بدون کسر",p_cornerfiller:"فیلر گوشه",p_cornermid:"فیلر وسط زاویه",doormount:"نصب درب",dmov:"روکار",dmin:"توکار",doormounthint:"روکار: عرض درب از عرض کامل یونیت • توکار: از عرض داخلی",pattysplit:"تقسیم پاتی",psplitu:"یک یونیت",psplitc:"متصل",psplitb:"هر دو",pattysplithint:"متصل: یک تکه سرتاسری، اگر از طول ورق بلندتر شد دو تکه مساوی",floormode:"کف نسبت به پاتی",
+  pattyhhint:"۰ یعنی بدون پاتی",tape_legend:"خط زیر عدد = آن لبه نوار PVC می‌خورد (یک خط: یک طرف • دو خط: دو طرف)",tape_total:"جمع نوار",p_skirt:"اسکرتینگ",p_tvpanel:"صفحه ام‌دی‌اف (بک‌گراند)",tv_part:"قسمت",tv_secw:"عرض قسمت",tv_low:"کابینت پایین",tv_lowh:"ارتفاع پایین",tv_up:"کمد بالا",tv_uph:"ارتفاع بالا",tv_count:"تعداد",tv_none:"ندارد",tv_door:"درب",tv_drawer:"کشو",tv_open:"طبقه باز",tv_top:"سقف بگذار",tv_pattylr:"پاتی چپ و راست",tv_hint:"ارتفاع هر بلوک را داخل خود قسمت می‌زنی",tv_pattyh:"ارتفاع پاتی کناری (mm)",tvk_mirror:"آینه",tv_join:"مرز با قسمت بعدی",tvj_separate:"دیوار جدا (ستونی)",tvj_shared:"دیوار مشترک",tvj_gap:"فاصله با پاتی روبه‌رو",tv_gapw:"عرض فاصله",tv_okh:"ارتفاع پر شد",inset:"توکار",overlay:"روکار",doors_per_l:"تعداد درب هر یونیت",tv_single:"سینگل ۱۸",tv_double:"دوبل ۳۶",tv_perunit:"تقسیم داخل هر یونیت",tv_addseg:"تقسیم",tv_tvtype:"تلویزیون",tv_pattyr:"پاتی راست",tv_pattyl:"پاتی چپ",tv_type:"نوع قسمت",tv_sech:"ارتفاع قسمت",tv_hasdrawer:"کشو دارد",tv_dcount:"تعداد کشو",tv_shelves:"رف",tv_rail:"آویز",tv_dcols:"کشو کنار هم",tv_mount:"سرکشو",solo_dh_each:"یا ارتفاع هر کشو را جدا بزن (از بالا)",solo_dh_row:"کشو",solo_col:"ستون",solo_wsum:"جمع عرض ستون‌ها",pattyh_short:"پاتی",solo_colhint:"ارتفاع • تعداد کشو",solo_col_each:"هر ستون: ارتفاع، تعداد کشو، و ارتفاع تک‌تک کشوها (از راست)",tv_auto:"خودکار",tv_autohint:"کادر ارتفاع را خالی بگذار تا بقیه‌ی دیوار را بگیرد",p_mirror:"آینه",p_gapfiller:"پاتی روبه‌رو (فاصله)",tvk_patty:"پاتی / اسکرتینگ",tvk_door:"کمد درب‌دار",tvk_drawer:"کشو",tvk_open:"طبقه باز",tvk_panel:"صفحه ام‌دی‌اف (بک‌گراند)",tvk_desk:"صفحه میز",tvk_empty:"فضای خالی",tvk_cornice:"تاج",tvk_ceil:"سقف / کف افقی",tv_secd:"عمق قسمت",tv_shared:"دیوار مشترک با قسمت بعدی",tv_blocks:"بلوک‌ها (از پایین به بالا)",tv_addblock:"بلوک",tv_h:"ارتفاع",p_desk:"صفحه میز",tv_pattyside:"پاتی کناری",tv_right:"راست",tv_left_s:"چپ",tv_both:"هر دو طرف",tv_base:"پایه",tv_skirting:"اسکرتینگ",tv_lown:"تعداد پایین",tv_upn:"تعداد بالا",tv_ok:"جمع عرض‌ها درست است",tv_left:"باقی‌مانده",tv_over:"بیشتر از دیوار",g_body:"کمد / بدنه",g_drawer:"کشو",g_door:"درب",g_other:"متفرقه",tape_click:"روی هر عدد بزن تا نوارش عوض شود: بدون خط ← یک خط ← دو خط",qty_click:"تعداد را می‌توانی دستی عوض کنی",sets:"تعداد دست",sets_hint:"همه‌ی تعدادها ضرب در این عدد می‌شود",print_hint:"مرورگر اجازه‌ی چاپ نداد. اپ را در یک تب جدا باز کن، یا از منوی مرورگر Print → Save as PDF بگیر.",pattyio:"بین بدنه — خارج",pattyin:"بین بدنه — ساده",pattyfr:"روبه‌رو",project:"نوع پروژه",proj_title:"پروژه‌ها",proj_name:"اسم مشتری…",proj_save:"ذخیره",proj_open:"باز کردن",proj_copy:"کپی",proj_export:"فایل",proj_del:"حذف",proj_import:"↥ ورودی فایل",proj_empty:"هنوز پروژه‌ای ذخیره نشده",proj_over:"پروژه‌ای با این اسم هست. جایگزین شود؟",proj_delq:"این پروژه پاک شود؟",proj_noname:"اول یک اسم بنویس",proj_loaded:"باز شد",pjw:"کمد",pjd:"کشو (مستقل)",pjk:"آشپزخانه",kit_w:"عرض دیوار (mm)",kit_shape:"شکل آشپزخانه",kit_si:"صاف (I)",kit_sl:"گوشه (L)",kit_su:"یو (U)",kit_corner:"کسر گوشه (mm)",kit_cornerhint:"در هر گوشه عمق همان ردیف کم می‌شود (زمینی ۶۰۰ • دیواری ۳۲۰) به‌علاوه‌ی این عدد",kit_wall_a:"دیوار اصلی",kit_wall_b:"دیوار دوم",kit_wall_c:"دیوار سوم",kit_len:"طول دیوار (mm)",kit_units:"یونیت‌ها",kit_design:"طراحی یونیت‌ها",kit_dsimple:"ساده (همه یکسان)",kit_dper:"هر یونیت جدا",kit_designhint:"در حالت «هر یونیت جدا» عرض و محتوای هر یونیت را خودت می‌زنی",kit_add:"+ یونیت",kit_equal:"تقسیم مساوی",kit_sum:"جمع عرض",kit_type:"نوع",kit_cnt:"تعداد",kit_doors2:"درب",kit_wid:"عرض",kit_k_shelf:"رف",kit_k_drawer:"کشو",kit_k_open:"باز (بدون درب)",kit_dwcut:"کسر عمق کشو",kit_nbase:"تعداد زمینی",kit_nwall:"تعداد دیواری",kit_gap:"فاصله‌ی زیر دیواری (mm)",kit_base:"کابینت زمینی",kit_baseh:"ارتفاع بدنه",kit_based:"عمق",kit_basen:"تعداد یونیت",kit_legh:"ارتفاع پایه",kit_baseshelf:"طبقه در هر یونیت",kit_basedoors:"درب در هر یونیت",kit_basehint:"بالای یونیت زمینی دو کلاف ۱۰۰ می‌خورد، نه سقف کامل • پاتی (کیک‌پلیت) به ارتفاع پایه",kit_wall:"کابینت دیواری",kit_wallh:"ارتفاع",kit_walld:"عمق",kit_walln:"تعداد یونیت",kit_wallshelf:"طبقه در هر یونیت",kit_walldoors:"درب در هر یونیت",kit_tall:"ستون قدبلند (فر / یخچال / آذوقه)",kit_tallh:"ارتفاع",kit_talld:"عمق",kit_tallw:"عرض هر ستون",kit_talln:"تعداد ستون",kit_tallshelf:"طبقه در هر ستون",kit_talldoors:"درب در هر ستون",kit_tallhint:"عرض ستون‌ها از عرض دیوار کم می‌شود و بقیه بین یونیت‌های زمینی و دیواری تقسیم می‌شود",kit_top:"صفحه‌ی کار",kit_topd:"عمق صفحه",kit_topth:"ضخامت صفحه",p_counter:"صفحه کار",p_kick:"پاتی (کیک‌پلیت)",p_rail_k:"کلاف",counter_mat:"صفحه کار",g_base:"زمینی",g_wall:"دیواری",g_tall:"قدبلند",kit_rowsum:"زمینی و دیواری از این عرض تقسیم می‌شوند",solo_w:"عرض (mm)",solo_h:"ارتفاع (mm)",solo_d:"عمق (mm)",solo_n:"تعداد کشو",solo_boxes:"تعداد ستون (کنار هم)",solo_top:"صفحه بالا — ضخامت",solo_side:"دیوار کناری",solo_dh:"ارتفاع هر کشو (mm)",solo_hm:"نصب سرکشو",solo_topmode:"نصب سقف",solo_topout:"فقط صفحه",solo_topin:"صفحه + سقف توکار هر ستون",solo_hin:"توکار (بین بدنه)",solo_hov:"روکار (روی بدنه)",solo_hint:"ارتفاع کشوها از ارتفاع کل تقسیم بر تعداد حساب می‌شود",shape:"شکل کمد",shapei:"صاف (I)",shapel:"گوشه (L)",shapeu:"یو (U)",wall_a:"دیوار",wall_b:"دیوار دوم",l_side:"دیوار کناری در کدام سمت؟",usable:"مفید",corner_unit:"زاویه",mid_panel:"بدنه وسط",cell:"خانه",save_png:"ذخیره عکس",save_pdf:"خروجی PDF",unit_width:"یونیت اضافی (اختیاری)",optional:"اختیاری",side_start:"چپ",side_end:"راست",has_door:"با درب",no_door:"بدون درب",unitwidth_i:"یونیت اضافی (اختیاری)",add_unit:"افزودن یونیت",del_unit:"حذف یونیت",p_midpanel:"بدنه وسط",wall_left:"دیوار چپ",wall_front:"دیوار روبه‌رو",wall_right:"دیوار راست",cornerfiller:"فیلر گوشه (mm)",cornermin:"عرض کمد زاویه (mm)",cornermid:"فیلر وسط کمد زاویه (mm)",cornermidhint:"بعد از عمقی که در گوشه می‌میرد، برای باز شدن درب‌ها",wallclear:"کسر پاتی کناری (mm) — ۰ یعنی بدون کسر",p_cornerfiller:"فیلر گوشه",p_cornermid:"فیلر وسط زاویه",doormount:"نصب درب",dmov:"روکار",dmin:"توکار",doormounthint:"روکار: عرض درب از عرض کامل یونیت • توکار: از عرض داخلی",pattysplit:"تقسیم پاتی",psplitu:"یک یونیت",psplitc:"متصل",psplitb:"هر دو",pattysplithint:"متصل: یک تکه سرتاسری، اگر از طول ورق بلندتر شد دو تکه مساوی",floormode:"کف نسبت به پاتی",
   flooron:"روی پاتی (۱۸ دیده می‌شود)",floorfr:"روبه‌رو (۱۸ پنهان)",
   floorhint:"اگر پاتی روبه‌رو و عمق ۶۰۰ باشد، عمق کف ۱۸ کم می‌شود",
   preview:"پیش‌نمایش نقشه",confirm:"تأیید و تقسیم",confirmq:"نقشه درست است؟ برای دیدن کاتینگ‌لیست تأیید کن",
@@ -550,7 +619,7 @@ const I18N={
   door_design:"تصميم الباب",door_plain:"سادة",door_glass:"زجاج + إطار",door_frame:"إطار + خشب",door_mirror:"مرآة",
   p_sidefiller:"فيلر جانبي",mirror_mat:"مرآة",glass_mat:"زجاج + إطار",
   ceilth:"سماكة السقف (mm)",pattyh:"الباتي السفلي — الارتفاع (mm)",pattymode:"موضع الباتي",
-  pattyhhint:"٠ يعني بدون باتي",tape_legend:"الخط تحت الرقم = تلك الحافة تأخذ شريط PVC (خط واحد: جهة • خطان: جهتان)",tape_total:"مجموع الشريط",p_skirt:"وزرة",p_tvpanel:"لوح إم دي إف (خلفية)",tv_part:"قسم",tv_secw:"عرض القسم",tv_low:"خزانة سفلية",tv_lowh:"ارتفاع السفلي",tv_up:"خزانة علوية",tv_uph:"ارتفاع العلوي",tv_count:"العدد",tv_none:"بدون",tv_door:"باب",tv_drawer:"درج",tv_open:"رف مفتوح",tv_top:"ضع سقفاً",tv_pattylr:"باتي يمين ويسار",tv_hint:"ارتفاع كل كتلة يُدخل داخل القسم",tv_pattyh:"ارتفاع الباتي الجانبي (mm)",tvk_mirror:"مرآة",tv_join:"الحد مع القسم التالي",tvj_separate:"جدار منفصل (عمود)",tvj_shared:"جدار مشترك",tvj_gap:"فراغ مع باتي أمامي",tv_gapw:"عرض الفراغ",tv_okh:"اكتمل الارتفاع",inset:"داخلي",overlay:"خارجي",doors_per_l:"عدد الأبواب لكل وحدة",tv_single:"مفرد ١٨",tv_double:"مزدوج ٣٦",tv_perunit:"تقسيم داخل كل وحدة",tv_addseg:"تقسيم",tv_tvtype:"تلفاز",tv_pattyr:"باتي يمين",tv_pattyl:"باتي يسار",tv_type:"نوع القسم",tv_sech:"ارتفاع القسم",tv_hasdrawer:"به أدراج",tv_dcount:"عدد الأدراج",tv_shelves:"رفوف",tv_rail:"علاقة",tv_dcols:"أدراج متجاورة",tv_mount:"واجهة الدرج",solo_dh_each:"أو حدد ارتفاع كل درج (من الأعلى)",solo_dh_row:"درج",solo_col:"عمود",solo_wsum:"مجموع عروض الأعمدة",pattyh_short:"باتي",solo_colhint:"الارتفاع • عدد الأدراج",solo_col_each:"لكل عمود: الارتفاع وعدد الأدراج وارتفاع كل درج (من اليمين)",tv_auto:"تلقائي",tv_autohint:"اترك خانة الارتفاع فارغة ليأخذ باقي الجدار",p_mirror:"مرآة",p_gapfiller:"باتي أمامي (فراغ)",tvk_patty:"باتي / وزرة",tvk_door:"خزانة بأبواب",tvk_drawer:"أدراج",tvk_open:"رف مفتوح",tvk_panel:"لوح إم دي إف (خلفية)",tvk_desk:"سطح المكتب",tvk_empty:"فراغ",tvk_cornice:"تاج",tvk_ceil:"سقف / أرضية",tv_secd:"عمق القسم",tv_shared:"جدار مشترك مع القسم التالي",tv_blocks:"الكتل (من أسفل لأعلى)",tv_addblock:"كتلة",tv_h:"الارتفاع",p_desk:"سطح المكتب",tv_pattyside:"باتي جانبي",tv_right:"يمين",tv_left_s:"يسار",tv_both:"كلا الجانبين",tv_base:"القاعدة",tv_skirting:"وزرة",tv_lown:"عدد السفلي",tv_upn:"عدد العلوي",tv_ok:"مجموع العروض صحيح",tv_left:"المتبقي",tv_over:"أكبر من الجدار",g_body:"الجسم",g_drawer:"الدرج",g_door:"الباب",g_other:"متفرقات",tape_click:"اضغط على أي رقم لتغيير الشريط: بدون خط ← خط ← خطان",qty_click:"يمكنك تعديل العدد يدوياً",sets:"عدد الأطقم",sets_hint:"تُضرب كل الأعداد في هذا الرقم",print_hint:"المتصفح منع الطباعة. افتح التطبيق في تبويب مستقل، أو استخدم Print ← Save as PDF من قائمة المتصفح.",pattyio:"بين الجسم — خارج",pattyin:"بين الجسم — بسيط",pattyfr:"أمامي",project:"نوع المشروع",proj_title:"المشاريع",proj_name:"اسم العميل…",proj_save:"حفظ",proj_open:"فتح",proj_copy:"نسخة",proj_export:"ملف",proj_del:"حذف",proj_import:"↥ استيراد ملف",proj_empty:"لا توجد مشاريع محفوظة",proj_over:"يوجد مشروع بنفس الاسم. هل نستبدله؟",proj_delq:"حذف هذا المشروع؟",proj_noname:"اكتب اسماً أولاً",proj_loaded:"تم الفتح",pjw:"خزانة",pjd:"أدراج (مستقل)",solo_w:"العرض (mm)",solo_h:"الارتفاع (mm)",solo_d:"العمق (mm)",solo_n:"عدد الأدراج",solo_boxes:"عدد الأعمدة",solo_top:"اللوح العلوي — السماكة",solo_side:"الجدار الجانبي",solo_dh:"ارتفاع كل درج (mm)",solo_hm:"تركيب واجهة الدرج",solo_topmode:"تركيب السقف",solo_topout:"اللوح فقط",solo_topin:"اللوح + سقف داخلي لكل عمود",solo_hin:"داخلي",solo_hov:"خارجي",solo_hint:"ارتفاع الأدراج = الارتفاع ÷ العدد",shape:"شكل الخزانة",shapei:"مستقيم (I)",shapel:"زاوية (L)",shapeu:"يو (U)",wall_a:"الجدار",wall_b:"الجدار الثاني",l_side:"الجدار الجانبي في أي جهة؟",usable:"صالح",corner_unit:"زاوية",mid_panel:"جسم أوسط",cell:"خانة",save_png:"حفظ صورة",save_pdf:"تصدير PDF",unit_width:"وحدة إضافية (اختياري)",optional:"اختياري",side_start:"يسار",side_end:"يمين",has_door:"مع باب",no_door:"بدون باب",unitwidth_i:"وحدة إضافية (اختياري)",add_unit:"إضافة وحدة",del_unit:"حذف وحدة",p_midpanel:"جسم أوسط",wall_left:"الجدار الأيسر",wall_front:"الجدار الأمامي",wall_right:"الجدار الأيمن",cornerfiller:"فيلر الزاوية (mm)",cornermin:"عرض خزانة الزاوية (mm)",cornermid:"فيلر وسط خزانة الزاوية (mm)",cornermidhint:"بعد العمق الميت في الزاوية، لفتح الأبواب",wallclear:"خصم الباتي الجانبي (mm) — ٠ بدون خصم",p_cornerfiller:"فيلر الزاوية",p_cornermid:"فيلر وسط الزاوية",doormount:"تركيب الباب",dmov:"خارجي",dmin:"داخلي",doormounthint:"خارجي: من العرض الكامل • داخلي: من العرض الداخلي",pattysplit:"تقسيم الباتي",psplitu:"وحدة واحدة",psplitc:"متصل",psplitb:"كلاهما",pattysplithint:"متصل: قطعة واحدة، إذا تجاوز طول اللوح قطعتان متساويتان",floormode:"الأرضية بالنسبة للباتي",
+  pattyhhint:"٠ يعني بدون باتي",tape_legend:"الخط تحت الرقم = تلك الحافة تأخذ شريط PVC (خط واحد: جهة • خطان: جهتان)",tape_total:"مجموع الشريط",p_skirt:"وزرة",p_tvpanel:"لوح إم دي إف (خلفية)",tv_part:"قسم",tv_secw:"عرض القسم",tv_low:"خزانة سفلية",tv_lowh:"ارتفاع السفلي",tv_up:"خزانة علوية",tv_uph:"ارتفاع العلوي",tv_count:"العدد",tv_none:"بدون",tv_door:"باب",tv_drawer:"درج",tv_open:"رف مفتوح",tv_top:"ضع سقفاً",tv_pattylr:"باتي يمين ويسار",tv_hint:"ارتفاع كل كتلة يُدخل داخل القسم",tv_pattyh:"ارتفاع الباتي الجانبي (mm)",tvk_mirror:"مرآة",tv_join:"الحد مع القسم التالي",tvj_separate:"جدار منفصل (عمود)",tvj_shared:"جدار مشترك",tvj_gap:"فراغ مع باتي أمامي",tv_gapw:"عرض الفراغ",tv_okh:"اكتمل الارتفاع",inset:"داخلي",overlay:"خارجي",doors_per_l:"عدد الأبواب لكل وحدة",tv_single:"مفرد ١٨",tv_double:"مزدوج ٣٦",tv_perunit:"تقسيم داخل كل وحدة",tv_addseg:"تقسيم",tv_tvtype:"تلفاز",tv_pattyr:"باتي يمين",tv_pattyl:"باتي يسار",tv_type:"نوع القسم",tv_sech:"ارتفاع القسم",tv_hasdrawer:"به أدراج",tv_dcount:"عدد الأدراج",tv_shelves:"رفوف",tv_rail:"علاقة",tv_dcols:"أدراج متجاورة",tv_mount:"واجهة الدرج",solo_dh_each:"أو حدد ارتفاع كل درج (من الأعلى)",solo_dh_row:"درج",solo_col:"عمود",solo_wsum:"مجموع عروض الأعمدة",pattyh_short:"باتي",solo_colhint:"الارتفاع • عدد الأدراج",solo_col_each:"لكل عمود: الارتفاع وعدد الأدراج وارتفاع كل درج (من اليمين)",tv_auto:"تلقائي",tv_autohint:"اترك خانة الارتفاع فارغة ليأخذ باقي الجدار",p_mirror:"مرآة",p_gapfiller:"باتي أمامي (فراغ)",tvk_patty:"باتي / وزرة",tvk_door:"خزانة بأبواب",tvk_drawer:"أدراج",tvk_open:"رف مفتوح",tvk_panel:"لوح إم دي إف (خلفية)",tvk_desk:"سطح المكتب",tvk_empty:"فراغ",tvk_cornice:"تاج",tvk_ceil:"سقف / أرضية",tv_secd:"عمق القسم",tv_shared:"جدار مشترك مع القسم التالي",tv_blocks:"الكتل (من أسفل لأعلى)",tv_addblock:"كتلة",tv_h:"الارتفاع",p_desk:"سطح المكتب",tv_pattyside:"باتي جانبي",tv_right:"يمين",tv_left_s:"يسار",tv_both:"كلا الجانبين",tv_base:"القاعدة",tv_skirting:"وزرة",tv_lown:"عدد السفلي",tv_upn:"عدد العلوي",tv_ok:"مجموع العروض صحيح",tv_left:"المتبقي",tv_over:"أكبر من الجدار",g_body:"الجسم",g_drawer:"الدرج",g_door:"الباب",g_other:"متفرقات",tape_click:"اضغط على أي رقم لتغيير الشريط: بدون خط ← خط ← خطان",qty_click:"يمكنك تعديل العدد يدوياً",sets:"عدد الأطقم",sets_hint:"تُضرب كل الأعداد في هذا الرقم",print_hint:"المتصفح منع الطباعة. افتح التطبيق في تبويب مستقل، أو استخدم Print ← Save as PDF من قائمة المتصفح.",pattyio:"بين الجسم — خارج",pattyin:"بين الجسم — بسيط",pattyfr:"أمامي",project:"نوع المشروع",proj_title:"المشاريع",proj_name:"اسم العميل…",proj_save:"حفظ",proj_open:"فتح",proj_copy:"نسخة",proj_export:"ملف",proj_del:"حذف",proj_import:"↥ استيراد ملف",proj_empty:"لا توجد مشاريع محفوظة",proj_over:"يوجد مشروع بنفس الاسم. هل نستبدله؟",proj_delq:"حذف هذا المشروع؟",proj_noname:"اكتب اسماً أولاً",proj_loaded:"تم الفتح",pjw:"خزانة",pjd:"أدراج (مستقل)",pjk:"المطبخ",kit_w:"عرض الجدار (mm)",kit_shape:"شكل المطبخ",kit_si:"مستقيم (I)",kit_sl:"زاوية (L)",kit_su:"يو (U)",kit_corner:"خصم الزاوية (mm)",kit_cornerhint:"في كل زاوية يُخصم عمق نفس الصف (سفلي ٦٠٠ • علوي ٣٢٠) زائد هذا الرقم",kit_wall_a:"الجدار الرئيسي",kit_wall_b:"الجدار الثاني",kit_wall_c:"الجدار الثالث",kit_len:"طول الجدار (mm)",kit_units:"الوحدات",kit_design:"تصميم الوحدات",kit_dsimple:"بسيط (الكل متساوٍ)",kit_dper:"كل وحدة على حدة",kit_designhint:"في وضع «كل وحدة على حدة» تحدد عرض ومحتوى كل وحدة بنفسك",kit_add:"+ وحدة",kit_equal:"توزيع متساوٍ",kit_sum:"مجموع العرض",kit_type:"النوع",kit_cnt:"العدد",kit_doors2:"أبواب",kit_wid:"العرض",kit_k_shelf:"رفوف",kit_k_drawer:"أدراج",kit_k_open:"مفتوح (بدون باب)",kit_dwcut:"خصم عمق الدرج",kit_nbase:"عدد السفلي",kit_nwall:"عدد العلوي",kit_gap:"المسافة تحت العلوي (mm)",kit_base:"خزانة سفلية",kit_baseh:"ارتفاع الجسم",kit_based:"العمق",kit_basen:"عدد الوحدات",kit_legh:"ارتفاع القاعدة",kit_baseshelf:"رفوف لكل وحدة",kit_basedoors:"أبواب لكل وحدة",kit_basehint:"أعلى الوحدة السفلية شريطان ١٠٠ بدل السقف الكامل • الباتي بارتفاع القاعدة",kit_wall:"خزانة علوية",kit_wallh:"الارتفاع",kit_walld:"العمق",kit_walln:"عدد الوحدات",kit_wallshelf:"رفوف لكل وحدة",kit_walldoors:"أبواب لكل وحدة",kit_tall:"عمود طويل (فرن / ثلاجة / مؤن)",kit_tallh:"الارتفاع",kit_talld:"العمق",kit_tallw:"عرض العمود",kit_talln:"عدد الأعمدة",kit_tallshelf:"رفوف لكل عمود",kit_talldoors:"أبواب لكل عمود",kit_tallhint:"يُخصم عرض الأعمدة من عرض الجدار والباقي يوزع على الوحدات",kit_top:"سطح العمل",kit_topd:"عمق السطح",kit_topth:"سماكة السطح",p_counter:"سطح العمل",p_kick:"باتي (قاعدة)",p_rail_k:"شريط",counter_mat:"سطح العمل",g_base:"سفلي",g_wall:"علوي",g_tall:"عمود طويل",kit_rowsum:"يوزَّع هذا العرض على السفلي والعلوي",solo_w:"العرض (mm)",solo_h:"الارتفاع (mm)",solo_d:"العمق (mm)",solo_n:"عدد الأدراج",solo_boxes:"عدد الأعمدة",solo_top:"اللوح العلوي — السماكة",solo_side:"الجدار الجانبي",solo_dh:"ارتفاع كل درج (mm)",solo_hm:"تركيب واجهة الدرج",solo_topmode:"تركيب السقف",solo_topout:"اللوح فقط",solo_topin:"اللوح + سقف داخلي لكل عمود",solo_hin:"داخلي",solo_hov:"خارجي",solo_hint:"ارتفاع الأدراج = الارتفاع ÷ العدد",shape:"شكل الخزانة",shapei:"مستقيم (I)",shapel:"زاوية (L)",shapeu:"يو (U)",wall_a:"الجدار",wall_b:"الجدار الثاني",l_side:"الجدار الجانبي في أي جهة؟",usable:"صالح",corner_unit:"زاوية",mid_panel:"جسم أوسط",cell:"خانة",save_png:"حفظ صورة",save_pdf:"تصدير PDF",unit_width:"وحدة إضافية (اختياري)",optional:"اختياري",side_start:"يسار",side_end:"يمين",has_door:"مع باب",no_door:"بدون باب",unitwidth_i:"وحدة إضافية (اختياري)",add_unit:"إضافة وحدة",del_unit:"حذف وحدة",p_midpanel:"جسم أوسط",wall_left:"الجدار الأيسر",wall_front:"الجدار الأمامي",wall_right:"الجدار الأيمن",cornerfiller:"فيلر الزاوية (mm)",cornermin:"عرض خزانة الزاوية (mm)",cornermid:"فيلر وسط خزانة الزاوية (mm)",cornermidhint:"بعد العمق الميت في الزاوية، لفتح الأبواب",wallclear:"خصم الباتي الجانبي (mm) — ٠ بدون خصم",p_cornerfiller:"فيلر الزاوية",p_cornermid:"فيلر وسط الزاوية",doormount:"تركيب الباب",dmov:"خارجي",dmin:"داخلي",doormounthint:"خارجي: من العرض الكامل • داخلي: من العرض الداخلي",pattysplit:"تقسيم الباتي",psplitu:"وحدة واحدة",psplitc:"متصل",psplitb:"كلاهما",pattysplithint:"متصل: قطعة واحدة، إذا تجاوز طول اللوح قطعتان متساويتان",floormode:"الأرضية بالنسبة للباتي",
   flooron:"فوق الباتي (١٨ ظاهر)",floorfr:"أمامي (١٨ مخفي)",
   floorhint:"إذا كان الباتي أمامياً والعمق ٦٠٠، يُنقص عمق الأرضية ١٨",
   preview:"معاينة المخطط",confirm:"تأكيد وتقسيم",confirmq:"هل المخطط صحيح؟ أكّد لعرض قائمة القص",
@@ -591,7 +660,7 @@ const I18N={
   door_design:"Door design",door_plain:"Plain",door_glass:"Glass + frame",door_frame:"Frame + wood",door_mirror:"Mirror",
   p_sidefiller:"Side filler",mirror_mat:"Mirror",glass_mat:"Glass + frame",
   ceilth:"Ceiling thickness (mm)",pattyh:"Bottom patty — height (mm)",pattymode:"Patty position",
-  pattyhhint:"0 = no patty",tape_legend:"A line under a number = that edge is PVC-banded (one line: one side • two lines: both)",tape_total:"Total tape",p_skirt:"Skirting",p_tvpanel:"MDF panel (background)",tv_part:"Section",tv_secw:"Section width",tv_low:"Lower cabinet",tv_lowh:"Lower height",tv_up:"Upper cabinet",tv_uph:"Upper height",tv_count:"Count",tv_none:"None",tv_door:"Door",tv_drawer:"Drawer",tv_open:"Open shelf",tv_top:"Add top",tv_pattylr:"Patty left & right",tv_hint:"Each block height is set inside its section",tv_pattyh:"Side patty height (mm)",tvk_mirror:"Mirror",tv_join:"Boundary with next section",tvj_separate:"Separate wall (column)",tvj_shared:"Shared wall",tvj_gap:"Gap with front filler",tv_gapw:"Gap width",tv_okh:"height filled",inset:"Inset",overlay:"Overlay",doors_per_l:"Doors per unit",tv_single:"Single 18",tv_double:"Double 36",tv_perunit:"Design each unit inside",tv_addseg:"segment",tv_tvtype:"TV",tv_pattyr:"Patty right",tv_pattyl:"Patty left",tv_type:"Section type",tv_sech:"Section height",tv_hasdrawer:"Has drawers",tv_dcount:"Drawer count",tv_shelves:"Shelves",tv_rail:"Rail",tv_dcols:"Drawers side by side",tv_mount:"Drawer face",solo_dh_each:"Or set each drawer height (top down)",solo_dh_row:"Drawer",solo_col:"Column",solo_wsum:"Sum of column widths",pattyh_short:"Patty",solo_colhint:"height • drawers",solo_col_each:"Each column: height, drawer count, and each drawer height (from right)",tv_auto:"auto",tv_autohint:"leave a height empty to absorb the rest of the wall",p_mirror:"Mirror",p_gapfiller:"Front filler (gap)",tvk_patty:"Patty / skirting",tvk_door:"Door cabinet",tvk_drawer:"Drawers",tvk_open:"Open shelves",tvk_panel:"MDF panel (background)",tvk_desk:"Desk top",tvk_empty:"Empty space",tvk_cornice:"Cornice",tvk_ceil:"Horizontal top/floor",tv_secd:"Section depth",tv_shared:"Shared wall with next section",tv_blocks:"Blocks (bottom to top)",tv_addblock:"block",tv_h:"Height",p_desk:"Desk top",tv_pattyside:"Side patty",tv_right:"Right",tv_left_s:"Left",tv_both:"Both sides",tv_base:"Base",tv_skirting:"Skirting",tv_lown:"Lower count",tv_upn:"Upper count",tv_ok:"Widths add up",tv_left:"Remaining",tv_over:"Over the wall",g_body:"Carcass",g_drawer:"Drawer",g_door:"Doors",g_other:"Other",tape_click:"Tap any number to change its banding: none → one line → two lines",qty_click:"You can edit the quantity by hand",sets:"Sets",sets_hint:"All quantities are multiplied by this",print_hint:"The browser blocked printing. Open the app in its own tab, or use Print → Save as PDF from the browser menu.",pattyio:"Between-out",pattyin:"Between-simple",pattyfr:"Front",project:"Project type",proj_title:"Projects",proj_name:"Customer name…",proj_save:"Save",proj_open:"Open",proj_copy:"Copy",proj_export:"File",proj_del:"Delete",proj_import:"↥ Import file",proj_empty:"No saved projects yet",proj_over:"A project with this name exists. Replace it?",proj_delq:"Delete this project?",proj_noname:"Type a name first",proj_loaded:"Opened",pjw:"Wardrobe",pjd:"Drawer unit",solo_w:"Width (mm)",solo_h:"Height (mm)",solo_d:"Depth (mm)",solo_n:"Drawer count",solo_boxes:"Columns side by side",solo_top:"Top panel thickness",solo_side:"Side wall",solo_dh:"Drawer height (mm)",solo_hm:"Drawer front mount",solo_topmode:"Top mount",solo_topout:"Panel only",solo_topin:"Panel + inset top per column",solo_hin:"Inset",solo_hov:"Overlay",solo_hint:"Drawer height = total height ÷ count",shape:"Shape",shapei:"Straight (I)",shapel:"Corner (L)",shapeu:"U-shape",wall_a:"Wall",wall_b:"Wall B",l_side:"Side wall on which side?",usable:"Usable",corner_unit:"Corner",mid_panel:"Mid panel",cell:"Cell",save_png:"Save image",save_pdf:"Export PDF",unit_width:"Extra unit (optional)",optional:"optional",side_start:"Left",side_end:"Right",has_door:"With door",no_door:"No door",unitwidth_i:"Extra unit (optional)",add_unit:"Add unit",del_unit:"Delete unit",p_midpanel:"Middle divider",wall_left:"Left wall",wall_front:"Front wall",wall_right:"Right wall",cornerfiller:"Corner filler (mm)",cornermin:"Corner cabinet width (mm)",cornermid:"Corner mid filler (mm)",cornermidhint:"After the depth lost in the corner, so doors can open",wallclear:"Side patty deduction (mm) — 0 = none",p_cornerfiller:"Corner filler",p_cornermid:"Corner mid filler",doormount:"Door mount",dmov:"Overlay",dmin:"Inset",doormounthint:"Overlay: from full unit width • Inset: from inner width",pattysplit:"Patty split",psplitu:"Per unit",psplitc:"Connected",psplitb:"Both",pattysplithint:"Connected: one piece; if longer than sheet, two equal pieces",floormode:"Floor vs patty",
+  pattyhhint:"0 = no patty",tape_legend:"A line under a number = that edge is PVC-banded (one line: one side • two lines: both)",tape_total:"Total tape",p_skirt:"Skirting",p_tvpanel:"MDF panel (background)",tv_part:"Section",tv_secw:"Section width",tv_low:"Lower cabinet",tv_lowh:"Lower height",tv_up:"Upper cabinet",tv_uph:"Upper height",tv_count:"Count",tv_none:"None",tv_door:"Door",tv_drawer:"Drawer",tv_open:"Open shelf",tv_top:"Add top",tv_pattylr:"Patty left & right",tv_hint:"Each block height is set inside its section",tv_pattyh:"Side patty height (mm)",tvk_mirror:"Mirror",tv_join:"Boundary with next section",tvj_separate:"Separate wall (column)",tvj_shared:"Shared wall",tvj_gap:"Gap with front filler",tv_gapw:"Gap width",tv_okh:"height filled",inset:"Inset",overlay:"Overlay",doors_per_l:"Doors per unit",tv_single:"Single 18",tv_double:"Double 36",tv_perunit:"Design each unit inside",tv_addseg:"segment",tv_tvtype:"TV",tv_pattyr:"Patty right",tv_pattyl:"Patty left",tv_type:"Section type",tv_sech:"Section height",tv_hasdrawer:"Has drawers",tv_dcount:"Drawer count",tv_shelves:"Shelves",tv_rail:"Rail",tv_dcols:"Drawers side by side",tv_mount:"Drawer face",solo_dh_each:"Or set each drawer height (top down)",solo_dh_row:"Drawer",solo_col:"Column",solo_wsum:"Sum of column widths",pattyh_short:"Patty",solo_colhint:"height • drawers",solo_col_each:"Each column: height, drawer count, and each drawer height (from right)",tv_auto:"auto",tv_autohint:"leave a height empty to absorb the rest of the wall",p_mirror:"Mirror",p_gapfiller:"Front filler (gap)",tvk_patty:"Patty / skirting",tvk_door:"Door cabinet",tvk_drawer:"Drawers",tvk_open:"Open shelves",tvk_panel:"MDF panel (background)",tvk_desk:"Desk top",tvk_empty:"Empty space",tvk_cornice:"Cornice",tvk_ceil:"Horizontal top/floor",tv_secd:"Section depth",tv_shared:"Shared wall with next section",tv_blocks:"Blocks (bottom to top)",tv_addblock:"block",tv_h:"Height",p_desk:"Desk top",tv_pattyside:"Side patty",tv_right:"Right",tv_left_s:"Left",tv_both:"Both sides",tv_base:"Base",tv_skirting:"Skirting",tv_lown:"Lower count",tv_upn:"Upper count",tv_ok:"Widths add up",tv_left:"Remaining",tv_over:"Over the wall",g_body:"Carcass",g_drawer:"Drawer",g_door:"Doors",g_other:"Other",tape_click:"Tap any number to change its banding: none → one line → two lines",qty_click:"You can edit the quantity by hand",sets:"Sets",sets_hint:"All quantities are multiplied by this",print_hint:"The browser blocked printing. Open the app in its own tab, or use Print → Save as PDF from the browser menu.",pattyio:"Between-out",pattyin:"Between-simple",pattyfr:"Front",project:"Project type",proj_title:"Projects",proj_name:"Customer name…",proj_save:"Save",proj_open:"Open",proj_copy:"Copy",proj_export:"File",proj_del:"Delete",proj_import:"↥ Import file",proj_empty:"No saved projects yet",proj_over:"A project with this name exists. Replace it?",proj_delq:"Delete this project?",proj_noname:"Type a name first",proj_loaded:"Opened",pjw:"Wardrobe",pjd:"Drawer unit",pjk:"Kitchen",kit_w:"Wall width (mm)",kit_shape:"Kitchen shape",kit_si:"Straight (I)",kit_sl:"Corner (L)",kit_su:"U-shape",kit_corner:"Corner deduction (mm)",kit_cornerhint:"Each corner takes that row's own depth (base 600 • wall 320) plus this value",kit_wall_a:"Main wall",kit_wall_b:"Second wall",kit_wall_c:"Third wall",kit_len:"Wall length (mm)",kit_units:"Units",kit_design:"Unit design",kit_dsimple:"Simple (all equal)",kit_dper:"Each unit separately",kit_designhint:"In 'each unit separately' you set every unit's width and contents",kit_add:"+ unit",kit_equal:"Split evenly",kit_sum:"Width sum",kit_type:"Type",kit_cnt:"Count",kit_doors2:"Doors",kit_wid:"Width",kit_k_shelf:"Shelves",kit_k_drawer:"Drawers",kit_k_open:"Open (no door)",kit_dwcut:"Drawer depth deduction",kit_nbase:"Base units",kit_nwall:"Wall units",kit_gap:"Gap under wall units (mm)",kit_base:"Base cabinets",kit_baseh:"Body height",kit_based:"Depth",kit_basen:"Units",kit_legh:"Leg height",kit_baseshelf:"Shelves per unit",kit_basedoors:"Doors per unit",kit_basehint:"Base units get two 100mm rails on top instead of a full top • kick plate at leg height",kit_wall:"Wall cabinets",kit_wallh:"Height",kit_walld:"Depth",kit_walln:"Units",kit_wallshelf:"Shelves per unit",kit_walldoors:"Doors per unit",kit_tall:"Tall column (oven / fridge / pantry)",kit_tallh:"Height",kit_talld:"Depth",kit_tallw:"Column width",kit_talln:"Columns",kit_tallshelf:"Shelves per column",kit_talldoors:"Doors per column",kit_tallhint:"Column widths come off the wall width; the rest is split between base and wall units",kit_top:"Countertop",kit_topd:"Countertop depth",kit_topth:"Countertop thickness",p_counter:"Countertop",p_kick:"Kick plate",p_rail_k:"Rail",counter_mat:"Countertop",g_base:"Base",g_wall:"Wall",g_tall:"Tall",kit_rowsum:"base and wall units are split from this width",solo_w:"Width (mm)",solo_h:"Height (mm)",solo_d:"Depth (mm)",solo_n:"Drawer count",solo_boxes:"Columns side by side",solo_top:"Top panel thickness",solo_side:"Side wall",solo_dh:"Drawer height (mm)",solo_hm:"Drawer front mount",solo_topmode:"Top mount",solo_topout:"Panel only",solo_topin:"Panel + inset top per column",solo_hin:"Inset",solo_hov:"Overlay",solo_hint:"Drawer height = total height ÷ count",shape:"Shape",shapei:"Straight (I)",shapel:"Corner (L)",shapeu:"U-shape",wall_a:"Wall",wall_b:"Wall B",l_side:"Side wall on which side?",usable:"Usable",corner_unit:"Corner",mid_panel:"Mid panel",cell:"Cell",save_png:"Save image",save_pdf:"Export PDF",unit_width:"Extra unit (optional)",optional:"optional",side_start:"Left",side_end:"Right",has_door:"With door",no_door:"No door",unitwidth_i:"Extra unit (optional)",add_unit:"Add unit",del_unit:"Delete unit",p_midpanel:"Middle divider",wall_left:"Left wall",wall_front:"Front wall",wall_right:"Right wall",cornerfiller:"Corner filler (mm)",cornermin:"Corner cabinet width (mm)",cornermid:"Corner mid filler (mm)",cornermidhint:"After the depth lost in the corner, so doors can open",wallclear:"Side patty deduction (mm) — 0 = none",p_cornerfiller:"Corner filler",p_cornermid:"Corner mid filler",doormount:"Door mount",dmov:"Overlay",dmin:"Inset",doormounthint:"Overlay: from full unit width • Inset: from inner width",pattysplit:"Patty split",psplitu:"Per unit",psplitc:"Connected",psplitb:"Both",pattysplithint:"Connected: one piece; if longer than sheet, two equal pieces",floormode:"Floor vs patty",
   flooron:"On patty (18 visible)",floorfr:"Front (18 hidden)",
   floorhint:"If patty is front and depth is 600, floor depth is reduced by 18",
   preview:"Preview layout",confirm:"Confirm & split",confirmq:"Layout correct? Confirm to see the cutting list",
@@ -1127,38 +1196,6 @@ function layoutSegs(segs, iw, usableH, depthBody, P, hasDoor, boxTopMat, dwTh, d
 
 let projectType='wardrobe';
 
-/* لایه‌ی نازک برای دیوار تلویزیون: فیلدها را موقتاً ست می‌کند، calcSolo را صدا می‌زند،
-   و همه‌چیز را برمی‌گرداند. خود calcSolo دست‌نخورده می‌ماند. */
-function calcSoloWith(o){
-  o=o||{};
-  const F={W:'soloW',H:'soloH',D:'soloD',nD:'soloN',cols:'soloBoxes',top:'soloTop',
-  side:'soloSide',mount:'soloHeadMount',manualDH:'soloDH',pattyH:'pattyH',pattyInset:'pattyInset'};
-  const saved={}, segs=[];
-  const segSet=(sel,attr,val)=>{
-  if(val===undefined||val===null) return;
-  const btns=[...document.querySelectorAll(sel+' button')];
-  const prev=btns.find(b=>b.classList.contains('on'));
-  const next=btns.find(b=>b.dataset[attr]===val);
-  if(next){ btns.forEach(b=>b.classList.remove('on')); next.classList.add('on'); segs.push([sel,prev]); }
-  };
-  try{
-  Object.entries(F).forEach(([k,id])=>{
-  const el=document.getElementById(id);
-  if(el && o[k]!==undefined){ saved[id]=el.value; el.value=o[k]; }
-  });
-  segSet('#pattySeg','p',o.pattyMode);
-  segSet('#pattySplitSeg','ps',o.pattySplit);
-  if(o.floorHidden!==undefined) segSet('#floorSeg','fl', o.floorHidden?'front':'on');
-  return calcSolo();
-  } finally {
-  Object.entries(saved).forEach(([id,v])=>{ const el=document.getElementById(id); if(el) el.value=v; });
-  segs.forEach(([sel,prev])=>{
-  if(!prev) return;
-  document.querySelectorAll(sel+' button').forEach(b=>b.classList.remove('on'));
-  prev.classList.add('on');
-  });
-  }
-}
 /* ارتفاع جداگانه‌ی هر کشو، از بالا به پایین. هر کادر خالی، باقی‌مانده را بین خالی‌ها تقسیم می‌کند.
    اگر هیچ کادری پر نشده باشد، دقیقاً مثل قبل همه هم‌قد می‌شوند. */
 let SOLO_DH=[];
@@ -1624,353 +1661,425 @@ function drawSolo(r){
 }
 
 
-/* =================== دیوار تلویزیون =================== */
-/* هر قسمت یک پروژه‌ی کامل است: کمد صاف یا کشوی مستقل */
-let TV_STATE=[];
-function tvWallH(){ return +document.getElementById('tvH').value||2700; }
-function tvDefaults(type){
-  const side={pattyL:false,pattyR:false};
-  if(type==='drawer') return {...side,D:450,hasPatty:true,pattyH:80,pattyMode:'inside',
-  nD:4,cols:1,top:'single',side:'single',mount:'inset',manualDH:0};
-  if(type==='tv') return {...side,D:450,hasPatty:true,pattyH:80,
-  hasDrawer:true,drawerH:600,drawerN:3,drawerCols:1,
-  hasPanel:true,panelH:0,
-  hasShelf:false,shelfH:400,shelfN:3,
-  hasMirror:false,mirrorH:600};
-  return {...side,depthBody:582,n:2,shelves:3,hasRail:false,ceilTh:18,cornice:0,
-  hasPatty:true,pattyH:80,pattyMode:'inside',
-  doorsPer:2,doorInset:false,hasDrawer:false,drawerCount:4,perUnit:false,units:null};
-}
-function tvNewSection(w){ return {w:w||1000, H:tvWallH(), type:'wardrobe', p:tvDefaults('wardrobe')}; }
-function tvEnsure(){
-  const n=Math.max(1,Math.min(12,+document.getElementById('tvN').value||1));
-  const wall=+document.getElementById('tvW').value||0;
-  while(TV_STATE.length<n) TV_STATE.push(tvNewSection(0));
-  while(TV_STATE.length>n) TV_STATE.pop();
-  // قسمت اول کل دیوار را نشان می‌دهد تا خودت کمش کنی
-  if(TV_STATE.length && !TV_STATE.some(x=>+x.w>0)) TV_STATE[0].w=wall;
-  return TV_STATE;
-}
-/* عرضی که وارد می‌کنی از کل کم می‌شود و باقی‌مانده می‌رود به قسمت بعدی */
-function tvCascadeW(i){
-  const wall=+document.getElementById('tvW').value||0;
-  if(i>=TV_STATE.length-1) return;
-  const others=TV_STATE.reduce((a,x,k)=>a+((k===i+1)?0:(+x.w||0)),0);
-  TV_STATE[i+1].w=Math.max(0, wall-others);
-}
-/* ارتفاع دیوار خودکار توی همه‌ی قسمت‌ها نوشته می‌شود */
-function tvPushH(){
-  const H=tvWallH();
-  TV_STATE.forEach(sec=>{ sec.H=H; });
-}
-function tvTotalW(){ return TV_STATE.reduce((a,x)=>a+(+x.w||0),0); }
 
-const TV_SEGS=['shelf','drawer','raillong','railhalf','shoe'];
-function tvSyncUnits(sec){
-  const P=sec.p, n=Math.max(1,+P.n||1);
-  if(!P.units) P.units=[];
-  const w=Math.round(sec.w/n);
-  while(P.units.length<n) P.units.push({width:w, doorCount:P.doorsPer||2, door:'plain',
-  filler:'none', fillerW:18, midPanel:0, cells:[[{type:'shelf',count:3}]]});
-  if(P.units.length>n) P.units.length=n;
-  return P.units;
+/* =================== آشپزخانه (پروژه‌ی جدا) ===================
+   هیچ ربطی به معادله‌های کمد و کشو ندارد؛ کد خودش را دارد. */
+const KIT_RAIL=100;          // عرض کلاف بالای یونیت زمینی
+let KIT_SHAPE='I', KIT_LSIDE='right', KIT_DESIGN='simple';
+const KIT_W={
+  A:{len:3000,b:true,w:true,nb:0,nw:0,exb:0,exbs:'end',exw:0,exws:'end',bu:[],wu:[]},
+  B:{len:2400,b:true,w:true,nb:0,nw:0,exb:0,exbs:'end',exw:0,exws:'end',bu:[],wu:[]},
+  C:{len:2400,b:true,w:true,nb:0,nw:0,exb:0,exbs:'end',exw:0,exws:'end',bu:[],wu:[]}
+};
+function kitVal(id,d){ const el=document.getElementById(id); const v=el?+el.value:d; return isNaN(v)?d:v; }
+function kitOn(id){ const el=document.getElementById(id); return !!(el&&el.checked); }
+function kitKeys(){ return KIT_SHAPE==='I'?['A']:(KIT_SHAPE==='L'?['A','B']:['A','B','C']); }
+function kitOrder(){ return KIT_SHAPE==='L' ? (KIT_LSIDE==='left'?['B','A']:['A','B']) : kitKeys(); }
+function kitWallName(k){
+  if(KIT_SHAPE==='I') return t('wall_a');
+  if(k==='A') return t('wall_front');
+  if(KIT_SHAPE==='L') return KIT_LSIDE==='left'?t('wall_left'):t('wall_right');
+  return k==='B'?t('wall_right'):t('wall_left');
 }
-function tvUnitsHtml(i,sec){
-  const units=tvSyncUnits(sec);
-  let h=`<div style="border-top:1px dotted var(--line);margin-top:8px;padding-top:8px">`;
-  units.forEach((u,ui)=>{
-  h+=`<div style="background:var(--paper);border:1px solid var(--line);border-radius:9px;padding:8px;margin-bottom:7px">
-  <div style="font-size:11.5px;color:var(--muted);margin-bottom:6px">${t('unit')} ${ui+1}</div>
-  <div class="tvrow" style="grid-template-columns:1fr 1fr">
-  <input type="number" inputmode="numeric" data-s="${i}" data-u="${ui}" data-f="width" value="${u.width}" placeholder="${t('wid')}">
-  <input type="number" inputmode="numeric" data-s="${i}" data-u="${ui}" data-f="doorCount" value="${u.doorCount}" placeholder="${t('doors_per_l')}">
-  </div>`;
-  (u.cells[0]||[]).forEach((sg,si)=>{
-  h+=`<div class="tvrow">
-  <select data-s="${i}" data-u="${ui}" data-g="${si}" data-f="type">
-  ${TV_SEGS.map(k=>`<option value="${k}"${sg.type===k?' selected':''}>${t('seg_'+k)}</option>`).join('')}
-  </select>
-  <input type="number" inputmode="numeric" data-s="${i}" data-u="${ui}" data-g="${si}" data-f="count" value="${sg.count||1}" min="1" max="12">
-  <span></span>
-  <button data-s="${i}" data-u="${ui}" data-g="${si}" data-act="segdel">−</button>
-  </div>`;
-  });
-  h+=`<button data-s="${i}" data-u="${ui}" data-act="segadd" style="border:1px dashed var(--line);background:transparent;color:var(--muted);border-radius:8px;padding:5px 11px;cursor:pointer;font-family:inherit;font-size:12px">+ ${t('tv_addseg')}</button>
-  </div>`;
-  });
-  return h+`</div>`;
+function kitCorners(){ return KIT_SHAPE==='L'?1:(KIT_SHAPE==='U'?2:0); }
+function kitTallW(){ return kitOn('kitTallOn') ? kitVal('kitTallW',600)*Math.max(1,kitVal('kitTallN',1)) : 0; }
+function kitHas(key,kind){ return (kind==='base') ? KIT_W[key].b!==false : KIT_W[key].w!==false; }
+/* عمق گوشه = عمق کابینت زمینی، تا زمینی و دیواری هم‌تراز بمانند */
+function kitCornerD(){ return kitOn('kitBaseOn') ? kitVal('kitBaseD',600) : kitVal('kitWallD',320); }
+function kitCornerCut(){ return kitCorners()*(kitCornerD()+kitVal('kitCorner',0)); }
+function kitUsable(key){
+  const len=+KIT_W[key].len||0;
+  if(key!=='A') return Math.max(0,len);
+  return Math.max(0, len - kitCornerCut() - kitTallW());
 }
-function tvRender(){
-  tvEnsure();
-  const host=document.getElementById('tvSections');
-  const num=(i,f,v,lbl)=>`<div class="field"><label>${lbl}</label>
-  <input type="number" inputmode="numeric" data-s="${i}" data-f="${f}" value="${v}"></div>`;
-  const sel=(i,f,v,lbl,opts)=>`<div class="field"><label>${lbl}</label>
-  <select data-s="${i}" data-f="${f}">${opts.map(([val,txt])=>
-  `<option value="${val}"${String(v)===String(val)?' selected':''}>${txt}</option>`).join('')}</select></div>`;
-  const chk=(i,f,v,lbl)=>`<label class="tvchk"><input type="checkbox" data-s="${i}" data-f="${f}"${v?' checked':''}> ${lbl}</label>`;
-  let h='';
-  TV_STATE.forEach((sec,i)=>{
-  const P=sec.p;
-  h+=`<div class="unitcard" style="border:1px solid var(--line);border-radius:10px;padding:11px;margin-bottom:9px;background:var(--panel)">
-  <div style="font-size:12px;color:var(--muted);letter-spacing:1px;margin-bottom:9px">${t('tv_part')} ${i+1}</div>
-  <div class="row2">
-  ${num(i,'w',sec.w,t('tv_secw'))}
-  ${num(i,'H',sec.H,t('tv_sech'))}
-  </div>
-  <div class="field"><label>${t('tv_type')}</label>
-  <select data-s="${i}" data-f="type">
-  <option value="wardrobe"${sec.type==='wardrobe'?' selected':''}>${t('pjw')}</option>
-  <option value="drawer"${sec.type==='drawer'?' selected':''}>${t('pjd')}</option>
-  <option value="tv"${sec.type==='tv'?' selected':''}>${t('tv_tvtype')}</option>
-  </select></div>
-  <div style="border-top:1px dashed var(--line);padding-top:9px;margin-top:4px">`;
-  if(sec.type==='wardrobe'){
-  h+=`<div class="row2">${num(i,'p.n',P.n,t('units'))}${num(i,'p.depthBody',P.depthBody,t('bodydepth'))}</div>
-  <div class="row2">${num(i,'p.doorsPer',P.doorsPer,t('doors_per_l'))}${num(i,'p.shelves',P.shelves,t('shelves'))}</div>
-  ${chk(i,'p.perUnit',P.perUnit,t('tv_perunit'))}
-  ${P.perUnit?tvUnitsHtml(i,sec):''}
-  <div class="row2">${num(i,'p.ceilTh',P.ceilTh,t('ceilth'))}${num(i,'p.cornice',P.cornice,t('cornice'))}</div>
-  <div class="row2">${num(i,'p.pattyH',P.pattyH,t('pattyh'))}
-  ${sel(i,'p.pattyMode',P.pattyMode,t('pattymode'),[['inside',t('pattyin')],['inside_out',t('pattyio')],['front',t('pattyfr')]])}</div>
-  <div class="row2">${sel(i,'p.doorInset',P.doorInset,t('doormount'),[[false,t('dmov')],[true,t('dmin')]])}
-  ${chk(i,'p.hasRail',P.hasRail,t('tv_rail'))}</div>
-  <div class="row2">${chk(i,'p.hasDrawer',P.hasDrawer,t('tv_hasdrawer'))}
-  ${P.hasDrawer?num(i,'p.drawerCount',P.drawerCount,t('tv_dcount')):'<div></div>'}</div>`;
-  } else if(sec.type==='tv'){
-  h+=`<div class="row2">${num(i,'p.D',P.D,t('tv_secd'))}<div></div></div>
-  <div class="row2">${chk(i,'p.hasPatty',P.hasPatty,t('tvk_patty'))}
-  ${P.hasPatty?num(i,'p.pattyH',P.pattyH,t('tv_h')):'<div></div>'}</div>
-  <div class="row2">${chk(i,'p.hasDrawer',P.hasDrawer,t('tvk_drawer'))}
-  ${P.hasDrawer?num(i,'p.drawerH',P.drawerH,t('tv_h')):'<div></div>'}</div>
-  ${P.hasDrawer?`<div class="row2">${num(i,'p.drawerN',P.drawerN,t('tv_dcount'))}${num(i,'p.drawerCols',P.drawerCols,t('tv_dcols'))}</div>`:''}
-  <div class="row2">${chk(i,'p.hasPanel',P.hasPanel,t('tvk_panel'))}
-  ${P.hasPanel?num(i,'p.panelH',P.panelH,t('tv_h')):'<div></div>'}</div>
-  <div class="row2">${chk(i,'p.hasShelf',P.hasShelf,t('tvk_open'))}
-  ${P.hasShelf?num(i,'p.shelfH',P.shelfH,t('tv_h')):'<div></div>'}</div>
-  ${P.hasShelf?`<div class="row2">${num(i,'p.shelfN',P.shelfN,t('shelves'))}<div></div></div>`:''}
-  <div class="row2">${chk(i,'p.hasMirror',P.hasMirror,t('tvk_mirror'))}
-  ${P.hasMirror?num(i,'p.mirrorH',P.mirrorH,t('tv_h')):'<div></div>'}</div>`;
+/* معادله‌ی هر دیوار، مثل کمد */
+function kitEq(key){
+  const len=+KIT_W[key].len||0;
+  if(key!=='A') return `${len}`;
+  const bits=[len];
+  if(kitCornerCut()>0) bits.push(`− ${kitCornerCut()}`);
+  if(kitTallW()>0) bits.push(`− ${kitTallW()}`);
+  return bits.length>1 ? `${bits.join(' ')} = ${kitUsable(key)}` : `${len}`;
+}
+/* تعداد خودکار یونیت: بازه‌ی 500 تا 900 */
+function kitAutoN(us){ return Math.max(1, Math.round(us/700)); }
+function kitCount(key,kind){
+  const f=kind==='base'?'nb':'nw';
+  return (+KIT_W[key][f]>0) ? +KIT_W[key][f] : kitAutoN(kitUsable(key));
+}
+function kitExtra(key,kind){
+  return kind==='base'
+  ? {w:+KIT_W[key].exb||0, side:KIT_W[key].exbs||'end'}
+  : {w:+KIT_W[key].exw||0, side:KIT_W[key].exws||'end'};
+}
+/* عرض یونیت‌ها در حالت ساده */
+function kitWidths(key,kind){
+  const us=kitUsable(key), n=kitCount(key,kind), ex=kitExtra(key,kind);
+  const out=[];
+  if(ex.w>0){
+  const rest=Math.max(0,us-ex.w), w=Math.round(rest/n);
+  for(let i=0;i<n;i++) out.push(w);
+  if(ex.side==='start') out.unshift(ex.w); else out.push(ex.w);
   } else {
-  h+=`<div class="row2">${num(i,'p.D',P.D,t('tv_secd'))}${num(i,'p.nD',P.nD,t('tv_dcount'))}</div>
-  <div class="row2">${num(i,'p.cols',P.cols,t('tv_dcols'))}${num(i,'p.manualDH',P.manualDH,t('solo_dh'))}</div>
-  <div class="row2">${sel(i,'p.top',P.top,t('solo_top'),[['single',t('tv_single')],['double',t('tv_double')]])}
-  ${sel(i,'p.side',P.side,t('solo_side'),[['single',t('tv_single')],['double',t('tv_double')]])}</div>
-  <div class="row2">${sel(i,'p.mount',P.mount,t('tv_mount'),[['inset',t('inset')],['overlay',t('overlay')]])}
-  ${num(i,'p.pattyH',P.pattyH,t('pattyh'))}</div>
-  <div class="field">${sel(i,'p.pattyMode',P.pattyMode,t('pattymode'),[['inside',t('pattyin')],['front',t('pattyfr')],['under',t('pattyun')]])}</div>`;
+  const w=Math.round(us/n);
+  for(let i=0;i<n;i++) out.push(w);
   }
-  h+=`<div class="row2" style="border-top:1px dotted var(--line);margin-top:6px;padding-top:6px">
-  ${chk(i,'p.pattyR',P.pattyR,t('tv_pattyr'))}${chk(i,'p.pattyL',P.pattyL,t('tv_pattyl'))}</div>`;
-  h+=`</div></div>`;
-  });
-  host.innerHTML=h;
-  host.querySelectorAll('[data-act]').forEach(el=>el.onclick=()=>{
-  const i=+el.dataset.s, ui=+el.dataset.u;
-  const cell=TV_STATE[i].p.units[ui].cells[0];
-  if(el.dataset.act==='segadd') cell.push({type:'shelf',count:2});
-  else cell.splice(+el.dataset.g,1);
-  if(!cell.length) cell.push({type:'shelf',count:1});
-  tvRender(); tvPreviewSoon();
-  });
-  host.querySelectorAll('input,select').forEach(el=>{
-  const apply=()=>{
-  const i=+el.dataset.s, f=el.dataset.f;
-  if(el.dataset.u!==undefined){
-  const u=TV_STATE[i].p.units[+el.dataset.u];
-  const tgt = el.dataset.g!==undefined ? u.cells[0][+el.dataset.g] : u;
-  tgt[f] = el.tagName==='SELECT' ? el.value : (+el.value||0);
-  return;
+  return out;
+}
+function kitRowDefaults(kind){
+  return kind==='base'
+  ? {type:'shelf', n:kitVal('kitBaseShelf',1), doors:kitVal('kitBaseDoors',1)}
+  : {type:'shelf', n:kitVal('kitWallShelf',1), doors:kitVal('kitWallDoors',1)};
+}
+/* لیست یونیت‌ها: در حالت ساده از تقسیم، در حالت دستی از آرایه */
+function kitUnits(key,kind){
+  const f=kind==='base'?'bu':'wu';
+  if(KIT_DESIGN==='perunit' && KIT_W[key][f].length) return KIT_W[key][f];
+  const d=kitRowDefaults(kind);
+  return kitWidths(key,kind).map(w=>({w, ...d}));
+}
+function kitBuildPlans(){
+  kitKeys().forEach(k=>{
+  ['base','wall'].forEach(kind=>{
+  const f=kind==='base'?'bu':'wu';
+  if(!KIT_W[k][f].length){
+  const d=kitRowDefaults(kind);
+  KIT_W[k][f]=kitWidths(k,kind).map(w=>({w, ...d}));
   }
-  let v = el.type==='checkbox' ? el.checked
-  : (el.tagName==='SELECT' ? el.value : (+el.value||0));
-  if(v==='true') v=true; else if(v==='false') v=false;
-  if(f.startsWith('p.')) TV_STATE[i].p[f.slice(2)]=v;
-  else {
-  TV_STATE[i][f]=v;
-  if(f==='type') TV_STATE[i].p=tvDefaults(v);
-  if(f==='w') tvCascadeW(i);
+  });
+  });
+}
+function kitResetPlans(){ kitKeys().forEach(k=>{ KIT_W[k].bu=[]; KIT_W[k].wu=[]; }); }
+
+/* ---------- بلوک دیوارها (مثل کمد) ---------- */
+function kitRenderWalls(){
+  const host=document.getElementById('kitWallsBox'); if(!host) return;
+  const inp='width:100%;padding:8px;border:1px solid var(--line);border-radius:7px;background:var(--panel);font-family:inherit';
+  const btn='border:1px solid var(--line);background:var(--panel);color:var(--ink);border-radius:7px;width:30px;height:34px;cursor:pointer;font-size:16px;line-height:1';
+  const btnP='border:1px solid var(--accent);background:none;color:var(--accent);border-radius:7px;width:30px;height:34px;cursor:pointer;font-size:16px;line-height:1';
+  let html='';
+  if(KIT_SHAPE==='L'){
+  html+=`<div class="field"><label>${t('l_side')}</label>
+  <div class="seg" id="kitLSideSeg">
+  <button data-kls="left" class="${KIT_LSIDE==='left'?'on':''}">${t('wall_left')}</button>
+  <button data-kls="right" class="${KIT_LSIDE==='right'?'on':''}">${t('wall_right')}</button>
+  </div></div>`;
+  }
+  const rowUI=(k,kind)=>{
+  const on=kitHas(k,kind), f=kind==='base'?'b':'w';
+  const nf=kind==='base'?'nb':'nw', xf=kind==='base'?'exb':'exw', sf=kind==='base'?'exbs':'exws';
+  const head=`<label class="tvchk" style="font-size:12px;font-weight:600"><input type="checkbox" data-kwc="${k}" data-f="${f}" ${on?'checked':''}> ${t(kind==='base'?'kit_base':'kit_wall')}</label>`;
+  if(!on) return `<div style="margin-top:7px">${head}</div>`;
+  const ws=kitUnits(k,kind).map(u=>u.w);
+  return `<div style="margin-top:8px">
+  ${head}
+  <div style="display:flex;gap:4px;align-items:center;margin-top:5px">
+  <button data-kmin="${k}" data-r="${nf}" style="${btn}">−</button>
+  <input type="number" data-kn="${k}" data-f="${nf}" value="${KIT_W[k][nf]||''}" placeholder="${kitCount(k,kind)}" min="1" max="14" style="flex:1;min-width:0;padding:8px;border:1px solid var(--line);border-radius:7px;background:var(--panel);font-family:inherit;text-align:center">
+  <button data-kplus="${k}" data-r="${nf}" style="${btnP}">+</button>
+  </div>
+  <div style="font-size:11px;color:var(--accent);margin-top:5px;line-height:1.7">${ws.join(' + ')}</div>
+  <div style="display:flex;gap:6px;margin-top:5px">
+  <input type="number" data-kx="${k}" data-f="${xf}" value="${KIT_W[k][xf]||''}" placeholder="${t('unit_width')}" min="0" style="flex:1;min-width:0;padding:7px;border:1px solid var(--line);border-radius:7px;background:var(--panel);font-family:inherit;font-size:12px">
+  <select data-kxs="${k}" data-f="${sf}" style="width:92px;padding:7px;border:1px solid var(--line);border-radius:7px;background:var(--panel);font-family:inherit;font-size:12px">
+  <option value="start" ${KIT_W[k][sf]==='start'?'selected':''}>${t('side_start')}</option>
+  <option value="end" ${KIT_W[k][sf]!=='start'?'selected':''}>${t('side_end')}</option>
+  </select>
+  </div>
+  </div>`;
+  };
+  kitOrder().forEach(k=>{
+  html+=`<div style="border:1px solid var(--line);border-radius:9px;padding:10px;margin-bottom:8px;background:var(--paper)">
+  <div style="font-size:12px;color:var(--accent);font-weight:600;margin-bottom:6px">${kitWallName(k)}${(k==='A'&&kitCorners()>0)?' ⌐':''}</div>
+  <label style="display:block;font-size:11px;color:var(--muted);margin-bottom:4px">${t('len')} (mm)</label>
+  <input type="number" data-kw="${k}" value="${KIT_W[k].len}" style="${inp}">
+  <div style="font-size:11px;color:var(--muted);margin-top:5px">${kitEq(k)}</div>
+  ${kitOn('kitBaseOn')?rowUI(k,'base'):''}
+  ${kitOn('kitWallOn')?rowUI(k,'wall'):''}
+  </div>`;
+  });
+  host.innerHTML=html;
+
+  const redraw=()=>{ kitResetPlans(); kitRenderWalls(); kitRenderDesigner(); if(window.__preview) preview(); };
+  host.querySelectorAll('[data-kw]').forEach(el=>el.onchange=e=>{ KIT_W[e.target.dataset.kw].len=+e.target.value||0; redraw(); });
+  host.querySelectorAll('[data-kn]').forEach(el=>el.onchange=e=>{ KIT_W[e.target.dataset.kn][e.target.dataset.f]=+e.target.value||0; redraw(); });
+  host.querySelectorAll('[data-kx]').forEach(el=>el.onchange=e=>{ KIT_W[e.target.dataset.kx][e.target.dataset.f]=+e.target.value||0; redraw(); });
+  host.querySelectorAll('[data-kxs]').forEach(el=>el.onchange=e=>{ KIT_W[e.target.dataset.kxs][e.target.dataset.f]=e.target.value; redraw(); });
+  host.querySelectorAll('[data-kwc]').forEach(el=>el.onchange=e=>{ KIT_W[e.target.dataset.kwc][e.target.dataset.f]=e.target.checked; redraw(); });
+  host.querySelectorAll('[data-kplus]').forEach(el=>el.onclick=e=>{
+  const k=e.target.dataset.kplus, f=e.target.dataset.r, kind=f==='nb'?'base':'wall';
+  KIT_W[k][f]=Math.min(14, kitCount(k,kind)+1); redraw();
+  });
+  host.querySelectorAll('[data-kmin]').forEach(el=>el.onclick=e=>{
+  const k=e.target.dataset.kmin, f=e.target.dataset.r, kind=f==='nb'?'base':'wall';
+  KIT_W[k][f]=Math.max(1, kitCount(k,kind)-1); redraw();
+  });
+  const ls=document.getElementById('kitLSideSeg');
+  if(ls) ls.querySelectorAll('button').forEach(b=>b.onclick=()=>{ KIT_LSIDE=b.dataset.kls; redraw(); });
+
+  const cf=document.getElementById('kitCornerField');
+  if(cf) cf.style.display = kitCorners()>0 ? '' : 'none';
+  const ch=document.getElementById('t-kit-cornerhint');
+  if(ch) ch.style.display = kitCorners()>0 ? '' : 'none';
+  kitSummary();
+}
+
+/* ---------- طراح هر یونیت ---------- */
+function kitRenderDesigner(){
+  const host=document.getElementById('kitDesigner'); if(!host) return;
+  if(KIT_DESIGN!=='perunit'){ host.innerHTML=''; return; }
+  kitBuildPlans();
+  const rowBlock=(k,kind)=>{
+  if(!kitHas(k,kind)) return '';
+  const f=kind==='base'?'bu':'wu', list=KIT_W[k][f];
+  const us=kitUsable(k), sum=list.reduce((a,u)=>a+(+u.w||0),0);
+  const col = sum===us ? 'var(--accent)' : '#c2703d';
+  const rows=list.map((u,i)=>`
+  <div style="display:grid;grid-template-columns:1fr 1.25fr .62fr .62fr 20px;gap:4px;align-items:center;margin-bottom:4px">
+  <input type="number" data-ku="${k}" data-kr="${f}" data-i="${i}" data-f="w" value="${u.w}" title="${t('kit_wid')}" style="padding:6px;border:1px solid var(--line);border-radius:6px;background:var(--panel);font-family:inherit;font-size:12.5px;width:100%">
+  <select data-ku="${k}" data-kr="${f}" data-i="${i}" data-f="type" style="padding:6px;border:1px solid var(--line);border-radius:6px;background:var(--panel);font-family:inherit;font-size:12.5px;width:100%">
+  <option value="shelf" ${u.type==='shelf'?'selected':''}>${t('kit_k_shelf')}</option>
+  <option value="drawer" ${u.type==='drawer'?'selected':''}>${t('kit_k_drawer')}</option>
+  <option value="open" ${u.type==='open'?'selected':''}>${t('kit_k_open')}</option>
+  </select>
+  <input type="number" data-ku="${k}" data-kr="${f}" data-i="${i}" data-f="n" value="${u.n}" min="0" max="10" title="${t('kit_cnt')}" style="padding:6px;border:1px solid var(--line);border-radius:6px;background:var(--panel);font-family:inherit;font-size:12.5px;width:100%;text-align:center">
+  <input type="number" data-ku="${k}" data-kr="${f}" data-i="${i}" data-f="doors" value="${u.doors}" min="0" max="4" title="${t('kit_doors2')}" ${u.type==='drawer'?'disabled':''} style="padding:6px;border:1px solid var(--line);border-radius:6px;background:var(--panel);font-family:inherit;font-size:12.5px;width:100%;text-align:center">
+  <button data-kdel="${k}" data-kr="${f}" data-i="${i}" style="border:none;background:none;color:#c2703d;cursor:pointer;font-size:15px;padding:0">×</button>
+  </div>`).join('');
+  return `<div style="margin-top:8px">
+  <div style="font-size:11.5px;font-weight:600;color:var(--ink);margin-bottom:4px">${t(kind==='base'?'kit_base':'kit_wall')}</div>
+  <div style="display:grid;grid-template-columns:1fr 1.25fr .62fr .62fr 20px;gap:4px;font-size:10.5px;color:var(--muted);margin-bottom:3px">
+  <span>${t('kit_wid')}</span><span>${t('kit_type')}</span><span>${t('kit_cnt')}</span><span>${t('kit_doors2')}</span><span></span></div>
+  ${rows}
+  <div style="display:flex;gap:6px;align-items:center;margin-top:5px;flex-wrap:wrap">
+  <button data-kadd="${k}" data-kr="${f}" style="border:1px dashed var(--line);background:none;color:var(--muted);border-radius:7px;padding:4px 9px;cursor:pointer;font-family:inherit;font-size:11.5px">${t('kit_add')}</button>
+  <button data-keq="${k}" data-kr="${f}" style="border:1px solid var(--line);background:var(--panel);color:var(--ink);border-radius:7px;padding:4px 9px;cursor:pointer;font-family:inherit;font-size:11.5px">${t('kit_equal')}</button>
+  <span style="font-size:11.5px;color:${col}">${t('kit_sum')}: ${sum} / ${us}</span>
+  </div></div>`;
+  };
+  host.innerHTML=kitOrder().map(k=>`
+  <div style="border:1px solid var(--line);border-radius:10px;padding:10px 11px;margin-bottom:8px;background:var(--paper)">
+  <div style="font-size:12px;font-weight:600;color:var(--accent)">${kitWallName(k)}</div>
+  ${kitOn('kitBaseOn')?rowBlock(k,'base'):''}
+  ${kitOn('kitWallOn')?rowBlock(k,'wall'):''}
+  </div>`).join('');
+
+  const again=()=>{ kitRenderDesigner(); kitRenderWalls(); if(window.__preview) preview(); };
+  host.querySelectorAll('[data-ku]').forEach(el=>{
+  const u=KIT_W[el.dataset.ku][el.dataset.kr][+el.dataset.i]; if(!u) return;
+  const fld=el.dataset.f;
+  el.onchange=()=>{ u[fld] = (fld==='type') ? el.value : (+el.value||0); again(); };
+  });
+  host.querySelectorAll('[data-kadd]').forEach(b=>b.onclick=()=>{
+  const list=KIT_W[b.dataset.kadd][b.dataset.kr];
+  const kind=b.dataset.kr==='bu'?'base':'wall';
+  list.push({w:Math.round(kitUsable(b.dataset.kadd)/(list.length+1)), ...kitRowDefaults(kind)});
+  again();
+  });
+  host.querySelectorAll('[data-keq]').forEach(b=>b.onclick=()=>{
+  const list=KIT_W[b.dataset.keq][b.dataset.kr], us=kitUsable(b.dataset.keq);
+  list.forEach(u=>u.w=Math.round(us/list.length));
+  again();
+  });
+  host.querySelectorAll('[data-kdel]').forEach(b=>b.onclick=()=>{
+  const list=KIT_W[b.dataset.kdel][b.dataset.kr];
+  if(list.length>1) list.splice(+b.dataset.i,1);
+  again();
+  });
+}
+
+function kitSummary(){
+  const el=document.getElementById('kitSum'); if(!el) return;
+  el.innerHTML = kitOrder().map(k=>`<b>${kitWallName(k)}</b> ${t('usable')} ${kitUsable(k)}`).join(' • ');
+}
+
+function calcKitchen(){
+  const sheetLen=+document.getElementById('sheet').value.split('x')[0];
+  const parts=[];
+  const P=(key,L,Wd,q,grain,mat)=>{ if(L>0&&Wd>0&&q>0) parts.push({key,L:Math.round(L),W:Math.round(Wd),q,grain,mat:mat||'mdf'}); };
+  const legH=kitVal('kitLegH',0), dwCut=kitVal('kitDwCut',100);
+
+  const rowDefs=[];
+  if(kitOn('kitBaseOn')) rowDefs.push({kind:'base', H:kitVal('kitBaseH',720), D:kitVal('kitBaseD',600)});
+  if(kitOn('kitWallOn')) rowDefs.push({kind:'wall', H:kitVal('kitWallH',720), D:kitVal('kitWallD',320)});
+
+  const unit=(H,D,uw,u,isBase)=>{
+  const iw=uw-2*T;
+  P('p_body', H, D, 2, 'v');
+  P('p_floor', iw, D, 1, 'h');
+  if(isBase) P('p_rail_k', iw, KIT_RAIL, 2, 'h');     // دو کلاف بالا، زیر صفحه
+  else P('p_ceil', iw, D, 1, 'h');
+  addBackFiber(P, H-BACK_INSET, uw-BACK_INSET, 1);
+  const n=Math.max(0,+u.n||0);
+  if(u.type==='drawer'){
+  if(n>0){
+  const dwD=Math.max(0, D-dwCut);
+  const faceH=Math.round(H/n)-3;
+  const bx=boxSideH(faceH);
+  P('p_head', uw-HEAD_CUT, faceH, n, 'h', 'mdf_pvc');
+  P('p_fb', iw-FB_RAIL_CUT, bx, 2*n, 'h');
+  P('p_lr', dwD-LR_CUT-LR_PUSH, bx, 2*n, 'h');
+  }
+  } else {
+  if(n>0) P('p_shelf', iw-SHELF_CLEAR, D-SHELF_DEPTH_GAP, n, 'h');
+  const dc=(u.type==='open')?0:Math.max(0,+u.doors||0);
+  if(dc>0) P('p_door', H-4, Math.round(uw/dc)-4, dc, 'v', 'door');
   }
   };
-  if(el.tagName==='SELECT'||el.type==='checkbox')
-  el.addEventListener('change',()=>{ apply(); tvRender(); tvPreviewSoon(); });
-  else {
-  el.addEventListener('input',()=>{ apply(); tvHead(); });
-  el.addEventListener('change',()=>{ if(el.dataset.f==='w') tvRender(); tvPreviewSoon(); });
-  }
-  });
-  tvHead();
-}
-let __tvTimer=null;
-function tvPreviewSoon(){
-  if(!window.__preview) return;
-  clearTimeout(__tvTimer); __tvTimer=setTimeout(()=>preview(),260);
-}
-function tvHead(){
-  const wall=+document.getElementById('tvW').value||0, sum=tvTotalW(), d=wall-sum;
-  const el=document.getElementById('tvSum');
-  el.textContent = d===0 ? `${t('tv_ok')} (${sum} / ${wall})`
-  : (d>0 ? `${t('tv_left')}: ${d} mm` : `${t('tv_over')}: ${-d} mm`);
-  el.style.color = d===0 ? '#3f6b5e' : '#a8562f';
-}
 
-function calcTv(){
-  const W=+document.getElementById('tvW').value||0, H=tvWallH();
-  tvEnsure();
-  const parts=[];
-  TV_STATE.forEach(sec=>{
-  if((+sec.w||0)<=0) return;
-  const P=sec.p;
-  const SD = sec.type==='wardrobe' ? P.depthBody : P.D;
-  const ph = P.hasPatty===false ? 0 : (P.pattyH||0);
-  // پاتی کناری راست و چپ
-  const nSide=(P.pattyR?1:0)+(P.pattyL?1:0);
-  if(nSide>0 && ph>0)
-  parts.push({key:'p_patty_side', L:Math.round(SD-2*T), W:Math.round(ph), q:nSide, grain:'h', mat:'mdf'});
-  if(sec.type==='tv'){
-  const used=(P.hasPatty?ph:0)+(P.hasDrawer?(+P.drawerH||0):0)
-  +(P.hasShelf?(+P.shelfH||0):0)+(P.hasMirror?(+P.mirrorH||0):0);
-  const panelH=(+P.panelH>0)?+P.panelH:Math.max(0,(+sec.H||0)-used);
-  if(P.hasPatty&&ph>0) parts.push({key:'p_skirt',L:sec.w,W:ph,q:1,grain:'h',mat:'mdf'});
-  if(P.hasDrawer&&+P.drawerH>0){
-  const sd=calcSoloWith({W:sec.w,H:+P.drawerH+T,D:P.D,nD:Math.max(1,+P.drawerN||1),
-  cols:Math.max(1,+P.drawerCols||1),top:'single',side:'single',mount:'inset',
-  pattyH:0,pattyMode:'inside',pattySplit:'unit',floorHidden:false,manualDH:0,pattyInset:0});
-  sd.parts.forEach(x=>{ if(x.key!=='p_boxtop') parts.push({...x}); });
-  }
-  if(P.hasShelf&&+P.shelfN>0)
-  parts.push({key:'p_shelf',L:sec.w-2*T,W:P.D,q:+P.shelfN,grain:'h',mat:'mdf'});
-  if(P.hasMirror&&+P.mirrorH>0)
-  parts.push({key:'p_mirror',L:sec.w,W:+P.mirrorH,q:1,grain:'v',mat:'mirror'});
-  if(P.hasPanel&&panelH>0)
-  parts.push({key:'p_tvpanel',L:sec.w,W:panelH,q:1,grain:'v',mat:'mdf'});
-  return;
-  }
-  const sub = sec.type==='drawer'
-  ? calcSoloWith({W:sec.w, H:sec.H, D:P.D, nD:P.nD, cols:P.cols, top:P.top, side:P.side,
-  mount:P.mount, pattyH:ph, pattyMode:P.pattyMode, manualDH:P.manualDH,
-  pattySplit:'unit', floorHidden:false, pattyInset:25})
-  : calcWardrobe({wall:sec.w, n:Math.max(1,P.n), H:sec.H, shape:'I', bodyTh:T, boxTop:'single', dwWall:'double',
-  designMode:P.perUnit?'perunit':'global',
-  unitPlans:P.perUnit?tvSyncUnits(sec):[], depthBody:P.depthBody, shelves:P.shelves, hasRail:P.hasRail,
-  ceilTh:P.ceilTh, cornice:P.cornice, pattyH:ph, pattyMode:P.pattyMode,
-  doorsPer:P.doorsPer, doorInset:P.doorInset, hasDrawer:P.hasDrawer,
-  drawerCount:P.drawerCount, pattySplit:'unit', floorHidden:false});
-  sub.parts.forEach(x=>parts.push({...x}));
+  const walls=kitKeys().map(k=>{
+  const o={key:k, name:kitWallName(k), len:+KIT_W[k].len||0, usable:kitUsable(k), rows:[]};
+  rowDefs.forEach(rd=>{
+  if(!kitHas(k, rd.kind)) return;
+  const list=kitUnits(k, rd.kind).map(u=>({...u}));
+  const off=(k==='A') ? kitCornerCut() : 0;
+  o.rows.push({...rd, units:list, off});
+  list.forEach(u=> unit(rd.H, rd.D, +u.w||0, u, rd.kind==='base'));
   });
-  const area=parts.reduce((a,p)=>a+(p.L*p.W*p.q),0)/1e6;
-  const sheetsRough=Math.max(1, Math.ceil(area/(2.44*1.22)));
-  const wastePct=Math.round((1-area/(sheetsRough*2.44*1.22))*100);
-  return {tv:true, solo:false, wall:W, H, n:TV_STATE.length, uw:W,
-  bodyH:H, depthBody:TV_STATE[0]?.p.depthBody||TV_STATE[0]?.p.D||0, floorDepth:0,
-  pattyH:0, pattyMode:'inside', pattySplit:'unit', cornice:0, ceilTh:T,
+  return o;
+  });
+
+  let tallRow=null;
+  if(kitOn('kitTallOn')){
+  tallRow={kind:'tall', H:kitVal('kitTallH',2200), D:kitVal('kitTallD',600),
+  n:Math.max(1,kitVal('kitTallN',1)), uw:kitVal('kitTallW',600),
+  shelf:kitVal('kitTallShelf',0), doors:kitVal('kitTallDoors',0)};
+  for(let i=0;i<tallRow.n;i++)
+  unit(tallRow.H, tallRow.D, tallRow.uw, {type:'shelf', n:tallRow.shelf, doors:tallRow.doors}, false);
+  }
+
+  const topD=kitVal('kitTopD',620);
+  if(kitOn('kitBaseOn')){
+  walls.forEach(wl=>{
+  if(!kitHas(wl.key,'base')) return;
+  const run=wl.rows.find(r2=>r2.kind==='base');
+  const runW=run?run.units.reduce((a,u)=>a+(+u.w||0),0):0;
+  const len=runW + (wl.key==='A'?kitTallW():0);
+  if(legH>0){
+  if(len<=sheetLen) P('p_kick', len, legH, 1, 'h');
+  else P('p_kick', Math.round(len/2), legH, 2, 'h');
+  }
+  if(kitOn('kitTopOn')){
+  if(runW<=sheetLen) P('p_counter', runW, topD, 1, 'h', 'counter');
+  else P('p_counter', Math.round(runW/2), topD, 2, 'h', 'counter');
+  }
+  });
+  }
+
+  const [sw,sh]=document.getElementById('sheet').value.split('x').map(Number);
+  const sheetArea=sw*sh; let used=0;
+  parts.forEach(p=>{ if(/mdf|door/.test(p.mat)) used+=p.L*p.W*p.q; });
+  const sheetsRough=Math.max(1,Math.ceil(used/sheetArea/0.82));
+  const wastePct=Math.round((1-used/(sheetsRough*sheetArea))*100);
+
+  const baseDef=rowDefs.find(r=>r.kind==='base'), wallDef=rowDefs.find(r=>r.kind==='wall');
+  const gap=kitVal('kitGap',600), topTh=kitVal('kitTopTh',40);
+  const H=Math.max(tallRow?tallRow.H:0,
+  legH+(baseDef?baseDef.H:0)+(kitOn('kitTopOn')?topTh:0)+gap+(wallDef?wallDef.H:0));
+  return {kitchen:true, solo:false, shape:KIT_SHAPE, corners:kitCorners(), walls, tallRow, tallW:kitTallW(),
+  legH, gap, topTh, hasTop:kitOn('kitTopOn'), baseDef, wallDef,
+  wall:Math.max(...walls.map(w=>w.len)), H,
+  n:walls.reduce((a,w)=>a+w.rows.reduce((x,r)=>x+r.units.length,0),0),
+  uw:0, bodyH:baseDef?baseDef.H:(wallDef?wallDef.H:0), depthBody:baseDef?baseDef.D:(wallDef?wallDef.D:0),
+  floorDepth:0, pattyH:legH, pattyMode:'front', pattySplit:'connected', cornice:0, ceilTh:T,
   parts, sheetsRough, wastePct, shelves:0, hasRail:false, drawerInfo:null};
 }
 
-function drawTv(r){
-  const VW=760,padL=54,padR=30,padT=34,padB=48;
-  const total=tvTotalW()||r.wall;
-  const sc=Math.min((VW-padL-padR)/Math.max(1,total), 460/Math.max(1,r.H));
-  const VH=Math.round(r.H*sc)+padT+padB;
-  const x0=padL,y0=padT,hpx=r.H*sc,yBot=y0+hpx;
-  let s=`<svg viewBox="0 0 ${VW} ${VH}" xmlns="http://www.w3.org/2000/svg" font-family="inherit">`;
-  s+=woodDefs();
-  const band=(x,y,w,h,fill,dash)=>`<rect x="${x}" y="${y}" width="${w}" height="${h}" fill="${fill}" stroke="#8a7557" stroke-width="1"${dash?' stroke-dasharray="4 3"':''}/>`;
-  const lbl=(x,y,txt,sz)=>`<text x="${x}" y="${y}" text-anchor="middle" font-size="${sz||9}" fill="#6f5f47">${txt}</text>`;
-  let x=x0;
-  [...TV_STATE].reverse().forEach(sec0=>{
-  // قسمت ۱ سمت راست است؛ پاتی کناری هم قرینه می‌شود
-  const sec=sec0;
-  const wpx=(+sec.w||0)*sc; if(wpx<=0) return;
-  const P=sec.p, sh=(+sec.H||r.H)*sc, yTop=yBot-sh;
-  const ph=(P.hasPatty===false?0:(+P.pattyH||0))*sc;
-  const corn=((sec.type==='wardrobe'?(+P.cornice||0):0))*sc;
-  // بدنه‌ی کلی قسمت
-  s+=band(x,yTop,wpx,sh,'url(#wFront)');
-  if(ph>0) s+=band(x,yBot-ph,wpx,ph,'#c9bfa9');
-  if(corn>0) s+=band(x,yTop,wpx,corn,'#c9bfa9');
-  const iy=yTop+corn, ih=sh-corn-ph;   // ناحیه‌ی مفید
-
-  if(sec.type==='wardrobe'){
-  const n=Math.max(1,+P.n||1);
-  const units=(P.perUnit&&P.units&&P.units.length)?[...P.units].reverse():null;
-  const tw=units?units.reduce((a,u)=>a+(+u.width||0),0):sec.w;
-  let ux=x;
-  for(let u=0;u<n;u++){
-  const uw=units?((+units[u].width||0)/tw)*wpx:wpx/n;
-  const dc=Math.max(1, units?(+units[u].doorCount||1):(+P.doorsPer||1));
-  // کشوهای داخل یونیت: از تقسیم داخلی، یا از تیک «کشو دارد»
-  let nDr=0;
-  if(units) (units[u].cells[0]||[]).forEach(sg=>{ if(sg.type==='drawer') nDr+=(+sg.count||0); });
-  else if(P.hasDrawer) nDr=Math.max(0,+P.drawerCount||0);
-  const drH=Math.min(ih, nDr*DRAWER_H*sc);   // هر کشو 200
-  const doorH=ih-drH;
-  if(doorH>2) for(let dnum=0;dnum<dc;dnum++){
-  const dw=uw/dc;
-  s+=`<rect x="${ux+dnum*dw+2}" y="${iy+2}" width="${dw-4}" height="${doorH-4}" rx="1.5" fill="url(#wDoor)" stroke="#8a6d3a" stroke-width=".9"/>`;
+/* نمای روبه‌رو — هر دیوار یک نوار جدا، زیر هم */
+function drawKitchen(r){
+  const VW=900,padL=62,padR=30,padT=36,padB=18,gapY=50;
+  const maxLen=Math.max(1,...r.walls.map(w=>w.len));
+  const sc=Math.min((VW-padL-padR)/maxLen, 430/Math.max(1,r.H));
+  const box=(x,y,w,h,fill,stroke)=>`<rect x="${x}" y="${y}" width="${w}" height="${h}" fill="${fill}" stroke="${stroke||'#8a7557'}" stroke-width="1"/>`;
+  const lbl=(x,y,txt,sz,col)=>`<text x="${x}" y="${y}" text-anchor="middle" font-size="${sz||11}" fill="${col||'#5d4f3c'}">${txt}</text>`;
+  const drawUnit=(x,y,w,h,u)=>{
+  let o=box(x,y,w,h,'url(#wFront)');
+  const n=Math.max(0,+u.n||0);
+  if(u.type==='drawer' && n>0){
+  const dh=h/n;
+  for(let i=0;i<n;i++){
+  o+=`<rect x="${x+2}" y="${y+i*dh+1.5}" width="${w-4}" height="${dh-3}" rx="1.5" fill="url(#wDoor)" stroke="#8a6d3a" stroke-width=".9"/>`;
+  o+=`<rect x="${x+w/2-13}" y="${y+i*dh+dh/2-2}" width="26" height="3.2" rx="1.6" fill="#6f5f47"/>`;
   }
-  for(let k2=0;k2<nDr;k2++){
-  const dh=drH/nDr, dy2=iy+ih-dh*(k2+1);
-  s+=`<rect x="${ux+2}" y="${dy2+1.5}" width="${uw-4}" height="${dh-3}" rx="1.5" fill="url(#wDoor)" stroke="#8a6d3a" stroke-width=".9"/>`;
-  s+=`<rect x="${ux+uw/2-11}" y="${dy2+dh/2-1.6}" width="22" height="3" rx="1.5" fill="#6f5f47"/>`;
+  } else if(u.type!=='open' && +u.doors>0){
+  const dc=+u.doors, dw=w/dc;
+  for(let i=0;i<dc;i++) o+=`<rect x="${x+i*dw+2}" y="${y+2}" width="${dw-4}" height="${h-4}" rx="1.5" fill="url(#wDoor)" stroke="#8a6d3a" stroke-width=".9"/>`;
+  } else {
+  const sn=Math.max(0,+u.n||0);
+  for(let i=1;i<=sn;i++) o+=`<line x1="${x+3}" y1="${y+h*i/(sn+1)}" x2="${x+w-3}" y2="${y+h*i/(sn+1)}" stroke="#b08d5f" stroke-width="2"/>`;
   }
-  s+=`<line x1="${ux}" y1="${iy}" x2="${ux}" y2="${iy+ih}" stroke="#8a7557" stroke-width="1.3"/>`;
-  ux+=uw;
-  }
-  } else if(sec.type==='drawer'){
-  const nD=Math.max(1,+P.nD||1), dc=Math.max(1,+P.cols||1);
-  for(let c=0;c<dc;c++) for(let dnum=0;dnum<nD;dnum++){
-  const dw=wpx/dc, dh=ih/nD;
-  const dx2=x+c*dw, dy2=iy+ih-dh*(dnum+1);
-  s+=`<rect x="${dx2+2}" y="${dy2+2}" width="${dw-4}" height="${dh-4}" rx="1.5" fill="url(#wDoor)" stroke="#8a6d3a" stroke-width=".9"/>`;
-  s+=`<rect x="${dx2+dw/2-11}" y="${dy2+dh/2-1.6}" width="22" height="3" rx="1.5" fill="#6f5f47"/>`;
-  }
-  } else {   // تلویزیون: از پایین به بالا
-  let y=yBot-ph;
-  const put=(mm,fill,txt,dash)=>{
-  const hh=mm*sc; if(hh<=0) return;
-  y-=hh; s+=band(x,y,wpx,hh,fill,dash);
-  if(hh>13&&wpx>52) s+=lbl(x+wpx/2,y+hh/2+3.5,txt);
+  return o;
   };
-  const used=(P.hasDrawer?(+P.drawerH||0):0)+(P.hasShelf?(+P.shelfH||0):0)+(P.hasMirror?(+P.mirrorH||0):0);
-  const panelH=(+P.panelH>0)?+P.panelH:Math.max(0,(+sec.H||0)-(P.hasPatty===false?0:(+P.pattyH||0))-used);
-  if(P.hasDrawer){
-  const hh=(+P.drawerH||0)*sc, nD=Math.max(1,+P.drawerN||1), dc=Math.max(1,+P.drawerCols||1);
-  y-=hh; s+=band(x,y,wpx,hh,'#efe9dc');
-  for(let c=0;c<dc;c++) for(let dnum=0;dnum<nD;dnum++){
-  const dw=wpx/dc, dh=hh/nD;
-  s+=`<rect x="${x+c*dw+2}" y="${y+dh*dnum+2}" width="${dw-4}" height="${dh-4}" rx="1.5" fill="url(#wDoor)" stroke="#8a6d3a" stroke-width=".8"/>`;
+  const runOf=row=>row.units.reduce((a,u)=>a+(+u.w||0),0);
+  const hOf=wl=>{
+  const b=wl.rows.find(x=>x.kind==='base'), w2=wl.rows.find(x=>x.kind==='wall');
+  const counter=r.legH+(b?b.H:0)+((r.hasTop&&b)?r.topTh:0);
+  let h=counter;
+  if(w2) h=counter+(r.gap||0)+w2.H;
+  if(wl.key==='A'&&r.tallRow) h=Math.max(h,r.tallRow.H);
+  return Math.max(h,1);
+  };
+  const hs=r.walls.map(hOf);
+  const VH=Math.round(padT+hs.reduce((a,h)=>a+h*sc+42+gapY,0)-gapY+padB);
+  let s=`<svg viewBox="0 0 ${VW} ${VH}" xmlns="http://www.w3.org/2000/svg" font-family="inherit">`+woodDefs();
+
+  let yCur=padT;
+  r.walls.forEach((wl,wi)=>{
+  const x0=padL, hW=hs[wi], yBot=yCur+hW*sc, y0=yCur;
+  const baseR=wl.rows.find(x=>x.kind==='base'), wallR=wl.rows.find(x=>x.kind==='wall');
+  const isA=wl.key==='A';
+  const tallPx=(isA?r.tallW:0)*sc;
+  const legPx=(r.legH||0)*sc;
+  const cn=Math.max(1,r.corners||1);
+  const per=row=>(isA&&r.corners>0)?row.off/cn:0;
+  const baseOff=baseR?per(baseR):(wallR?per(wallR):0);
+
+  if(isA && r.tallRow && tallPx>0){
+  const h=r.tallRow.H*sc, y=yBot-h, tx=x0+(baseOff+(baseR?runOf(baseR):0))*sc;
+  s+=box(tx,y,tallPx,h,'url(#wFront)');
+  const uwp=tallPx/r.tallRow.n;
+  for(let i=0;i<r.tallRow.n;i++)
+  s+=drawUnit(tx+i*uwp, y, uwp, h, {type:'shelf', n:r.tallRow.shelf, doors:r.tallRow.doors});
+  if(tallPx>40) s+=lbl(tx+tallPx/2, yBot+17, `${r.tallRow.n} × ${r.tallRow.uw}`, 10.5);
   }
+
+  let counterTopY=yBot-legPx;
+  if(baseR){
+  const bx=x0+baseOff*sc, bw=runOf(baseR)*sc, bh=baseR.H*sc, by=yBot-legPx-bh;
+  let cx=bx;
+  baseR.units.forEach(u=>{ const uw=(+u.w||0)*sc; s+=drawUnit(cx,by,uw,bh,u);
+  if(uw>42) s+=lbl(cx+uw/2, yBot+17, u.w, 10); cx+=uw; });
+  if(legPx>0){ s+=box(bx,yBot-legPx,bw+tallPx,legPx,'#c9bfa9','#1a1815');
+  if(legPx>12) s+=lbl(bx+bw/2, yBot-legPx/2+4, r.legH, 10); }
+  counterTopY=by;
+  if(r.hasTop){ const tp=r.topTh*sc; s+=box(bx,by-tp,bw,tp,'#d9cdb5'); counterTopY=by-tp; }
+  if(baseOff>0) s+=lbl(x0+baseOff*sc/2, yBot-legPx-bh/2, Math.round(baseOff), 9.5, '#b08d5f');
   }
-  if(P.hasPanel) put(panelH,'#e6ddc9',panelH,true);
-  if(P.hasShelf){
-  const hh=(+P.shelfH||0)*sc, k=Math.max(1,+P.shelfN||1);
-  y-=hh; s+=band(x,y,wpx,hh,'#f0ece1');
-  for(let j=1;j<k;j++) s+=`<line x1="${x+2}" y1="${y+hh*j/k}" x2="${x+wpx-2}" y2="${y+hh*j/k}" stroke="#8a6d3a" stroke-width=".9"/>`;
+
+  if(wallR){
+  const woff=per(wallR), wx=x0+woff*sc, wh=wallR.H*sc, wy=counterTopY-(r.gap||0)*sc-wh;
+  let cx=wx;
+  wallR.units.forEach(u=>{ const uw=(+u.w||0)*sc; s+=drawUnit(cx,wy,uw,wh,u);
+  if(uw>42) s+=lbl(cx+uw/2, wy-6, u.w, 10); cx+=uw; });
+  if((r.gap||0)*sc>14) s+=lbl(wx+runOf(wallR)*sc/2, wy+wh+((r.gap*sc)/2)+4, r.gap, 10, '#8a8377');
+  if(woff>0) s+=lbl(x0+woff*sc/2, wy+wh/2, Math.round(woff), 9.5, '#b08d5f');
   }
-  if(P.hasMirror) put(+P.mirrorH||0,'#dfe6e6',t('tvk_mirror'));
-  }
-  // پاتی کناری
-  const pw=6;
-  if(ph>0&&P.pattyR) s+=`<rect x="${x+wpx-pw}" y="${yBot-ph}" width="${pw}" height="${ph}" fill="#a8967a"/>`;
-  if(ph>0&&P.pattyL) s+=`<rect x="${x}" y="${yBot-ph}" width="${pw}" height="${ph}" fill="#a8967a"/>`;
-  s+=`<line x1="${x}" y1="${yTop}" x2="${x}" y2="${yBot}" stroke="#8a7557" stroke-width="1.8"/>`;
-  if(wpx>44) s+=lbl(x+wpx/2,yBot+16,sec.w,9.5);
-  if(wpx>60) s+=lbl(x+wpx/2,yTop-5,sec.type==='drawer'?t('pjd'):(sec.type==='tv'?t('tv_tvtype'):t('pjw')),9);
-  x+=wpx;
-  });
-  s+=`<line x1="${x}" y1="${y0}" x2="${x}" y2="${yBot}" stroke="#8a7557" stroke-width="1.8"/>`;
+
   const dx=x0-16;
   s+=`<line x1="${dx}" y1="${y0}" x2="${dx}" y2="${yBot}" stroke="#1a1815" stroke-width="1"/>
-  <text x="${dx-7}" y="${y0+hpx/2}" text-anchor="middle" font-size="10" fill="#1a1815"
-  transform="rotate(-90 ${dx-7} ${y0+hpx/2})">${r.H}</text>`;
-  s+=`<text x="${x0+(x-x0)/2}" y="${VH-6}" text-anchor="middle" font-size="12" fill="#8a8377">${total} mm</text>`;
+  <line x1="${dx-4}" y1="${y0}" x2="${dx+4}" y2="${y0}" stroke="#1a1815" stroke-width="1"/>
+  <line x1="${dx-4}" y1="${yBot}" x2="${dx+4}" y2="${yBot}" stroke="#1a1815" stroke-width="1"/>
+  <text x="${dx-7}" y="${(y0+yBot)/2}" text-anchor="middle" font-size="11" fill="#1a1815"
+  transform="rotate(-90 ${dx-7} ${(y0+yBot)/2})">${Math.round(hW)}</text>`;
+  s+=`<text x="${x0}" y="${y0-10}" font-size="12" font-weight="600" fill="#3f6b5e">${wl.name} — ${wl.len} mm</text>`;
+  yCur = yBot + 42 + gapY;
+  });
   return s+`</svg>`;
 }
 
 function calculate(){
   if(projectType==='drawer') return calcSolo();
-  if(projectType==='tv') return calcTv();
+  if(projectType==='kitchen') return calcKitchen();
   return calcWardrobe();
 }
 /* معادله‌ی کمد صاف — هم پروژه‌ی کمد از آن استفاده می‌کند، هم قسمت‌های دیوار تلویزیون.
@@ -2171,7 +2280,7 @@ function preview(){
   <button data-vw="plan">${t('view_plan')}</button>
   </div>
   </div>
-  <div id="viewBox">${r.tv?drawTv(r):(r.solo?drawSoloAny(r):draw2d(r))}</div>
+  <div id="viewBox">${r.kitchen?drawKitchen(r):(r.solo?drawSoloAny(r):draw2d(r))}</div>
   <div style="display:flex;gap:8px;margin-top:10px;flex-wrap:wrap">
   <button id="btnPng" style="border:1px solid var(--line);background:var(--panel);color:var(--ink);padding:8px 14px;border-radius:9px;cursor:pointer;font-family:inherit;font-size:13px">🖼 ${t('save_png')}</button>
   <button id="btnPdfView" style="border:1px solid var(--line);background:var(--panel);color:var(--ink);padding:8px 14px;border-radius:9px;cursor:pointer;font-family:inherit;font-size:13px">📄 ${t('save_pdf')}</button>
@@ -2189,7 +2298,7 @@ function preview(){
   document.querySelectorAll('#viewSeg button').forEach(x=>x.classList.remove('on'));
   b.classList.add('on');
   const vw=b.dataset.vw;
-  if(r.tv){ document.getElementById('viewBox').innerHTML=drawTv(r); return; }
+  if(r.kitchen){ document.getElementById('viewBox').innerHTML=drawKitchen(r); return; }
   if(r.solo){ document.getElementById('viewBox').innerHTML=drawSoloAny(r); return; }
   document.getElementById('viewBox').innerHTML =
   vw==='inside'?drawInside(r):
@@ -2726,6 +2835,7 @@ function matLabel(m){
   if(m==='glass')return t('glass_mat');
   if(m==='mdf_double')return t('mdf_double');
   if(m==='mdf_pvc')return t('mdf_pvc');
+  if(m==='counter')return t('counter_mat');
   return t('mdf');
 }
 function t(k){return I18N[LANG][k];}
@@ -2734,7 +2844,7 @@ function t(k){return I18N[LANG][k];}
 /* [تعداد لبه‌های طول ، تعداد لبه‌های عرض] — یک خط یعنی یک طرف، دو خط یعنی دو طرف */
 const EDGE = {
   p_head:[2,2], p_door:[2,2],
-  p_boxtop:[1,2], p_toppanel:[1,2], p_topin:[1,2], p_ceil:[1,2], p_floor:[2,0],
+  p_boxtop:[1,2], p_toppanel:[1,2], p_topin:[1,2], p_counter:[1,0], p_kick:[1,0], p_rail_k:[1,0], p_ceil:[1,2], p_floor:[2,0],
   p_side:[1,2], p_dw:[1,2], p_body:[1,2], p_midpanel:[1,0],
   p_shelf:[1,0], p_dwshelf:[1,0], p_shoe:[1,0],
   p_fb:[0,0], p_lr:[0,0],
@@ -2766,7 +2876,8 @@ const GROUP = {
   p_cornice_side:'g_body', p_sidefiller:'g_body', p_cornerfiller:'g_body', p_cornermid:'g_body',
   p_head:'g_drawer', p_fb:'g_drawer', p_lr:'g_drawer', p_dwshelf:'g_drawer', p_dwrail:'g_drawer',
   p_skirt:'g_body', p_tvpanel:'g_body', p_desk:'g_body', p_mirror:'g_body', p_gapfiller:'g_body',
-  p_door:'g_door'
+  p_door:'g_door',
+  p_counter:'g_body', p_kick:'g_body', p_rail_k:'g_body'
 };
 const GROUP_ORDER = ['g_body','g_drawer','g_door','g_other'];
 function groupOf(key){ return GROUP[key] || 'g_other'; }
@@ -2834,7 +2945,7 @@ function render(){
 
   <div class="view2d">
   <div style="font-size:12px;color:var(--muted);margin-bottom:8px;letter-spacing:1px">${t('view').toUpperCase()}</div>
-  ${r.tv?drawTv(r):(r.solo?drawSoloAny(r):draw2d(r))}
+  ${r.kitchen?drawKitchen(r):(r.solo?drawSoloAny(r):draw2d(r))}
   </div>
 
   <div style="display:flex;align-items:center;gap:8px;margin:2px 0 10px">
@@ -3134,7 +3245,15 @@ function applyLang(){
   't-ceilth':'ceilth','t-cornice':'cornice','t-pattyh':'pattyh','t-pattymode':'pattymode',
   't-patty-io':'pattyio','t-patty-in':'pattyin','t-patty-fr':'pattyfr','t-patty-un':'pattyun',
   't-solo-inset':'solo_inset','t-solo-insethint':'solo_insethint','t-pattyhhint':'pattyhhint',
-  't-project':'project','t-proj':'proj_title','t-pj-w':'pjw','t-pj-d':'pjd','t-solo-w':'solo_w','t-solo-h':'solo_h','t-solo-d':'solo_d','t-solo-n':'solo_n','t-solo-boxes':'solo_boxes','t-solo-top':'solo_top','t-solo-side':'solo_side','t-solo-dh':'solo_dh','t-solo-hm':'solo_hm','t-solo-topmode':'solo_topmode','t-solo-topout':'solo_topout','t-solo-topin':'solo_topin','t-solo-hin':'solo_hin','t-solo-hov':'solo_hov','t-solo-hint':'solo_hint','t-shape':'shape','t-shape-i':'shapei','t-shape-l':'shapel','t-shape-u':'shapeu',
+  't-project':'project','t-proj':'proj_title','t-pj-k':'pjk',
+  't-kit-dwcut':'kit_dwcut','t-kit-design':'kit_design','t-kit-dsimple':'kit_dsimple','t-kit-dper':'kit_dper','t-kit-designhint':'kit_designhint','t-kit-shape':'kit_shape','t-kit-si':'kit_si','t-kit-sl':'kit_sl','t-kit-su':'kit_su',
+  't-kit-corner':'kit_corner','t-kit-cornerhint':'kit_cornerhint','t-kit-gap':'kit_gap','t-kit-base':'kit_base','t-kit-baseh':'kit_baseh','t-kit-based':'kit_based',
+  't-kit-basen':'kit_basen','t-kit-legh':'kit_legh','t-kit-baseshelf':'kit_baseshelf','t-kit-basedoors':'kit_basedoors',
+  't-kit-basehint':'kit_basehint','t-kit-wall':'kit_wall','t-kit-wallh':'kit_wallh','t-kit-walld':'kit_walld',
+  't-kit-walln':'kit_walln','t-kit-wallshelf':'kit_wallshelf','t-kit-walldoors':'kit_walldoors','t-kit-tall':'kit_tall',
+  't-kit-tallh':'kit_tallh','t-kit-talld':'kit_talld','t-kit-tallw':'kit_tallw','t-kit-talln':'kit_talln',
+  't-kit-tallshelf':'kit_tallshelf','t-kit-talldoors':'kit_talldoors','t-kit-tallhint':'kit_tallhint',
+  't-kit-top':'kit_top','t-kit-topd':'kit_topd','t-kit-topth':'kit_topth','t-pj-w':'pjw','t-pj-d':'pjd','t-solo-w':'solo_w','t-solo-h':'solo_h','t-solo-d':'solo_d','t-solo-n':'solo_n','t-solo-boxes':'solo_boxes','t-solo-top':'solo_top','t-solo-side':'solo_side','t-solo-dh':'solo_dh','t-solo-hm':'solo_hm','t-solo-topmode':'solo_topmode','t-solo-topout':'solo_topout','t-solo-topin':'solo_topin','t-solo-hin':'solo_hin','t-solo-hov':'solo_hov','t-solo-hint':'solo_hint','t-shape':'shape','t-shape-i':'shapei','t-shape-l':'shapel','t-shape-u':'shapeu',
   't-cornerfiller':'cornerfiller','t-cornermin':'cornermin','t-cornermid':'cornermid','t-cornermidhint':'cornermidhint','t-wallclear':'wallclear',
   't-doormount':'doormount','t-dm-ov':'dmov','t-dm-in':'dmin','t-doormounthint':'doormounthint',
   't-pattysplit':'pattysplit','t-psplit-u':'psplitu','t-psplit-c':'psplitc','t-psplit-b':'psplitb',
@@ -3168,7 +3287,6 @@ document.querySelectorAll('.langs button').forEach(b=>b.onclick=()=>{
 /* filler seg */
 /* patty seg */
 function syncPattyUnder(){
-  if(typeof projectType!=='undefined' && projectType==='tv') return;
   const on = !!document.querySelector('#pattySeg button.on[data-p="under"]');
   const row=document.getElementById('soloInsetRow');
   const hint=document.getElementById('t-solo-insethint');
@@ -3230,10 +3348,11 @@ document.querySelectorAll('#drawerSeg button').forEach(b=>b.onclick=()=>{
 /* نمایش فیلدها بر اساس نوع پروژه — بعد از هر بازسازی فرم (مثل تعویض زبان) دوباره صدا زده می‌شود */
 function applyProjectVis(){
   const solo=projectType==='drawer';
-  const tv=projectType==='tv';
+  const kit=projectType==='kitchen';
+  const tv=kit;   // فیلدهای سراسری کمد در آشپزخانه هم معنی ندارند
   document.getElementById('soloBox').style.display = solo?'block':'none';
-  document.getElementById('tvBox').style.display = tv?'block':'none';
-  if(tv) tvRender();
+  const kb=document.getElementById('kitBox'); if(kb) kb.style.display = kit?'block':'none';
+  if(kit){ kitRenderWalls(); kitRenderDesigner(); }
   if(solo) renderSoloDH();
   ['shapeField','wallsBox','cornerBox','wallClearField','wallField','unitsField','sheetKeep',
   'drawerBlock','designField','designerPanel','doorMountField','ceilCorniceRow'].forEach(id=>{
@@ -3273,8 +3392,10 @@ function applyProjectVis(){
   }
   }
   syncPattyUnder();
-  if(tv){ ['pattySplitField','floorField','pattyHField'].forEach(id=>{
-  const el=document.getElementById(id); if(el) el.style.display='none'; }); }
+  if(kit){ ['pattySplitField','floorField','pattyHField'].forEach(id=>{
+  const el=document.getElementById(id); if(el) el.style.display='none'; });
+  const sf=document.getElementById('sheetField'); if(sf) sf.style.display='';   // ورق لازم است
+  }
 }
 document.querySelectorAll('#projectSeg button').forEach(b=>b.onclick=()=>{
   document.querySelectorAll('#projectSeg button').forEach(x=>x.classList.remove('on'));
@@ -3288,15 +3409,6 @@ document.querySelectorAll('#projectSeg button').forEach(b=>b.onclick=()=>{
   if(el) el.addEventListener('input',renderSoloDH);
   });
 })();
-['tvN','tvW','tvH'].forEach(id=>{
-  const el=document.getElementById(id);
-  if(!el) return;
-  el.addEventListener('input',()=>{ if(projectType==='tv') tvHead(); });
-  el.addEventListener('change',()=>{ if(projectType==='tv'){
-  if(id==='tvH') tvPushH();
-  if(id==='tvW'){ TV_STATE.forEach(x=>x.w=0); }
-  tvRender(); tvPreviewSoon(); } });
-});
 ['pattyInset'].forEach(id=>{
   const el=document.getElementById(id);
   if(el) el.addEventListener('input',()=>{ if(window.__preview) preview(); });
@@ -3341,6 +3453,29 @@ document.getElementById('iMinus').onclick=()=>{
   unitPlans=[];manualUnits=false;renderUnitSeg();renderDesigner();
 };
 document.getElementById('bodyTh').addEventListener('change',()=>{ if(window.__preview) preview(); });
+document.querySelectorAll('#kitShapeSeg button').forEach(b=>b.onclick=()=>{
+  document.querySelectorAll('#kitShapeSeg button').forEach(x=>x.classList.remove('on'));
+  b.classList.add('on');
+  KIT_SHAPE=b.dataset.ks; kitResetPlans();
+  kitRenderWalls(); kitRenderDesigner();
+  if(window.__preview) preview();
+});
+document.querySelectorAll('#kitDesignSeg button').forEach(b=>b.onclick=()=>{
+  document.querySelectorAll('#kitDesignSeg button').forEach(x=>x.classList.remove('on'));
+  b.classList.add('on');
+  KIT_DESIGN=b.dataset.kd;
+  if(KIT_DESIGN==='simple') kitResetPlans();
+  kitRenderWalls(); kitRenderDesigner();
+  if(window.__preview) preview();
+});
+['kitGap','kitCorner','kitBaseOn','kitBaseH','kitBaseD','kitLegH','kitBaseShelf','kitBaseDoors',
+ 'kitWallOn','kitWallH','kitWallD','kitWallShelf','kitWallDoors','kitDwCut',
+ 'kitTallOn','kitTallH','kitTallD','kitTallW','kitTallN','kitTallShelf','kitTallDoors',
+ 'kitTopOn','kitTopD','kitTopTh'].forEach(id=>{
+  const el=document.getElementById(id); if(!el) return;
+  el.addEventListener('input',()=>{ if(projectType==='kitchen') kitSummary(); });
+  el.addEventListener('change',()=>{ if(projectType==='kitchen'){ kitRenderWalls(); kitRenderDesigner(); if(window.__preview) preview(); } });
+});
 document.getElementById('previewBtn').onclick=preview;
 
 renderWalls();
@@ -3351,7 +3486,7 @@ applyLang();
    کاملاً جدا از معادله‌ها: فقط ورودی‌ها و وضعیت فرم را می‌گیرد و برمی‌گرداند. */
 const PROJ_KEY='darcut.projects.v1';
 const PROJ_SKIP=['projName','projFile'];                       // فیلدهای خود این کارت
-const PROJ_DYN=['soloDHList','tvSections','designerPanel','wallsBox','unitSeg','result'];  // بخش‌های ساخته‌شده از روی state
+const PROJ_DYN=['soloDHList','designerPanel','wallsBox','unitSeg','result','kitWallsBox','kitDesigner'];  // بخش‌های ساخته‌شده از روی state
 
 function projFields(){
   const out={};
@@ -3374,7 +3509,7 @@ function projSnapshot(){
   return {v:1, saved:new Date().toISOString(),
   fields:projFields(), segs:projSegs(),
   state:{projectType, shape, lSide, wallLens, wallUnitCounts, wallUnitWidth, wallExtraSide,
-  extraSideI, chosenN, manualUnits, designMode, unitPlans, SOLO_COL, SOLO_DH, TV_STATE, SET_QTY}};
+  extraSideI, chosenN, manualUnits, designMode, unitPlans, SOLO_COL, SOLO_DH, SET_QTY, KIT_SHAPE, KIT_LSIDE, KIT_DESIGN, KIT_W}};
 }
 function projApply(p){
   if(!p) return;
@@ -3394,8 +3529,11 @@ function projApply(p){
   unitPlans = put(st.unitPlans, unitPlans);
   SOLO_COL = put(st.SOLO_COL, SOLO_COL);
   SOLO_DH = put(st.SOLO_DH, SOLO_DH);
-  TV_STATE = put(st.TV_STATE, TV_STATE);
   SET_QTY = (+st.SET_QTY>0) ? +st.SET_QTY : 1;
+  if(st.KIT_SHAPE) KIT_SHAPE=st.KIT_SHAPE;
+  if(st.KIT_LSIDE) KIT_LSIDE=st.KIT_LSIDE;
+  if(st.KIT_DESIGN) KIT_DESIGN=st.KIT_DESIGN;
+  if(st.KIT_W) Object.keys(KIT_W).forEach(k=>{ if(st.KIT_W[k]) Object.assign(KIT_W[k], st.KIT_W[k]); });
   Object.entries(p.fields||{}).forEach(([id,v])=>{
   const el=document.getElementById(id); if(!el) return;
   if(el.type==='checkbox') el.checked=!!v; else el.value=v;
@@ -3408,8 +3546,12 @@ function projApply(p){
   });
   // بازسازی فرم‌های پویا
   if(typeof applyProjectVis==='function') applyProjectVis();
+  const ksg=document.querySelector(`#kitShapeSeg button[data-ks="${KIT_SHAPE}"]`);
+  if(ksg){ document.querySelectorAll('#kitShapeSeg button').forEach(x=>x.classList.remove('on')); ksg.classList.add('on'); }
+  const kdg=document.querySelector(`#kitDesignSeg button[data-kd="${KIT_DESIGN}"]`);
+  if(kdg){ document.querySelectorAll('#kitDesignSeg button').forEach(x=>x.classList.remove('on')); kdg.classList.add('on'); }
+  if(typeof kitRenderWalls==='function'){ kitRenderWalls(); kitRenderDesigner(); }
   renderWalls(); renderUnitSeg(); renderDesigner(); renderSoloDH();
-  if(projectType==='tv') tvRender();
   syncPattyUnder();
   const db=document.getElementById('drawerBlock');
   if(db) db.style.display = (designMode==='perunit'&&projectType==='wardrobe') ? 'none' : (projectType==='wardrobe'?'':'none');
